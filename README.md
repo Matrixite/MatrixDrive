@@ -119,6 +119,22 @@ cmake --build build/firmware
 
 The automated pipeline checks electrical/static consistency, FAT16 and installer host code, lock-on ROM mirroring, Sega/Codemasters models, Sonic 3 FRAM decode, RTL simulation, the complete RP2350B firmware build, and package creation.
 
+## Software-only test status
+
+MatrixDrive has been tested in software, but it has not yet been tested on a fabricated cartridge or real console. The following checks currently pass:
+
+- FAT16 USB-volume and dual-format ROM installer host tests.
+- Mega Drive/Genesis ROM validation and simulated parallel-NOR programming.
+- Byte-for-byte verification of a 2 MiB Sonic 3 image after simulated installation.
+- Power-of-two ROM mirroring across the 2 MiB Sonic & Knuckles upper-cartridge window.
+- Sonic 3 odd-byte save decoding to the dedicated 8 KiB FRAM window.
+- Sega and Codemasters Master System mapper reference-model tests.
+- Codemasters 64 KiB FRAM enable, banking, and ROM-window behavior.
+- CPLD RTL simulation for Mega Drive, lock-on, Sega SMS, and Codemasters SMS modes.
+- A two-ROM lock-on emulator test using legally obtained Sonic 3 and Sonic & Knuckles images. It reached the combined Sonic 3 & Knuckles title screen and opening sequence, confirming the expected software mapping path.
+
+No commercial ROM images are included in this repository. These results verify the implemented logic and software behavior only; cartridge fit, signal timing, voltage translation, power isolation, save retention, and operation on real Sega hardware remain unverified.
+
 ## Engineering status and known limits
 
 The source and automated tests pass, but no physical MatrixDrive PCB or Sonic & Knuckles stack has been validated. Before treating the design as buildable:

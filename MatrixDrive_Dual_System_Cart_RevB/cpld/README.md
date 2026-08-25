@@ -1,7 +1,7 @@
 # CPLD logic
 
 `matrixdrive_mapper.v` is the portable logic source for U13. It contains the
-instant-on Mega Drive pass-through, Sega SMS mapper, Codemasters SMS mapper,
+instant-on Mega Drive/32X linear pass-through, Sega SMS mapper, Codemasters SMS mapper,
 64 KiB FRAM decode, and USB ownership isolation. No console transaction depends
 on the RP2350.
 
@@ -25,6 +25,8 @@ Required flow before hardware release:
 4. Confirm the device fits and archive equations, fitter report, timing report,
    JED file and checksum.
 5. Run `python3 test_mapper_model.py` and the Icarus RTL testbench.
+   The RTL test includes the highest word address in the 4 MiB 32X cartridge
+   space as well as the SMS and Sonic 3 save profiles.
 6. Simulate the fitted equations and test a programmed device on a
    current-limited cartridge-slot breakout.
 

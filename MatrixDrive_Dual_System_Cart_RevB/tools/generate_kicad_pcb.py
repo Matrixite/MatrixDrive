@@ -98,7 +98,7 @@ def build() -> str:
         placeholder("SW4", "SEGA-LINEAR / CODIES-S3 SAVE", 86, 20, 16, 4),
         placeholder("D3-D5", "STATUS LEDS", 72, 19, 8, 4),
     ])
-    body.append(text("STANDARD MD EDGE / S&K UPPER-SLOT PROFILE — VERIFY SHELL", 50, 56))
+    body.append(text("STANDARD MD / 32X EDGE / S&K UPPER-SLOT — VERIFY SHELL", 50, 56))
     body.append(')\n')
     return ''.join(body)
 

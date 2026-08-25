@@ -5,7 +5,7 @@
 The console does not read through the RP2350. Translators convert the 5 V cartridge bus to 3.3 V, and the instant-on CPLD selects ROM or FRAM.
 
 ```text
-MD mode:      68000 bus -> translators -> CPLD -> x16 NOR
+MD/32X mode:  cartridge bus -> translators -> CPLD -> x16 NOR
 S3 save:      odd byte  -> low translator -> CPLD -> dedicated x8 FRAM
 SMS mode:     Z80 bus   -> translators -> CPLD mapper -> NOR low byte
                                       write/save tap -> 2 x x8 SMS FRAM
@@ -42,6 +42,20 @@ SW4 high selects the Sonic 3 save profile:
 
 Sonic & Knuckles owns its `$A130F0` mapping control and supplies the lower cartridge ROM. MatrixDrive behaves only as the normal cartridge inserted in the upper slot.
 
+## 32X cartridge mode
+
+A physical 32X reads its inserted cartridge from both the Mega Drive/Genesis
+68000 side and the SH2 side. The adapter owns its bank register and bus
+arbitration; MatrixDrive remains a simple x16 ROM.
+
+With SW2=MD and SW4=LINEAR, U13 passes the complete 21-bit word address to the
+4 MiB NOR. The highest cartridge byte pair at `$3FFFFE-$3FFFFF` is word address
+`$1FFFFF`. The 32X startup/security area is stored byte-for-byte and is not
+interpreted by the CPLD.
+
+SW4=S3 SAVE must not be used with 32X images because it replaces part of the
+linear ROM range with U20. See `32x-mode.md`.
+
 ## Master System mode
 
 With power off, SW2 is moved to SMS. Open-drain FETs pull `/M3`, VA21, and VA22 low. U13 then:
@@ -61,10 +75,11 @@ SW3 pulls the PAUSE/NMI contact low through an open-drain FET. See `master-syste
 The RP2350 QSPI flash is dedicated to firmware. A separate 16 MiB SPI NOR backs a FAT16 superfloppy named `MATRIXDRV`. On safe eject, firmware validates one image, erases active NOR, and verifies each programmed word.
 
 - MD bytes are packed big-endian: bytes 0/1 become flash D15:8/D7:0.
+- 32X images use the same big-endian x16 packing; smaller power-of-two images repeat through 4 MiB.
 - Even-sized power-of-two MD images below 2 MiB repeat through the 2 MiB lock-on window.
 - SMS bytes use one x16 word each: D15:8 is `0xFF` and D7:0 is the ROM byte.
 
-The same 4 MiB x16 NOR therefore holds either 4 MiB of MD data or 2 MiB of SMS byte data.
+The same 4 MiB x16 NOR therefore holds either 4 MiB of MD/32X data or 2 MiB of SMS byte data.
 
 ## Programming ownership
 

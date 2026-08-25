@@ -94,8 +94,8 @@ static bool format_volume(void) {
     write_le16(sector + 32 + 26, 2u);
     static const char message[] =
         "MATRIXDRIVE DUAL-SYSTEM USB CARTRIDGE\r\n"
-        "Copy one .BIN/.MD/.GEN or .SMS image here, then safely eject.\r\n"
-        "Limits: MD 4 MiB; SMS 2 MiB. Set the physical mode with power off.\r\n";
+        "Copy one .BIN/.MD/.GEN/.32X or .SMS image here, then safely eject.\r\n"
+        "Limits: MD/32X 4 MiB; SMS 2 MiB. Set mode with power off.\r\n";
     write_le32(sector + 32 + 28, (uint32_t)(sizeof message - 1u));
     if (!write_sector(FAT16_ROOT_LBA, sector)) return false;
 
@@ -139,7 +139,8 @@ static bool supported_extension(const uint8_t entry[32]) {
         extension[i] = (char)toupper((unsigned char)entry[8u + i]);
     extension[3] = '\0';
     return strcmp(extension, "BIN") == 0 || strcmp(extension, "MD ") == 0 ||
-           strcmp(extension, "GEN") == 0 || strcmp(extension, "SMS") == 0;
+           strcmp(extension, "GEN") == 0 || strcmp(extension, "32X") == 0 ||
+           strcmp(extension, "SMS") == 0;
 }
 
 static void make_name(const uint8_t entry[32], char output[13]) {

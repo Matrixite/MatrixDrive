@@ -62,7 +62,7 @@ def check_pcb() -> None:
         elif char == ")": balance -= 1
         assert balance >= 0
     assert balance == 0
-    for token in ("PLACEMENT_U19", "PLACEMENT_U20", "S&K UPPER-SLOT"):
+    for token in ("PLACEMENT_U19", "PLACEMENT_U20", "32X EDGE", "S&K UPPER-SLOT"):
         assert token in pcb
 
 
@@ -130,6 +130,7 @@ def check_rev_b_hardware() -> None:
     for token in ("md_s3_save_selected", "md_fram_ce_n", "md_high_disable"):
         assert token in rtl
     assert (ROOT / "docs" / "sonic-knuckles-lock-on.md").is_file()
+    assert (ROOT / "docs" / "32x-mode.md").is_file()
 
 
 if __name__ == "__main__":

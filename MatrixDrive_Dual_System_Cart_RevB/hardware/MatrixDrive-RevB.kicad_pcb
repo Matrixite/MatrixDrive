@@ -321,7 +321,7 @@
     (fp_text value "STATUS LEDS" (at 0 0) (layer "F.Fab")
       (effects (font (size 0.8 0.8) (thickness 0.12))))
   )
-  (gr_text "STANDARD MD EDGE / S&K UPPER-SLOT PROFILE — VERIFY SHELL" (at 50.00 56.00) (layer "F.SilkS")
+  (gr_text "STANDARD MD / 32X EDGE / S&K UPPER-SLOT — VERIFY SHELL" (at 50.00 56.00) (layer "F.SilkS")
     (effects (font (size 1.20 1.20) (thickness 0.20)))
   )
 )

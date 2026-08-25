@@ -3,7 +3,7 @@
 ## Drive behaviour
 
 The staging volume appears as `MATRIXDRV`. It accepts one root-level `.BIN`,
-`.MD`, `.GEN`, or `.SMS` file. Subdirectories, `.SMD`, copier-headered SMS
+`.MD`, `.GEN`, `.32X`, or `.SMS` file. Subdirectories, `.SMD`, copier-headered SMS
 images and files for unsupported mappers are ignored or rejected.
 
 After copying, use **Eject** or **Safely remove**. The cartridge remains powered
@@ -19,11 +19,14 @@ image only after USB has been disconnected and before console power is applied.
 | Format | Minimum | Maximum | Header check | Flash packing |
 | --- | ---: | ---: | --- | --- |
 | MD/GEN/BIN | 512 B | 4,194,304 B | `SEGA` at `0x100` | two bytes/x16 word |
+| 32X | 1 KiB | 4,194,304 B | `SEGA` at `0x100`; `MARS CHECK MODE` at `0x3C0` | two bytes/x16 word |
 | SMS | 8 KiB | 2,097,152 B | `TMR SEGA` at `0x1FF0`, `0x3FF0`, or `0x7FF0` | one byte/x16 word |
 
-Odd MD images receive an `0xFF` low-byte pad. SMS images must be headerless
-binary dumps. Revision B supports the Sega mapper; extension alone cannot make
-a special-mapper game compatible.
+Odd MD images receive an `0xFF` low-byte pad. `.32X` images must be a multiple
+of four bytes and retain their original security/startup area. Smaller
+power-of-two `.32X` images repeat through the complete 4 MiB cartridge range.
+SMS images must be headerless binary dumps. Extension alone cannot make an
+unsupported mapper, save device, or enhancement cartridge compatible.
 
 ## LEDs
 

@@ -1,15 +1,16 @@
 # Safety and first bring-up
 
-This is prototype hardware for ageing original equipment. Complete every bench check before inserting it into a Mega Drive/Genesis or Sonic & Knuckles cartridge.
+This is prototype hardware for ageing original equipment. Complete every bench check before inserting it into a Mega Drive/Genesis, 32X, or Sonic & Knuckles cartridge.
 
 ## Assembly and mechanical inspection
 
 1. Confirm PCB thickness, hard-gold fingers, bevel, contact pitch, A/B orientation, and insertion depth against a known-good Mega Drive cartridge.
 2. Measure the Sonic & Knuckles upper-slot opening, door/latch travel, shell wall, component height, and extraction clearance. Do not assume direct-console fit proves upper-slot fit.
-3. Check all QFN, TSOP, SOIC, translator, and USB-C pins under magnification.
-4. Verify `/CART` is grounded. In MD mode `/M3`, VA21, and VA22 must float; in SMS mode only their open-drain FETs may pull low.
-5. Confirm SW4 low means SEGA/LINEAR and high means CODEMASTERS/S3 SAVE.
-6. Measure resistance from every supply rail to ground before applying power.
+3. Measure the real 32X cartridge-slot opening, door travel, shell wall, component height, insertion depth, and extraction clearance.
+4. Check all QFN, TSOP, SOIC, translator, and USB-C pins under magnification.
+5. Verify `/CART` is grounded. In MD mode `/M3`, VA21, and VA22 must float; in SMS mode only their open-drain FETs may pull low.
+6. Confirm SW4 low means SEGA/LINEAR and high means CODEMASTERS/S3 SAVE.
+7. Measure resistance from every supply rail to ground before applying power.
 
 ## USB-only test
 
@@ -51,6 +52,20 @@ Do not use a console for this stage. Apply current-limited 5 V at `CART_5V` thro
 3. Disconnect USB, choose MD/LINEAR, insert MatrixDrive directly, and power on through a current monitor.
 4. Stop immediately for abnormal current, heat, or out-of-rail bus levels.
 5. Repeat with an SMS diagnostic and verify PAUSE/NMI.
+
+## First 32X test
+
+Only begin after direct-console MD tests pass.
+
+1. Use a legally obtained, known-good ROM-only `.32X` diagnostic or game no larger than 4 MiB.
+2. With all power removed, choose MD/LINEAR and insert MatrixDrive into the real 32X cartridge slot.
+3. Install and connect the 32X normally, including its power and video-link cables.
+4. Power the stack through a current monitor and verify the 32X startup/security sequence completes.
+5. Stop immediately for abnormal current, heat, boot loops, or out-of-rail bus levels.
+6. Capture `/CE_0`, `/CAS0`, address, and data timing at low, banked, and top-of-ROM addresses.
+7. Power off and remove the complete stack before reconnecting USB.
+
+See `32x-mode.md` for the exact image checks and unsupported save hardware.
 
 ## First Sonic & Knuckles test
 

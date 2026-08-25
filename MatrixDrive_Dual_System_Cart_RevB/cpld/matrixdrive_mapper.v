@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// MatrixDrive Rev B ROM mux, SMS mappers, and Sonic & Knuckles upper-cart save.
+// MatrixDrive Rev B MD/32X ROM mux, SMS mappers, and lock-on save decode.
 // Pin numbers and timing constraints must be assigned and verified for the
 // exact ATF1508ASV-15AU100 toolchain before a board is released.
 
@@ -42,8 +42,8 @@ module matrixdrive_mapper (
     wire codies_profile = sms_mode && codemasters_mapper;
 
     // SW4 is dual-purpose. In SMS mode it selects Codemasters. In MD mode its
-    // high position enables the Sonic 3 odd-byte save window used through the
-    // Sonic & Knuckles upper cartridge slot.
+    // low position is the linear Mega Drive/32X profile, while high enables the
+    // Sonic 3 odd-byte save window used through the lock-on upper slot.
     wire md_s3_save_profile = !sms_mode && codemasters_mapper;
 
     wire sega_mapper_write = sega_profile &&

@@ -91,10 +91,10 @@ jobs:
              build/firmware/matrixdrive.hex \
              "dist/$PACKAGE_NAME/firmware/prebuilt/"
           {
-            echo "MatrixDrive Rev B Sonic & Knuckles lock-on + Codemasters + 64 KiB SMS FRAM build"
+            echo "MatrixDrive Rev B 32X + Sonic & Knuckles lock-on + Codemasters + 64 KiB SMS FRAM build"
             echo "Source commit: $GITHUB_SHA"
             echo "Pico SDK: $PICO_SDK_VERSION"
-            echo "Validation: host C tests including lock-on mirroring, Python mapper/save model, RTL simulation, RP2350B firmware build"
+            echo "Validation: host C tests including 32X validation/4 MiB mirroring and lock-on mirroring, Python mapper/save model, RTL simulation, RP2350B firmware build"
           } > "dist/$PACKAGE_NAME/BUILD-INFO.txt"
           (
             cd dist
@@ -109,7 +109,7 @@ jobs:
           if-no-files-found: error
 
       - name: Commit regenerated template and rebuilt ZIP
-        if: github.event_name == 'push' && github.ref == 'refs/heads/sonic-knuckles-lock-on'
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/sonic-knuckles-lock-on')
         shell: bash
         run: |
           set -euo pipefail
@@ -121,5 +121,5 @@ jobs:
             echo "Generated files are already current."
             exit 0
           fi
-          git commit -m "Regenerate lock-on PCB template and package [skip ci]"
+          git commit -m "Regenerate MatrixDrive PCB template and package [skip ci]"
           git push

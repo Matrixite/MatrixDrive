@@ -11,9 +11,11 @@
 #include <string.h>
 
 #define LOCK_ON_ROM_WINDOW_BYTES (2u * 1024u * 1024u)
+#define MARS_SECURITY_MARKER_OFFSET 0x3c0u
 
 typedef enum {
     IMAGE_MEGA_DRIVE = 0,
+    IMAGE_32X,
     IMAGE_MASTER_SYSTEM
 } image_kind_t;
 
@@ -47,11 +49,31 @@ static bool name_is_sms(const char *name) {
            (c == 'S' || c == 's');
 }
 
+static bool name_is_32x(const char *name) {
+    const size_t length = strlen(name);
+    if (length < 4u || name[length - 4u] != '.') return false;
+    const char a = name[length - 3u];
+    const char b = name[length - 2u];
+    const char c = name[length - 1u];
+    return a == '3' && b == '2' && (c == 'X' || c == 'x');
+}
+
 static bool has_md_header(const fat16_file_t *file) {
     uint8_t signature[4];
     return file->size >= 0x104u && file->size <= ACTIVE_ROM_BYTES &&
            fat16_read_at(file, 0x100u, signature, sizeof signature) &&
            memcmp(signature, "SEGA", sizeof signature) == 0;
+}
+
+static bool valid_32x_image(const fat16_file_t *file) {
+    static const uint8_t security_marker[] =
+        {'M', 'A', 'R', 'S', ' ', 'C', 'H', 'E', 'C', 'K', ' ', 'M', 'O', 'D', 'E'};
+    uint8_t candidate[sizeof security_marker];
+    return file->size >= 0x400u && file->size <= ACTIVE_ROM_BYTES &&
+           (file->size & 3u) == 0u && has_md_header(file) &&
+           fat16_read_at(file, MARS_SECURITY_MARKER_OFFSET, candidate,
+                         sizeof candidate) &&
+           memcmp(candidate, security_marker, sizeof security_marker) == 0;
 }
 
 static bool has_sms_header_at(const fat16_file_t *file, uint32_t offset) {
@@ -113,8 +135,10 @@ install_result_t rom_install_from_staging(void) {
     if (!fat16_find_first_rom(&file)) return INSTALL_NO_IMAGE;
 
     const image_kind_t kind = name_is_sms(file.name) ? IMAGE_MASTER_SYSTEM :
-                                                       IMAGE_MEGA_DRIVE;
+                              (name_is_32x(file.name) ? IMAGE_32X :
+                                                       IMAGE_MEGA_DRIVE);
     if ((kind == IMAGE_MASTER_SYSTEM && !valid_sms_image(&file)) ||
+        (kind == IMAGE_32X && !valid_32x_image(&file)) ||
         (kind == IMAGE_MEGA_DRIVE && !has_md_header(&file)))
         return INSTALL_BAD_IMAGE;
 
@@ -135,7 +159,7 @@ install_result_t rom_install_from_staging(void) {
     };
 
     bool streamed = fat16_stream(&file, program_chunk, &context);
-    if (kind == IMAGE_MEGA_DRIVE && streamed)
+    if (kind != IMAGE_MASTER_SYSTEM && streamed)
         streamed = finish_odd_md_byte(&context);
 
     // A real <=2 MiB mask ROM repeats when higher address pins are not
@@ -146,6 +170,20 @@ install_result_t rom_install_from_staging(void) {
         (file.size & 1u) == 0u && is_power_of_two(file.size) &&
         file.size < LOCK_ON_ROM_WINDOW_BYTES) {
         while ((context.word_address * 2u) < LOCK_ON_ROM_WINDOW_BYTES) {
+            if (!fat16_stream(&file, program_chunk, &context)) {
+                streamed = false;
+                break;
+            }
+            if (context.failed) break;
+        }
+    }
+
+    // The 32X adapter exposes a complete 32-Mbit cartridge address space. A
+    // smaller power-of-two mask ROM naturally repeats when unimplemented high
+    // address pins are driven, so reproduce that behaviour in the 4 MiB NOR.
+    if (kind == IMAGE_32X && streamed && !context.failed &&
+        is_power_of_two(file.size) && file.size < ACTIVE_ROM_BYTES) {
+        while ((context.word_address * 2u) < ACTIVE_ROM_BYTES) {
             if (!fat16_stream(&file, program_chunk, &context)) {
                 streamed = false;
                 break;

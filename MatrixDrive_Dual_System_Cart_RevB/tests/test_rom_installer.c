@@ -1,5 +1,6 @@
 /* Host-side tests for MD/SMS validation, lock-on mirroring and x16 packing. */
 #include "rom_installer.h"
+#include "board_pins.h"
 #include "fat16.h"
 #include "parallel_nor.h"
 #include "spi_nor.h"
@@ -11,11 +12,12 @@
 #include <string.h>
 
 #define LOCK_ON_ROM_WORDS ((2u * 1024u * 1024u) / 2u)
+#define ACTIVE_ROM_WORDS (ACTIVE_ROM_BYTES / 2u)
 
 static uint8_t image[32768];
 static uint32_t image_size;
 static const char *image_name;
-static uint16_t words[LOCK_ON_ROM_WORDS];
+static uint16_t words[ACTIVE_ROM_WORDS];
 static uint32_t word_count;
 static unsigned erase_count;
 
@@ -114,10 +116,32 @@ static void test_sms(void) {
     assert(erase_count == previous_erases);
 }
 
+static void test_32x_linear_image(void) {
+    image_name = "MARS.32X";
+    image_size = sizeof image;
+    for (uint32_t i = 0; i < image_size; ++i)
+        image[i] = (uint8_t)(i ^ 0x32u);
+    memcpy(image + 0x100, "SEGA 32X", 8);
+    memcpy(image + 0x3c0, "MARS CHECK MODE", 15);
+
+    assert(rom_install_from_staging() == INSTALL_OK);
+    assert(word_count == ACTIVE_ROM_WORDS);
+    const uint32_t period_words = image_size / 2u;
+    assert(words[0] == (uint16_t)(((uint16_t)image[0] << 8) | image[1]));
+    assert(words[period_words] == words[0]);
+    assert(words[ACTIVE_ROM_WORDS - 1u] == words[period_words - 1u]);
+
+    const unsigned previous_erases = erase_count;
+    memset(image + 0x3c0, 0, 15);
+    assert(rom_install_from_staging() == INSTALL_BAD_IMAGE);
+    assert(erase_count == previous_erases);
+}
+
 int main(void) {
     test_md_odd_image();
     test_md_lock_on_mirror();
+    test_32x_linear_image();
     test_sms();
-    puts("dual-format installer and lock-on mirror host tests passed");
+    puts("MD/32X/SMS installer and mirroring host tests passed");
     return 0;
 }

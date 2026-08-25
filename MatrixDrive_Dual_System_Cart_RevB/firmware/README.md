@@ -25,7 +25,9 @@ RP2350 boot ROM when the hardware exposes its boot-select condition.
 - `fat16.c` formats and scans the staging volume without a dynamic allocator.
 - `parallel_nor.c` programs and verifies the S29GL032N-compatible active ROM.
 - `rom_installer.c` validates and streams a selected ROM into the active flash,
-  packing MD images x16 and SMS images one byte per word.
+  packing MD/32X images x16 and SMS images one byte per word. Explicit `.32X`
+  files also require the standard header/security marker and are mirrored
+  through the complete 4 MiB cartridge range when appropriate.
 - `usb_descriptors.c` defines a single Full-Speed MSC interface.
 
 ## Important implementation note

@@ -146,7 +146,7 @@ module test_matrixdrive_mapper;
         check(rom_a == (21'h04 << 14),
               "Codemasters RAM disable updates slot 1");
 
-        // MD linear / Sonic 2 lock-on profile.
+        // MD/32X linear / Sonic 2 lock-on profile.
         sms_mode = 0;
         codemasters_mapper = 0;
         cart_a = 21'h012345;
@@ -154,9 +154,13 @@ module test_matrixdrive_mapper;
         cas0_n = 0;
         #1;
         check(rom_a == 21'h012345 && !rom_ce_n && !rom_oe_n,
-              "Mega Drive pass-through");
+              "Mega Drive/32X pass-through");
         check(md_fram_ce_n && !md_high_disable,
               "MD linear profile keeps dedicated FRAM disabled");
+        cart_a = 21'h1fffff;
+        #1;
+        check(rom_a == 21'h1fffff && !rom_ce_n && !rom_oe_n,
+              "32X top of 4 MiB cartridge space remains linear ROM");
 
         // SW4 high in MD mode supplies the Sonic 3 & Knuckles save window.
         codemasters_mapper = 1;

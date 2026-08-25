@@ -79,6 +79,18 @@ int main(void) {
     assert(fat16_find_first_rom(&file));
     assert(strcmp(file.name, "MAPPER.SMS") == 0);
 
-    puts("fat16 host tests passed");
+    /* Confirm the standard 32X extension is included in the image scan. */
+    sms_entry[0] = 0xe5u;
+    uint8_t *mars_entry = media + 257u * MSC_BLOCK_BYTES + 128u;
+    memcpy(mars_entry, "MARS    32X", 11);
+    mars_entry[11] = 0x20u;
+    le16(mars_entry + 26, 5u);
+    le32(mars_entry + 28, 1024u);
+    le16(media + MSC_BLOCK_BYTES + 5u * 2u, 0xffffu);
+    le16(media + (1u + 128u) * MSC_BLOCK_BYTES + 5u * 2u, 0xffffu);
+    assert(fat16_find_first_rom(&file));
+    assert(strcmp(file.name, "MARS.32X") == 0);
+
+    puts("fat16 MD/32X/SMS host tests passed");
     return 0;
 }

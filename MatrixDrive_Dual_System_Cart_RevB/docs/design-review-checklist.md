@@ -27,8 +27,12 @@ Official source: <https://pip.raspberrypi.com/categories/1214-rp2350>
   is the A row for the selected physical orientation.
 - Verify hard-gold thickness, 1.6 mm board thickness, edge bevel and insertion
   depth with the intended manufacturer.
+- Measure insertion, removal, door travel, component clearance and contact wipe
+  in a real 32X cartridge slot as well as direct-console and lock-on slots.
 - Simulate or measure 90 ns NOR access plus translator and CPLD delay against
   `/CE_0`, `/CAS0`, and `/CAS2` at minimum and maximum supply voltage.
+- Capture real 32X SH2/68000 cartridge read timing at low and high ROM addresses
+  and confirm the adapter's wait states cover the complete data-path delay.
 - Confirm translator DIR straps and `BUS_DISABLE` default state with both power
   sources in every sequence.
 - Fit an ATF1508ASV programming coupon first, assign all TQFP-100 pins, and
@@ -63,6 +67,8 @@ Official source: <https://pip.raspberrypi.com/categories/1214-rp2350>
 - Test Windows, macOS and Linux safe-eject behaviour.
 - Test fragmented files and root directories containing unrelated files.
 - Test minimum, maximum, odd-length and invalid-header images.
+- Test `.32X` images at 1, 2 and 4 MiB, invalid `MARS CHECK MODE` data, and the
+  highest byte pair at `$3FFFFE-$3FFFFF`.
 - Test `.SMS` images at 8 KiB, 32 KiB, 48 KiB and 2 MiB in both SW4 positions.
 - Exercise every Sega register, the fixed 1 KiB window, both Sega FRAM halves,
   all three Codemasters bank registers and all eight Codemasters FRAM banks.
@@ -76,5 +82,7 @@ Official source: <https://pip.raspberrypi.com/categories/1214-rp2350>
 - Current-limited breakout test passed.
 - Logic-analyser timing capture archived.
 - At least one Model 1 and one Model 2 console tested with homebrew diagnostics.
+- Real 32X tested with a ROM-only diagnostic, followed by multiple legally
+  obtained cartridge images covering different ROM sizes and regions.
 - Master System mode tested on each intended console revision, including reset,
   Pause NMI and a save/load/power-cycle cycle.

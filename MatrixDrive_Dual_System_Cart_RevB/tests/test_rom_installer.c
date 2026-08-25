@@ -1,4 +1,4 @@
-/* Host-side tests for MD/SMS validation and x16 flash packing. */
+/* Host-side tests for MD/SMS validation, lock-on mirroring and x16 packing. */
 #include "rom_installer.h"
 #include "fat16.h"
 #include "parallel_nor.h"
@@ -10,10 +10,12 @@
 #include <stdio.h>
 #include <string.h>
 
+#define LOCK_ON_ROM_WORDS ((2u * 1024u * 1024u) / 2u)
+
 static uint8_t image[32768];
 static uint32_t image_size;
 static const char *image_name;
-static uint16_t words[32768];
+static uint16_t words[LOCK_ON_ROM_WORDS];
 static uint32_t word_count;
 static unsigned erase_count;
 
@@ -68,7 +70,7 @@ bool parallel_nor_program_word(uint32_t address, uint16_t value) {
 uint16_t parallel_nor_read_word(uint32_t address) { return words[address]; }
 void parallel_nor_console_safe_state(void) {}
 
-static void test_md(void) {
+static void test_md_odd_image(void) {
     image_name = "ODD.BIN";
     image_size = 513u;
     for (uint32_t i = 0; i < image_size; ++i) image[i] = (uint8_t)i;
@@ -77,6 +79,22 @@ static void test_md(void) {
     assert(word_count == 257u);
     assert(words[0] == 0x0001u);
     assert(words[256] == 0x00ffu);
+}
+
+static void test_md_lock_on_mirror(void) {
+    image_name = "SONIC2.BIN";
+    image_size = sizeof image;
+    for (uint32_t i = 0; i < image_size; ++i)
+        image[i] = (uint8_t)(i ^ 0xa5u);
+    memcpy(image + 0x100, "SEGA", 4);
+
+    assert(rom_install_from_staging() == INSTALL_OK);
+    assert(word_count == LOCK_ON_ROM_WORDS);
+
+    const uint32_t period_words = image_size / 2u;
+    assert(words[0] == (uint16_t)(((uint16_t)image[0] << 8) | image[1]));
+    assert(words[period_words] == words[0]);
+    assert(words[LOCK_ON_ROM_WORDS - 1u] == words[period_words - 1u]);
 }
 
 static void test_sms(void) {
@@ -97,8 +115,9 @@ static void test_sms(void) {
 }
 
 int main(void) {
-    test_md();
+    test_md_odd_image();
+    test_md_lock_on_mirror();
     test_sms();
-    puts("dual-format installer host tests passed");
+    puts("dual-format installer and lock-on mirror host tests passed");
     return 0;
 }

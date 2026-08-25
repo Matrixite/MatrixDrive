@@ -49,6 +49,8 @@ def check_pcb() -> None:
         elif char == ")": balance -= 1
         assert balance >= 0
     assert balance == 0
+    for token in ("PLACEMENT_U19", "PLACEMENT_U20", "S&K UPPER-SLOT"):
+        assert token in pcb
 
 
 def run_fat_test() -> None:
@@ -98,17 +100,23 @@ def check_rev_b_hardware() -> None:
     netlist = (ROOT / "hardware" / "electrical-netlist.csv").read_text()
     connector = (ROOT / "hardware" / "connector-pinout.csv").read_text()
     for token in (
-        "ATF1508ASV-15AU100", "U17-U18", "64 KiB total",
-        "DPDT break-before-make", "SPDT break-before-make",
+        "ATF1508ASV-15AU100", "U17-U18", "64 KiB total", "U19", "U20",
+        "Sonic 3 lock-on save FRAM", "DPDT break-before-make",
+        "SPDT break-before-make",
     ):
         assert token in bom
     for token in (
         "SMS_MODE_3V3", "SMS_MAPPER_CM_3V3", "USB_MODE_3V3",
-        "FRAM_A13", "FRAM_CE_N", "FRAM_HI_CE_N", "LOW_DATA_DIR",
+        "FRAM_A13", "FRAM_CE_N", "FRAM_HI_CE_N", "MD_FRAM_CE_N",
+        "MD_HIGH_DISABLE_3V3", "MD_HIGH_DISABLE_5V", "LOW_DATA_DIR",
     ):
         assert token in netlist
-    for token in ("/M3", "/CAS2", "/LWR", "PAUSE/NMI"):
+    for token in ("/M3", "/CAS2", "/LWR", "/TIME", "Sonic 3", "PAUSE/NMI"):
         assert token in connector
+    rtl = (ROOT / "cpld" / "matrixdrive_mapper.v").read_text()
+    for token in ("md_s3_save_selected", "md_fram_ce_n", "md_high_disable"):
+        assert token in rtl
+    assert (ROOT / "docs" / "sonic-knuckles-lock-on.md").is_file()
 
 
 if __name__ == "__main__":

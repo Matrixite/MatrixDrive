@@ -19,16 +19,16 @@ A17,VA1,Input,ADDR_XCVR_A0,Cart address bit 0
 A18,GND,Power,GND,Ground
 A19,VD7,Bidirectional,DATA_LOW_XCVR_A7,ROM/SMS data bit 7 and mapper write data
 A20,VD0,Bidirectional,DATA_LOW_XCVR_A0,ROM/SMS data bit 0 and mapper write data
-A21,VD8,Bidirectional,DATA_HIGH_XCVR_A0,MD data bit 8; U7 disabled in SMS mode
+A21,VD8,Bidirectional,DATA_HIGH_XCVR_A0,MD data bit 8; U7 disabled in SMS and MD Sonic 3 FRAM cycles
 A22,VD6,Bidirectional,DATA_LOW_XCVR_A6,ROM/SMS data bit 6
 A23,VD1,Bidirectional,DATA_LOW_XCVR_A1,ROM/SMS data bit 1
-A24,VD9,Bidirectional,DATA_HIGH_XCVR_A1,MD data bit 9; U7 disabled in SMS mode
+A24,VD9,Bidirectional,DATA_HIGH_XCVR_A1,MD data bit 9; U7 disabled in SMS and MD Sonic 3 FRAM cycles
 A25,VD5,Bidirectional,DATA_LOW_XCVR_A5,ROM/SMS data bit 5
 A26,VD2,Bidirectional,DATA_LOW_XCVR_A2,ROM/SMS data bit 2
-A27,VD10,Bidirectional,DATA_HIGH_XCVR_A2,MD data bit 10; U7 disabled in SMS mode
+A27,VD10,Bidirectional,DATA_HIGH_XCVR_A2,MD data bit 10; U7 disabled in SMS and MD Sonic 3 FRAM cycles
 A28,VD4,Bidirectional,DATA_LOW_XCVR_A4,ROM/SMS data bit 4
 A29,VD3,Bidirectional,DATA_LOW_XCVR_A3,ROM/SMS data bit 3
-A30,VD11,Bidirectional,DATA_HIGH_XCVR_A3,MD data bit 11; U7 disabled in SMS mode
+A30,VD11,Bidirectional,DATA_HIGH_XCVR_A3,MD data bit 11; U7 disabled in SMS and MD Sonic 3 FRAM cycles
 A31,+5V,Power,CART_5V_IN,Join A2 before fuse F1
 A32,GND,Power,GND,Ground
 B1,SL1,Not used,NC,Audio input
@@ -46,20 +46,20 @@ B12,/YS,Not used,NC,Video signal
 B13,/VSYNC,Not used,NC,Video signal
 B14,/HSYNC,Not used,NC,Video signal
 B15,EDCLK,Not used,NC,Video clock
-B16,/CAS0,Input,CTRL_XCVR_CAS0,ROM and FRAM output-enable timing
+B16,/CAS0,Input,CTRL_XCVR_CAS0,ROM plus SMS and Sonic 3 FRAM output-enable timing
 B17,/CE_0,Input,CTRL_XCVR_CE0,MD ROM CE and SMS slots 0/1 select
 B18,/AS,Input,CTRL2_XCVR_AS,Translated for diagnostics and future profiles
 B19,VCLK,Input,TP_VCLK,Test point only
 B20,/DTACK,Open drain/unused,NC,Console supplies timing for standard ROM
 B21,/CAS2,Input,CTRL_XCVR_CAS2,SMS slot 2 ROM/FRAM select
-B22,VD15,Bidirectional,DATA_HIGH_XCVR_A7,MD data bit 15; U7 disabled in SMS mode
-B23,VD14,Bidirectional,DATA_HIGH_XCVR_A6,MD data bit 14; U7 disabled in SMS mode
-B24,VD13,Bidirectional,DATA_HIGH_XCVR_A5,MD data bit 13; U7 disabled in SMS mode
-B25,VD12,Bidirectional,DATA_HIGH_XCVR_A4,MD data bit 12; U7 disabled in SMS mode
+B22,VD15,Bidirectional,DATA_HIGH_XCVR_A7,MD data bit 15; U7 disabled in SMS and MD Sonic 3 FRAM cycles
+B23,VD14,Bidirectional,DATA_HIGH_XCVR_A6,MD data bit 14; U7 disabled in SMS and MD Sonic 3 FRAM cycles
+B24,VD13,Bidirectional,DATA_HIGH_XCVR_A5,MD data bit 13; U7 disabled in SMS and MD Sonic 3 FRAM cycles
+B25,VD12,Bidirectional,DATA_HIGH_XCVR_A4,MD data bit 12; U7 disabled in SMS and MD Sonic 3 FRAM cycles
 B26,/ASEL,Input,NC,Not required
 B27,/VRES,Input,TP_VRES,Test point only
-B28,/LWR,Input,CTRL2_XCVR_LWR and U16 input,SMS mapper and FRAM write strobe
-B29,/UWR,Input,CTRL2_XCVR_UWR,Translated for MD expansion/save profile
+B28,/LWR,Input,CTRL2_XCVR_LWR and U16 input,SMS writes and MD odd-byte Sonic 3 FRAM write strobe
+B29,/UWR,Input,CTRL2_XCVR_UWR,Translated for diagnostics; Sonic 3 FRAM is odd-byte only and uses /LWR
 B30,/M3,Mode,Q1 drain,Open-drain low in SMS mode; floating in MD mode
-B31,/TIME,Input,CTRL2_XCVR_TIME,Translated for future MD mapper profiles
+B31,/TIME,Input,CTRL2_XCVR_TIME,Translated for diagnostics; Sonic & Knuckles owns its $A130F0 lock-on control
 B32,/CART,Output,0R to GND,Selects bootable cartridge mapping

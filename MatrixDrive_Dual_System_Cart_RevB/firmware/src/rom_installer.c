@@ -10,6 +10,8 @@
 #include <stdint.h>
 #include <string.h>
 
+#define LOCK_ON_ROM_WINDOW_BYTES (2u * 1024u * 1024u)
+
 typedef enum {
     IMAGE_MEGA_DRIVE = 0,
     IMAGE_MASTER_SYSTEM
@@ -31,6 +33,10 @@ static uint32_t crc32_update(uint32_t crc, uint8_t byte) {
     return crc;
 }
 
+static bool is_power_of_two(uint32_t value) {
+    return value != 0u && (value & (value - 1u)) == 0u;
+}
+
 static bool name_is_sms(const char *name) {
     const size_t length = strlen(name);
     if (length < 4u || name[length - 4u] != '.') return false;
@@ -43,7 +49,7 @@ static bool name_is_sms(const char *name) {
 
 static bool has_md_header(const fat16_file_t *file) {
     uint8_t signature[4];
-    return file->size >= 0x104u &&
+    return file->size >= 0x104u && file->size <= ACTIVE_ROM_BYTES &&
            fat16_read_at(file, 0x100u, signature, sizeof signature) &&
            memcmp(signature, "SEGA", sizeof signature) == 0;
 }
@@ -89,6 +95,18 @@ static bool program_chunk(const uint8_t *data, size_t length, void *opaque) {
     return true;
 }
 
+static bool finish_odd_md_byte(program_context_t *context) {
+    if (!context->have_high_byte) return true;
+    const uint16_t word =
+        (uint16_t)(((uint16_t)context->high_byte << 8) | 0xffu);
+    context->have_high_byte = false;
+    if (!parallel_nor_program_word(context->word_address++, word)) {
+        context->failed = true;
+        return false;
+    }
+    return true;
+}
+
 install_result_t rom_install_from_staging(void) {
     if (!storage_flush()) return INSTALL_STORAGE_ERROR;
     fat16_file_t file;
@@ -115,11 +133,27 @@ install_result_t rom_install_from_staging(void) {
         .failed = false,
         .crc = 0xffffffffu
     };
-    const bool streamed = fat16_stream(&file, program_chunk, &context);
-    if (kind == IMAGE_MEGA_DRIVE && streamed && context.have_high_byte) {
-        const uint16_t word = (uint16_t)(((uint16_t)context.high_byte << 8) | 0xffu);
-        context.failed = !parallel_nor_program_word(context.word_address++, word);
+
+    bool streamed = fat16_stream(&file, program_chunk, &context);
+    if (kind == IMAGE_MEGA_DRIVE && streamed)
+        streamed = finish_odd_md_byte(&context);
+
+    // A real <=2 MiB mask ROM repeats when higher address pins are not
+    // populated. Sonic & Knuckles relies on that upper-cartridge behaviour.
+    // Repeat even-sized, power-of-two MD images through its complete 2 MiB
+    // subslot window. Sonic 2 (1 MiB) is therefore visible in both halves.
+    if (kind == IMAGE_MEGA_DRIVE && streamed && !context.failed &&
+        (file.size & 1u) == 0u && is_power_of_two(file.size) &&
+        file.size < LOCK_ON_ROM_WINDOW_BYTES) {
+        while ((context.word_address * 2u) < LOCK_ON_ROM_WINDOW_BYTES) {
+            if (!fat16_stream(&file, program_chunk, &context)) {
+                streamed = false;
+                break;
+            }
+            if (context.failed) break;
+        }
     }
+
     parallel_nor_leave_programming();
     (void)context.crc; /* Reserved for a future STATUS.TXT record. */
     if (!streamed || context.failed) return INSTALL_FLASH_ERROR;

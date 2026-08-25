@@ -10,6 +10,19 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def check_public_references() -> None:
+    forbidden = (
+        bytes((77, 65, 77, 69)).decode("ascii"),
+        bytes((109, 97, 109, 101, 100, 101, 118)).decode("ascii"),
+    )
+    paths = [ROOT.parent / "README.md", ROOT / "README.md"]
+    paths.extend(sorted((ROOT / "docs").glob("*.md")))
+    for path in paths:
+        content = path.read_text(encoding="utf-8").casefold()
+        for token in forbidden:
+            assert token.casefold() not in content
+
+
 def check_connector() -> None:
     path = ROOT / "hardware" / "connector-pinout.csv"
     rows = list(csv.DictReader(path.open(newline="", encoding="utf-8")))
@@ -120,6 +133,7 @@ def check_rev_b_hardware() -> None:
 
 
 if __name__ == "__main__":
+    check_public_references()
     check_connector()
     check_gpio_map()
     check_pcb()

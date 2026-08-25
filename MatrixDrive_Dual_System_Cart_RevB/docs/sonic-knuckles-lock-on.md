@@ -14,7 +14,7 @@ SMS mode, unusual MD mappers, serial EEPROM cartridges, enhancement hardware, an
 
 ## Why ROM mirroring is required
 
-The MAME pass-through implementation maps the upper cartridge into Sonic & Knuckles' upper 2 MiB and notes that cartridges no larger than 2 MiB are mirrored in that window. A physical small mask ROM naturally repeats when unimplemented high address pins are absent. MatrixDrive uses a 4 MiB NOR, so firmware must reproduce that behaviour.
+Sonic & Knuckles exposes the upper cartridge in a 2 MiB window. A physical small mask ROM naturally repeats when unimplemented high address pins are absent. MatrixDrive uses a 4 MiB NOR, so firmware must reproduce that behaviour.
 
 During installation, an MD image is repeated through 2 MiB when all of these are true:
 
@@ -94,6 +94,5 @@ Automated tests prove the source-level decode and installer pattern. They do not
 
 ## Primary implementation references
 
-- [MAME Sonic & Knuckles pass-through cartridge](https://github.com/mamedev/mame/blob/master/src/devices/bus/megadrive/sk.cpp)
 - [Genesis Plus GX Mega Drive cartridge and lock-on handling](https://github.com/ekeeke/Genesis-Plus-GX/blob/master/core/cart_hw/md_cart.c)
 - [Genesis Plus GX backup RAM mapping](https://github.com/ekeeke/Genesis-Plus-GX/blob/master/core/cart_hw/sram.c)

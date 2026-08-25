@@ -138,10 +138,8 @@ Start with [Safety and bring-up](MatrixDrive_Dual_System_Cart_RevB/docs/safety-a
 
 ## Technical references
 
-- [MAME Sonic & Knuckles pass-through implementation](https://github.com/mamedev/mame/blob/master/src/devices/bus/megadrive/sk.cpp)
 - [Genesis Plus GX cartridge implementation](https://github.com/ekeeke/Genesis-Plus-GX/blob/master/core/cart_hw/md_cart.c)
 - [Raspberry Pi RP2350 documentation](https://www.raspberrypi.com/documentation/microcontrollers/microcontroller-chips.html)
 - [Microchip ATF1508ASV](https://www.microchip.com/en-us/product/atf1508asv)
 - [Infineon FM18W08 FRAM](https://www.infineon.com/part/FM18W08-SG)
 - [TI SN74LVC1T45](https://www.ti.com/product/SN74LVC1T45)
-- [MAME Sega 8-bit cartridge mapper implementation](https://github.com/mamedev/mame/blob/master/src/devices/bus/sega8/rom.cpp)

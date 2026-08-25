@@ -40,7 +40,7 @@ Never move either switch while powered. Never connect USB while MatrixDrive is i
 
 ## Lock-on compatibility
 
-The electrical profile follows the pass-through behaviour represented by MAME and Genesis Plus GX:
+The electrical profile follows the documented lock-on behaviour and the Genesis Plus GX implementation:
 
 - Sonic & Knuckles supplies its own ROM at the lower 2 MiB and exposes the upper cartridge in the remaining window.
 - MatrixDrive behaves as a normal MD ROM in the upper slot.
@@ -99,7 +99,6 @@ The prototype USB descriptor uses TinyUSB's development VID `0xCAFE`. Obtain a p
 
 ## Primary references
 
-- MAME S&K pass-through: <https://github.com/mamedev/mame/blob/master/src/devices/bus/megadrive/sk.cpp>
 - Genesis Plus GX MD cartridge: <https://github.com/ekeeke/Genesis-Plus-GX/blob/master/core/cart_hw/md_cart.c>
 - Genesis Plus GX SRAM: <https://github.com/ekeeke/Genesis-Plus-GX/blob/master/core/cart_hw/sram.c>
 - TI SN74LVC1T45: <https://www.ti.com/product/SN74LVC1T45>

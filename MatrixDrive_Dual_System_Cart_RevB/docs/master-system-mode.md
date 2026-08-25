@@ -67,9 +67,7 @@ three FRAM bank bits become logical A15:A13. Two 32 KiB FM18W08 devices provide
 the exact 64 KiB array; U13 drives separate active-low chip enables for the low
 and high halves.
 
-The Codemasters behaviour matches the mapper implementation used by
-[MAME](https://github.com/mamedev/mame/blob/master/src/devices/bus/sega8/rom.cpp)
-and the reset/banking behaviour in
+The Codemasters behaviour matches the reset and banking implementation in
 [Genesis Plus GX](https://github.com/ekeeke/Genesis-Plus-GX/blob/master/core/cart_hw/sms_cart.c).
 
 ## NOR representation

@@ -5,8 +5,11 @@
 extern "C" {
 #endif
 
-#define CFG_TUSB_MCU              OPT_MCU_RP2350
-#define CFG_TUSB_OS               OPT_OS_NONE
+/*
+ * Pico SDK supplies CFG_TUSB_MCU and CFG_TUSB_OS for the selected RP2350
+ * platform. Defining them here causes conflicting command-line definitions on
+ * current SDK releases.
+ */
 #define CFG_TUSB_RHPORT0_MODE     (OPT_MODE_DEVICE | OPT_MODE_FULL_SPEED)
 #define CFG_TUD_ENDPOINT0_SIZE    64
 #define CFG_TUD_MSC               1
@@ -15,4 +18,3 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
-

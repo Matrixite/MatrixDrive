@@ -37,8 +37,12 @@ Official source: <https://pip.raspberrypi.com/categories/1214-rp2350>
   passive pulls keep NOR/FRAM `/CE`, `/OE`, and `/WE` inactive during reset.
 - Verify SW2 is break-before-make and asserts `/M3`, VA21 and VA22 through
   open-drain devices only; never source 3.3 V into those cartridge nets.
+- Verify SW4 is labelled SEGA/CODEMASTERS, is sampled as a 3.3 V CPLD input,
+  and cannot float during break-before-make travel.
 - Measure U16/U6 direction turnaround around `/LWR` and prove the console, NOR,
-  FRAM and translator never drive D7:D0 simultaneously.
+  either FRAM and translator never drive D7:D0 simultaneously.
+- Verify U17/U18 never assert together and exercise all eight Codemasters 8 KiB
+  FRAM banks through logical addresses `$0000-$FFFF`.
 - Check unused console inputs are not accidentally driven.
 
 ## USB and power
@@ -59,8 +63,9 @@ Official source: <https://pip.raspberrypi.com/categories/1214-rp2350>
 - Test Windows, macOS and Linux safe-eject behaviour.
 - Test fragmented files and root directories containing unrelated files.
 - Test minimum, maximum, odd-length and invalid-header images.
-- Test `.SMS` images at 8 KiB, 32 KiB, 48 KiB and 2 MiB plus every mapper page
-  register, the fixed 1 KiB window and both FRAM banks.
+- Test `.SMS` images at 8 KiB, 32 KiB, 48 KiB and 2 MiB in both SW4 positions.
+- Exercise every Sega register, the fixed 1 KiB window, both Sega FRAM halves,
+  all three Codemasters bank registers and all eight Codemasters FRAM banks.
 - Reserve a real USB VID/PID before any public product release.
 
 ## Release gates

@@ -82,15 +82,30 @@ def run_installer_test() -> None:
 def run_mapper_test() -> None:
     subprocess.run(["python3", str(ROOT / "cpld" / "test_mapper_model.py")],
                    check=True)
+    with tempfile.TemporaryDirectory() as directory:
+        output = Path(directory) / "test_matrixdrive_mapper"
+        subprocess.run([
+            "iverilog", "-g2012", "-s", "test_matrixdrive_mapper",
+            "-o", str(output),
+            str(ROOT / "cpld" / "matrixdrive_mapper.v"),
+            str(ROOT / "cpld" / "test_matrixdrive_mapper.v"),
+        ], check=True)
+        subprocess.run(["vvp", str(output)], check=True)
 
 
 def check_rev_b_hardware() -> None:
     bom = (ROOT / "hardware" / "bom.csv").read_text()
     netlist = (ROOT / "hardware" / "electrical-netlist.csv").read_text()
     connector = (ROOT / "hardware" / "connector-pinout.csv").read_text()
-    for token in ("ATF1508ASV-15AU100", "FM18W08-SG", "DPDT break-before-make"):
+    for token in (
+        "ATF1508ASV-15AU100", "U17-U18", "64 KiB total",
+        "DPDT break-before-make", "SPDT break-before-make",
+    ):
         assert token in bom
-    for token in ("SMS_MODE_3V3", "USB_MODE_3V3", "FRAM_CE_N", "LOW_DATA_DIR"):
+    for token in (
+        "SMS_MODE_3V3", "SMS_MAPPER_CM_3V3", "USB_MODE_3V3",
+        "FRAM_A13", "FRAM_CE_N", "FRAM_HI_CE_N", "LOW_DATA_DIR",
+    ):
         assert token in netlist
     for token in ("/M3", "/CAS2", "/LWR", "PAUSE/NMI"):
         assert token in connector

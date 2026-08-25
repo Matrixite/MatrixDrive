@@ -4,12 +4,15 @@ on:
   push:
     branches:
       - codemasters-64k-fram
+      - sonic-knuckles-lock-on
       - main
     paths:
+      - "README.md"
       - "MatrixDrive_Dual_System_Cart_RevB/**"
       - ".github/workflows/build-test-package.yml"
   pull_request:
     paths:
+      - "README.md"
       - "MatrixDrive_Dual_System_Cart_RevB/**"
       - ".github/workflows/build-test-package.yml"
   workflow_dispatch:
@@ -20,7 +23,7 @@ permissions:
 env:
   PROJECT_DIR: MatrixDrive_Dual_System_Cart_RevB
   PICO_SDK_VERSION: 2.3.0
-  PACKAGE_NAME: MatrixDrive_Dual_System_Cart_RevB_Codemasters_64K_FRAM
+  PACKAGE_NAME: MatrixDrive_Dual_System_Cart_RevB_LockOn_Codemasters_64K_FRAM
 
 jobs:
   build-test-package:
@@ -34,13 +37,17 @@ jobs:
         run: |
           set -euo pipefail
           sudo apt-get update
-          sudo apt-get install -y             build-essential cmake ninja-build gcc-arm-none-eabi             libnewlib-arm-none-eabi iverilog zip
+          sudo apt-get install -y \
+            build-essential cmake ninja-build gcc-arm-none-eabi \
+            libnewlib-arm-none-eabi iverilog zip
 
       - name: Fetch Raspberry Pi Pico SDK
         shell: bash
         run: |
           set -euo pipefail
-          git clone --depth 1 --branch "$PICO_SDK_VERSION"             --recurse-submodules --shallow-submodules             https://github.com/raspberrypi/pico-sdk.git "$RUNNER_TEMP/pico-sdk"
+          git clone --depth 1 --branch "$PICO_SDK_VERSION" \
+            --recurse-submodules --shallow-submodules \
+            https://github.com/raspberrypi/pico-sdk.git "$RUNNER_TEMP/pico-sdk"
 
       - name: Regenerate PCB placement template
         shell: bash
@@ -60,7 +67,10 @@ jobs:
           PICO_SDK_PATH: ${{ runner.temp }}/pico-sdk
         run: |
           set -euo pipefail
-          cmake -S "$PROJECT_DIR/firmware" -B build/firmware -G Ninja             -DPICO_BOARD=matrixdrive             -DPICO_PLATFORM=rp2350-arm-s             -DCMAKE_BUILD_TYPE=Release
+          cmake -S "$PROJECT_DIR/firmware" -B build/firmware -G Ninja \
+            -DPICO_BOARD=matrixdrive \
+            -DPICO_PLATFORM=rp2350-arm-s \
+            -DCMAKE_BUILD_TYPE=Release
 
       - name: Build RP2350B firmware
         shell: bash
@@ -75,12 +85,16 @@ jobs:
           rm -rf dist
           mkdir -p "dist/$PACKAGE_NAME/firmware/prebuilt"
           cp -a "$PROJECT_DIR/." "dist/$PACKAGE_NAME/"
-          cp build/firmware/matrixdrive.uf2              build/firmware/matrixdrive.bin              build/firmware/matrixdrive.elf              build/firmware/matrixdrive.hex              "dist/$PACKAGE_NAME/firmware/prebuilt/"
+          cp build/firmware/matrixdrive.uf2 \
+             build/firmware/matrixdrive.bin \
+             build/firmware/matrixdrive.elf \
+             build/firmware/matrixdrive.hex \
+             "dist/$PACKAGE_NAME/firmware/prebuilt/"
           {
-            echo "MatrixDrive Rev B Codemasters + 64 KiB FRAM build"
+            echo "MatrixDrive Rev B Sonic & Knuckles lock-on + Codemasters + 64 KiB SMS FRAM build"
             echo "Source commit: $GITHUB_SHA"
             echo "Pico SDK: $PICO_SDK_VERSION"
-            echo "Validation: host C tests, Python mapper model, RTL simulation, RP2350B firmware build"
+            echo "Validation: host C tests including lock-on mirroring, Python mapper/save model, RTL simulation, RP2350B firmware build"
           } > "dist/$PACKAGE_NAME/BUILD-INFO.txt"
           (
             cd dist
@@ -95,16 +109,17 @@ jobs:
           if-no-files-found: error
 
       - name: Commit regenerated template and rebuilt ZIP
-        if: github.event_name == 'push' && github.ref == 'refs/heads/codemasters-64k-fram'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/sonic-knuckles-lock-on'
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "$PROJECT_DIR/hardware/MatrixDrive-RevB.kicad_pcb"                   "$PACKAGE_NAME.zip"
+          git add "$PROJECT_DIR/hardware/MatrixDrive-RevB.kicad_pcb" \
+                  "$PACKAGE_NAME.zip"
           if git diff --cached --quiet; then
             echo "Generated files are already current."
             exit 0
           fi
-          git commit -m "Regenerate PCB template and package build [skip ci]"
+          git commit -m "Regenerate lock-on PCB template and package [skip ci]"
           git push

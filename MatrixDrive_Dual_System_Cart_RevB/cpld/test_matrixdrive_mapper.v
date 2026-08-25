@@ -19,8 +19,10 @@ module test_matrixdrive_mapper;
     wire fram_a14;
     wire fram_ce_n;
     wire fram_hi_ce_n;
+    wire md_fram_ce_n;
     wire fram_oe_n;
     wire fram_we_n;
+    wire md_high_disable;
 
     matrixdrive_mapper dut (
         .cart_a(cart_a), .data_in(data_in), .ce0_n(ce0_n),
@@ -30,7 +32,9 @@ module test_matrixdrive_mapper;
         .rom_a(rom_a), .rom_ce_n(rom_ce_n), .rom_oe_n(rom_oe_n),
         .fram_a13(fram_a13), .fram_a14(fram_a14),
         .fram_ce_n(fram_ce_n), .fram_hi_ce_n(fram_hi_ce_n),
-        .fram_oe_n(fram_oe_n), .fram_we_n(fram_we_n)
+        .md_fram_ce_n(md_fram_ce_n),
+        .fram_oe_n(fram_oe_n), .fram_we_n(fram_we_n),
+        .md_high_disable(md_high_disable)
     );
 
     task set_address(input [15:0] address);
@@ -101,7 +105,7 @@ module test_matrixdrive_mapper;
 
         write_cycle(16'hfffc, 8'h0c);
         set_address(16'h8000);
-        check(rom_ce_n && !fram_ce_n && fram_hi_ce_n,
+        check(rom_ce_n && !fram_ce_n && fram_hi_ce_n && md_fram_ce_n,
               "Sega low FRAM selected");
         check(!fram_a13 && fram_a14, "Sega FRAM bank 1 lower address");
         set_address(16'hbfff);
@@ -127,10 +131,10 @@ module test_matrixdrive_mapper;
         check(rom_a == (21'h03 << 14),
               "RAM enable preserves Codemasters slot 1");
         set_address(16'h8000);
-        check(!rom_ce_n && fram_ce_n && fram_hi_ce_n,
+        check(!rom_ce_n && fram_ce_n && fram_hi_ce_n && md_fram_ce_n,
               "Codemasters ROM remains at 8000-9FFF");
         set_address(16'ha000);
-        check(rom_ce_n && fram_ce_n && !fram_hi_ce_n,
+        check(rom_ce_n && fram_ce_n && !fram_hi_ce_n && md_fram_ce_n,
               "Codemasters high FRAM selected at A000-BFFF");
         check(fram_a13 && fram_a14, "Codemasters FRAM bank 7 address bits");
 
@@ -142,18 +146,50 @@ module test_matrixdrive_mapper;
         check(rom_a == (21'h04 << 14),
               "Codemasters RAM disable updates slot 1");
 
+        // MD linear / Sonic 2 lock-on profile.
         sms_mode = 0;
-        cart_a = 21'h12345;
+        codemasters_mapper = 0;
+        cart_a = 21'h012345;
         ce0_n = 0;
         cas0_n = 0;
         #1;
-        check(rom_a == 21'h12345 && !rom_ce_n && !rom_oe_n,
+        check(rom_a == 21'h012345 && !rom_ce_n && !rom_oe_n,
               "Mega Drive pass-through");
+        check(md_fram_ce_n && !md_high_disable,
+              "MD linear profile keeps dedicated FRAM disabled");
+
+        // SW4 high in MD mode supplies the Sonic 3 & Knuckles save window.
+        codemasters_mapper = 1;
+        cart_a = 21'h0fffff;
+        #1;
+        check(!rom_ce_n && md_fram_ce_n && !md_high_disable,
+              "Address below Sonic 3 save window remains ROM");
+        cart_a = 21'h100000;
+        lwr_n = 1;
+        #1;
+        check(rom_ce_n && rom_oe_n && !md_fram_ce_n,
+              "Sonic 3 save starts at CPU byte address 200001");
+        check(!fram_oe_n && fram_we_n && md_high_disable,
+              "Sonic 3 FRAM read disables MD high data byte");
+        cart_a = 21'h101fff;
+        #1;
+        check(!md_fram_ce_n, "Sonic 3 save includes CPU address 203FFF");
+        lwr_n = 0;
+        #1;
+        check(!fram_we_n && md_high_disable,
+              "Sonic 3 odd-byte FRAM write");
+        lwr_n = 1;
+        cart_a = 21'h102000;
+        #1;
+        check(!rom_ce_n && md_fram_ce_n && !md_high_disable,
+              "Address above Sonic 3 save window returns to ROM");
 
         usb_mode = 1;
         #1;
         check((rom_ce_n === 1'bz) && (fram_ce_n === 1'bz) &&
-              (fram_hi_ce_n === 1'bz), "USB mode tri-states controls");
+              (fram_hi_ce_n === 1'bz) && (md_fram_ce_n === 1'bz),
+              "USB mode tri-states memory controls");
+        check(md_high_disable, "USB mode requests high-data isolation");
 
         $display("matrixdrive_mapper RTL simulation passed");
         $finish;

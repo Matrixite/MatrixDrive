@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the Rev B dual-system mechanical/placement-only KiCad template."""
+"""Generate the Rev B dual-system and lock-on placement-only KiCad template."""
 
 from pathlib import Path
 
@@ -67,7 +67,7 @@ def build() -> str:
 '''
     body = [header]
     body.append('  (gr_rect (start 0 0) (end 100 65) (stroke (width 0.10) (type default)) (fill none) (layer "Edge.Cuts"))\n')
-    body.append(text("MATRIXDRIVE REV B DUAL-SYSTEM — PLACEMENT ONLY", 50, 3))
+    body.append(text("MATRIXDRIVE REV B DUAL-SYSTEM + LOCK-ON — PLACEMENT ONLY", 50, 3))
     body.append(text("DO NOT FABRICATE UNTIL SCHEMATIC/DRC REVIEW", 50, 6))
     body.append(edge_connector())
     body.extend([
@@ -84,19 +84,21 @@ def build() -> str:
         placeholder("U11", "3V3 LDO", 13, 11, 5, 4),
         placeholder("U13", "ATF1508ASV CPLD", 27, 26, 14, 14),
         placeholder("U14", "CTRL2 XCVR", 13, 27, 8, 6.5),
-        placeholder("U15-U16", "DATA CONTROL", 75, 30, 7, 5),
-        placeholder("U17", "32KiB FRAM LOW", 88, 25, 10, 8),
-        placeholder("U18", "32KiB FRAM HIGH", 88, 34, 10, 8),
+        placeholder("U15-U16", "DATA CONTROL ORS", 75, 30, 7, 5),
+        placeholder("U17", "32KiB SMS FRAM LOW", 88, 25, 10, 8),
+        placeholder("U18", "32KiB SMS FRAM HIGH", 88, 34, 10, 8),
+        placeholder("U19", "MD HIGH DISABLE XCVR", 75, 24, 6, 4),
+        placeholder("U20", "SONIC 3 SAVE FRAM", 88, 51, 10, 8),
         placeholder("J4", "CPLD JTAG", 8, 4, 8, 5),
         placeholder("Y1", "12MHz", 40, 7, 4, 3),
         placeholder("L1", "POLARISED 3V3 CORE L", 57, 7, 4, 3),
         placeholder("SW1", "PROGRAM", 73, 7, 6, 4),
         placeholder("SW2", "MD / SMS", 86, 7, 8, 4),
         placeholder("SW3", "SMS PAUSE", 86, 14, 8, 4),
-        placeholder("SW4", "SEGA / CODEMASTERS", 86, 20, 12, 4),
+        placeholder("SW4", "SEGA-LINEAR / CODIES-S3 SAVE", 86, 20, 16, 4),
         placeholder("D3-D5", "STATUS LEDS", 72, 19, 8, 4),
     ])
-    body.append(text("B1/A1 AT LEFT IN THIS VIEW — VERIFY AGAINST DONOR", 50, 56))
+    body.append(text("STANDARD MD EDGE / S&K UPPER-SLOT PROFILE — VERIFY SHELL", 50, 56))
     body.append(')\n')
     return ''.join(body)
 

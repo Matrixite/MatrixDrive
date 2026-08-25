@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Executable reference-model tests for the Sega and Codemasters equations."""
+"""Executable reference-model tests for SMS mapping and MD lock-on save decode."""
 
 
 class Mapper:
@@ -63,6 +63,16 @@ class Mapper:
         return (self.codies_ram_bank << 13) | (address & 0x1FFF)
 
 
+def md_s3_fram_address(word_address: int, *, ce0_n: bool,
+                       profile_enabled: bool):
+    """Return the dedicated 8 KiB FRAM offset for a 68000 word address."""
+    if not profile_enabled or ce0_n:
+        return None
+    if 0x100000 <= word_address <= 0x101FFF:
+        return word_address & 0x1FFF
+    return None
+
+
 def test_sega() -> None:
     mapper = Mapper("sega")
     assert mapper.rom_word(0x0000) == 0x0000
@@ -117,10 +127,26 @@ def test_codemasters() -> None:
     assert mapper.rom_word(0xA000) == (0x7F << 14) | 0x2000
 
 
+def test_sonic3_lock_on_save() -> None:
+    assert md_s3_fram_address(0x0FFFFF, ce0_n=False,
+                              profile_enabled=True) is None
+    assert md_s3_fram_address(0x100000, ce0_n=False,
+                              profile_enabled=True) == 0
+    assert md_s3_fram_address(0x101FFF, ce0_n=False,
+                              profile_enabled=True) == 0x1FFF
+    assert md_s3_fram_address(0x102000, ce0_n=False,
+                              profile_enabled=True) is None
+    assert md_s3_fram_address(0x100000, ce0_n=True,
+                              profile_enabled=True) is None
+    assert md_s3_fram_address(0x100000, ce0_n=False,
+                              profile_enabled=False) is None
+
+
 def main() -> None:
     test_sega()
     test_codemasters()
-    print("Sega and Codemasters mapper reference-model tests passed")
+    test_sonic3_lock_on_save()
+    print("SMS mapper and Sonic & Knuckles lock-on reference-model tests passed")
 
 
 if __name__ == "__main__":

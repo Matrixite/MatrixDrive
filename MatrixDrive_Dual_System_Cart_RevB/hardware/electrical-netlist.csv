@@ -1,0 +1,63 @@
+Net,From,To,Direction or rule
+CART_5V_IN,J1.A2 and J1.A31,F1.1,Join both edge power contacts
+CART_5V,F1.2,"D1.A; U3-U8.VCCA/VCC as applicable; U14-U16.VCCA/VCC",Console-only 5V domain
+USB_VBUS,J2.VBUS,"D2.A; R5.1; R7.1; R29.1",USB source plus two independent presence dividers
+SYS_5V,D1.K and D2.K,"U11.IN; C23.1",Diode-ORed supply
+3V3,U11.OUT,"U1/U2/U9/U10/U13/U17 supplies; U3-U7/U14 VCCB; C decoupling",Digital 3.3V rail
+GND,"J1.A1/A18/A32; J2.GND; all IC grounds",Ground plane,Single continuous plane
+USB_DP,J2.DP,R3.1,Route 90ohm differential with USB_DM
+USB_DP_MCU,R3.2,U1.USB_DP,Short matched pair
+USB_DM,J2.DM,R4.1,Route 90ohm differential with USB_DP
+USB_DM_MCU,R4.2,U1.USB_DM,Short matched pair
+USB_ESD,"USB_DP; USB_DM",U12.IO1/IO2,U12 beside J2 with short ground return
+CC1,J2.CC1,R1.1,R1.2 to GND
+CC2,J2.CC2,R2.1,R2.2 to GND
+BUS_DISABLE,U8.Y,"U3-U6./OE; U14./OE; U15.1A",Low enables console translation; USB with console present drives high
+DATA_HIGH_DISABLE,U15.1Y,U7./OE,Logical BUS_DISABLE OR SMS_MODE_5V
+DATA_GATE_UNUSED,U15.2A/2B,GND,U15.2Y no-connect
+CART_A0-7,U3.B0-B7,"U13.cart_a0-7; U17.A0-7",U3 A-side from J1 VA1-VA8
+CART_A8-13,U4.B0-B5,"U13.cart_a8-13; U17.A8-13",Translated Z80/68000 address and FRAM low address
+CART_A14-15,U4.B6-B7,U13.cart_a14-15,Translated Z80/68000 address
+CART_A16-20,U5.B0-B4,U13.cart_a16-20,Translated MD address; A20 input is pulled low in SMS mode at edge
+CE0_3V3,U5.B5,U13.ce0_n,U5.A5 from J1.B17
+CAS0_3V3,U5.B6,U13.cas0_n,U5.A6 from J1.B16
+CAS2_3V3,U5.B7,U13.cas2_n,U5.A7 from J1.B21
+LWR_3V3,U14.B0,U13.lwr_n,U14.A0 from J1.B28
+MRES_3V3,U14.B1,"U13.reset_n; R41.1",U14.A1 from J1.B2; R41.2 to GND
+UWR_3V3,U14.B2,TP_UWR_3V3,U14.A2 from J1.B29
+AS_3V3,U14.B3,TP_AS_3V3,U14.A3 from J1.B18
+TIME_3V3,U14.B4,TP_TIME_3V3,U14.A4 from J1.B31
+CTRL2_UNUSED,U14.A5-A7,GND,Do not leave enabled translator inputs floating; B5-B7 no-connect
+LOW_DATA_DIR,U16.Y,U6.DIR,U16.A from J1.B28 LWR_N; high only during low-byte writes
+MEM_D0-7,U6.B0-B7,"U2.DQ0-DQ7; U17.DQ0-DQ7; U13.data_in0-7; U1.GPIO21-28",U6 A-side to J1 VD0-VD7; bidirectional by LOW_DATA_DIR
+MEM_D8-15,U7.B0-B7,"U2.DQ8-DQ15; U1.GPIO29-36",U7 DIR low; A-side to J1 VD8-VD15; disabled in SMS mode
+ROM_A0-20,U13.rom_a0-20,"U2.A0-A20; U1.GPIO0-20",CPLD drives console mapping; tri-states for USB programming
+ROM_CE_N,U13.rom_ce_n,"U2.CE_N; U1.GPIO37; R31.1",R31.2 to 3V3; CPLD releases in USB mode
+ROM_OE_N,U13.rom_oe_n,"U2.OE_N; U1.GPIO38; R32.1",R32.2 to 3V3; CPLD releases in USB mode
+ROM_WE_N,U1.GPIO39,"U2.WE_N; R12.1",R12.2 to 3V3; MCU input unless programming
+FRAM_A14,U13.fram_a14,"U17.A14; R33.1",R33.2 to GND; selects one of two 16KiB save banks
+FRAM_CE_N,U13.fram_ce_n,"U17.CE_N; R34.1",R34.2 to 3V3
+FRAM_OE_N,U13.fram_oe_n,"U17.OE_N; R35.1",R35.2 to 3V3
+FRAM_WE_N,U13.fram_we_n,"U17.WE_N; R36.1",R36.2 to 3V3
+USB_MODE_3V3,"R29.2; R30.1",U13.usb_mode,R30.2 to GND; independent VBUS/2 sense for CPLD output release
+SMS_MODE_3V3,SW2 pole A common,"U13.sms_mode; Q1-Q3 gates; SW3.1",SW2 selects 3V3 in SMS and GND in MD; R37-R39 pull gates down
+SMS_MODE_5V,SW2 pole B common,U15.1B,SW2 selects CART_5V in SMS and GND in MD
+PAUSE_GATE,SW3.2,"Q4.G; R40.1",R40.2 to GND; only high when SMS_MODE_3V3 exists and SW3 pressed
+M3_OPEN_DRAIN,Q1.D,J1.B30,Q1.S to GND; never pull up
+VA21_OPEN_DRAIN,Q2.D,J1.B9,Q2.S to GND; also translated as address in MD
+VA22_OPEN_DRAIN,Q3.D,J1.B10,Q3.S to GND; never pull up
+PAUSE_OPEN_DRAIN,Q4.D,J1.B11,Q4.S to GND; SMS NMI pause
+CART_N,J1.B32,R13.1,R13.2 to GND
+DIR_ADDR_CTRL,"U3-U5.DIR; U14.DIR",CART_5V,Translate console A-side to 3V3 B-side
+DIR_DATA_HIGH,U7.DIR,GND,Translate 3V3 memory B-side to console A-side
+ROM_STATIC_STRAPS,U2.RESET_N/WP_N/BYTE_N or mode pins,"R25-R27 to 3V3 as required",Confirm exact names/polarities from ordered package datasheet
+BOOT_QSPI,U1.QSPI pins,U9.CS/CLK/IO0-3,Dedicated XIP bus per current RP2350 reference
+STAGE_MISO,U1.GPIO40,U10.DO,SPI1 RX staging flash
+STAGE_CS,U1.GPIO41,U10.CS_N,GPIO-controlled chip select
+STAGE_SCK,U1.GPIO42,U10.CLK,SPI1 SCK staging flash
+STAGE_MOSI,U1.GPIO43,U10.DI,SPI1 TX staging flash
+USB_SENSE_PROGRAM,U1.GPIO44,"R7.2; R8.1; SW1.1",R8.2 and SW1.2 to GND; VBUS/2 normally and low on button
+LED_GREEN,U1.GPIO45,R9.1,R9.2 to D3 anode; LED cathode GND
+LED_AMBER,U1.GPIO46,R10.1,R10.2 to D4 anode; LED cathode GND
+LED_RED,U1.GPIO47,R11.1,R11.2 to D5 anode; LED cathode GND
+CPLD_JTAG,U13.TCK/TMS/TDI/TDO,J4,J4 also carries 3V3 and GND; do not expose 5V

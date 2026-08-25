@@ -1,0 +1,65 @@
+Contact,Console signal,Direction at cartridge,Rev B connection,Notes
+A1,GND,Power,GND,Ground
+A2,+5V,Power,CART_5V_IN,Join A31 before fuse F1
+A3,VA8,Input,ADDR_XCVR_A7,Cart address bit 7
+A4,VA11,Input,ADDR_XCVR_A10,Cart address bit 10
+A5,VA7,Input,ADDR_XCVR_A6,Cart address bit 6
+A6,VA12,Input,ADDR_XCVR_A11,Cart address bit 11
+A7,VA6,Input,ADDR_XCVR_A5,Cart address bit 5
+A8,VA13,Input,ADDR_XCVR_A12,Cart address bit 12
+A9,VA5,Input,ADDR_XCVR_A4,Cart address bit 4
+A10,VA14,Input,ADDR_XCVR_A13,Cart address bit 13
+A11,VA4,Input,ADDR_XCVR_A3,Cart address bit 3
+A12,VA15,Input,ADDR_XCVR_A14,Cart address bit 14
+A13,VA3,Input,ADDR_XCVR_A2,Cart address bit 2
+A14,VA16,Input,ADDR_XCVR_A15,Cart address bit 15
+A15,VA2,Input,ADDR_XCVR_A1,Cart address bit 1
+A16,VA17,Input,ADDR_XCVR_A16,Cart address bit 16
+A17,VA1,Input,ADDR_XCVR_A0,Cart address bit 0
+A18,GND,Power,GND,Ground
+A19,VD7,Bidirectional,DATA_LOW_XCVR_A7,ROM/SMS data bit 7 and mapper write data
+A20,VD0,Bidirectional,DATA_LOW_XCVR_A0,ROM/SMS data bit 0 and mapper write data
+A21,VD8,Bidirectional,DATA_HIGH_XCVR_A0,MD data bit 8; U7 disabled in SMS mode
+A22,VD6,Bidirectional,DATA_LOW_XCVR_A6,ROM/SMS data bit 6
+A23,VD1,Bidirectional,DATA_LOW_XCVR_A1,ROM/SMS data bit 1
+A24,VD9,Bidirectional,DATA_HIGH_XCVR_A1,MD data bit 9; U7 disabled in SMS mode
+A25,VD5,Bidirectional,DATA_LOW_XCVR_A5,ROM/SMS data bit 5
+A26,VD2,Bidirectional,DATA_LOW_XCVR_A2,ROM/SMS data bit 2
+A27,VD10,Bidirectional,DATA_HIGH_XCVR_A2,MD data bit 10; U7 disabled in SMS mode
+A28,VD4,Bidirectional,DATA_LOW_XCVR_A4,ROM/SMS data bit 4
+A29,VD3,Bidirectional,DATA_LOW_XCVR_A3,ROM/SMS data bit 3
+A30,VD11,Bidirectional,DATA_HIGH_XCVR_A3,MD data bit 11; U7 disabled in SMS mode
+A31,+5V,Power,CART_5V_IN,Join A2 before fuse F1
+A32,GND,Power,GND,Ground
+B1,SL1,Not used,NC,Audio input
+B2,/MRES,Input,CTRL2_XCVR_MRES,CPLD asynchronous mapper reset
+B3,SR2,Not used,NC,Audio input
+B4,VA9,Input,ADDR_XCVR_A8,Cart address bit 8
+B5,VA10,Input,ADDR_XCVR_A9,Cart address bit 9
+B6,VA18,Input,ADDR_XCVR_A17,MD address bit 17
+B7,VA19,Input,ADDR_XCVR_A18,MD address bit 18
+B8,VA20,Input,ADDR_XCVR_A19,MD address bit 19
+B9,VA21,Bidirectional mode,ADDR_XCVR_A20 and Q2 drain,MD address bit 20; open-drain low in SMS mode
+B10,VA22,Mode,Q3 drain,Open-drain low in SMS mode; floating in MD mode
+B11,VA23,Pause,Q4 drain,Open-drain PAUSE/NMI pulse in SMS mode only
+B12,/YS,Not used,NC,Video signal
+B13,/VSYNC,Not used,NC,Video signal
+B14,/HSYNC,Not used,NC,Video signal
+B15,EDCLK,Not used,NC,Video clock
+B16,/CAS0,Input,CTRL_XCVR_CAS0,ROM and FRAM output-enable timing
+B17,/CE_0,Input,CTRL_XCVR_CE0,MD ROM CE and SMS slots 0/1 select
+B18,/AS,Input,CTRL2_XCVR_AS,Translated for diagnostics and future profiles
+B19,VCLK,Input,TP_VCLK,Test point only
+B20,/DTACK,Open drain/unused,NC,Console supplies timing for standard ROM
+B21,/CAS2,Input,CTRL_XCVR_CAS2,SMS slot 2 ROM/FRAM select
+B22,VD15,Bidirectional,DATA_HIGH_XCVR_A7,MD data bit 15; U7 disabled in SMS mode
+B23,VD14,Bidirectional,DATA_HIGH_XCVR_A6,MD data bit 14; U7 disabled in SMS mode
+B24,VD13,Bidirectional,DATA_HIGH_XCVR_A5,MD data bit 13; U7 disabled in SMS mode
+B25,VD12,Bidirectional,DATA_HIGH_XCVR_A4,MD data bit 12; U7 disabled in SMS mode
+B26,/ASEL,Input,NC,Not required
+B27,/VRES,Input,TP_VRES,Test point only
+B28,/LWR,Input,CTRL2_XCVR_LWR and U16 input,SMS mapper and FRAM write strobe
+B29,/UWR,Input,CTRL2_XCVR_UWR,Translated for MD expansion/save profile
+B30,/M3,Mode,Q1 drain,Open-drain low in SMS mode; floating in MD mode
+B31,/TIME,Input,CTRL2_XCVR_TIME,Translated for future MD mapper profiles
+B32,/CART,Output,0R to GND,Selects bootable cartridge mapping

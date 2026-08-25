@@ -1,0 +1,54 @@
+Reference,Quantity,Value or part,Description,Preferred footprint,Populate Rev B,Notes
+U1,1,RP2350B,USB and flash controller,QFN-80-1EP 10x10mm,Yes,Use RP2350B for GPIO0-47
+U2,1,S29GL032N90TFI040,32-Mbit 3V x16 parallel NOR,TSOP-I-48 18.4x12mm,Yes,90ns or faster; verify purchased package pinout
+U3-U5,3,SN74LVC8T245PWR,Address and primary-control 5V-to-3V3 translators,TSSOP-24,Yes,DIR A to B
+U6,1,SN74LVC8T245PWR,Low data byte bidirectional translator,TSSOP-24,Yes,DIR from U16 so SMS writes reach CPLD and FRAM
+U7,1,SN74LVC8T245PWR,High data byte 3V3-to-5V translator,TSSOP-24,Yes,Disabled by U15 in SMS mode
+U8,1,SN74LVC1G17DBVR,USB-present bus-disable buffer,SOT-23-5,Yes,Powered from CART_5V; require Ioff
+U9,1,W25Q16JVSSIQ,2-MiB RP2350 QSPI boot flash,SOIC-8 5.3mm,Yes,Dedicated XIP device
+U10,1,W25Q128JVSIQ,16-MiB USB staging SPI NOR,SOIC-8 5.3mm,Yes,Dedicated FAT16 volume
+U11,1,TLV75533PDBVR,500mA 3.3V LDO,SOT-23-5,Yes,Input from SYS_5V
+U12,1,TPD2EUSB30DRTR,USB D+/D- ESD protector,SOT-9/DRT,Yes,Place beside J2
+U13,1,ATF1508ASV-15AU100,Instant-on dual-system mapper CPLD,TQFP-100 14x14mm,Yes,3.3V; assign pins only after schematic review
+U14,1,SN74LVC8T245PWR,Secondary-control 5V-to-3V3 translator,TSSOP-24,Yes,Translates LWR MRES UWR AS and TIME
+U15,1,SN74LVC2G32DCUR,Upper-data output-disable OR gate,VSSOP-8,Yes,Powered CART_5V; U7 OE = BUS_DISABLE OR SMS_MODE_5V
+U16,1,SN74LVC1G04DBVR,Low-data direction inverter,SOT-23-5,Yes,Powered CART_5V; U6 DIR = NOT LWR_N
+U17,1,FM18W08-SG,32Kx8 nonvolatile SMS save FRAM,SOIC-28 wide,Yes,3.3V operation; no battery
+J1,1,2x32 2.54mm card edge,Mega Drive cartridge edge,PCB gold fingers,Yes,Hard gold and bevel required
+J2,1,USB4105-GF-A,USB-C USB2 receptacle,USB-C 16-pin with shell stakes,Yes,Device/UFP only
+J3,1,2x5 1.27mm header,SWD debug and UART header,PinHeader 2x05 P1.27mm,Optional,DNP after production programming
+J4,1,2x5 1.27mm header,CPLD JTAG programming header,PinHeader 2x05 P1.27mm,Yes,Keep accessible during prototype work
+Y1,1,ABM8-272-T3,12MHz crystal,3.2x2.5mm 4-pad,Yes,Match RP2350 hardware-guide network
+L1,1,AOTA-B201610S3R3-101-T,3.3uH polarised RP2350 core-regulator inductor,2.0x1.6mm vendor footprint,Yes,Copy orientation and placement from current official design
+F1,1,MF-MSMF020-2,200mA resettable fuse,1812,Yes,Revalidate against measured dual-system current
+D1-D2,2,PMEG2010AEB,1A low-drop Schottky,SOD-523,Yes,Source isolation into SYS_5V
+D3-D5,3,LTST-C190KGKT/LTST-C190YKT/LTST-C190KRKT,Green amber red status LEDs,0603,Yes,Use separate current resistors
+Q1-Q4,4,2N7002,Open-drain M3 VA21 VA22 and PAUSE pulls,SOT-23,Yes,Gates never connect directly to 5V bus
+R1-R2,2,5.1k 1%,USB-C CC1 and CC2 Rd,0603,Yes,One resistor per CC pin
+R3-R4,2,27R 1%,USB D+/D- series resistors,0603,Yes,Place near U1
+R5,1,10k,USB_VBUS to U8 input series resistor,0603,Yes,
+R6,1,100k,U8 input pulldown,0603,Yes,
+R7-R8,2,100k,USB detect and PROGRAM ADC divider,0603,Yes,GPIO44 sees VBUS/2; SW1 parallels R8
+R9-R11,3,1k,LED current resistors,0603,Yes,
+R12,1,10k,ROM_WE_N pullup,0603,Yes,Prevents accidental active-NOR writes
+R13,1,0R,/CART strap to GND,0603,Yes,
+R14,1,100k,BUS_DISABLE pulldown,0603,Yes,Keeps pass-through enabled during CART_5V ramp
+R15-R18,4,10k,Optional translator OE pulldowns,0603,DNP,Common BUS_DISABLE is authoritative
+R19-R23,5,10k,Translator DIR straps,0603,Yes,U3-U5/U14 high and U7 low; U6 is dynamic
+R24,1,33R 1%,RP2350 VREG_AVDD filter resistor,0603,Yes,Confirm against current official reference
+R25-R27,3,10k,Parallel-flash RESET/WP/mode straps,0603,Yes,Confirm names and polarities for exact package
+R28,1,1k 1%,RP2350 crystal series resistor,0402/0603,Yes,Copy official position and connection
+R29-R30,2,100k,Independent USB_MODE_3V3 divider,0603,Yes,USB_VBUS/2 to U13; never share PROGRAM button node
+R31-R36,6,10k,ROM and FRAM inactive control pullups,0603,Yes,Holds CE OE WE inactive whenever U13 releases outputs
+R37-R40,4,100k,Open-drain FET gate pulldowns,0603,Yes,MD and PAUSE default inactive
+R41,1,100k,MRES_3V3 reset pulldown,0603,Yes,CPLD mapper defaults held until console reset arrives
+C1-C18,18,100nF X7R,Local digital decoupling,0603,Yes,One at every IC rail pair plus MCU groups
+C19-C22,4,1uF X7R,Bulk/local decoupling,0603,Yes,Flash CPLD and translator banks
+C23-C24,2,10uF X7R,Regulator input/output bulk,0805,Yes,Check LDO stability guidance
+C25-C26,2,15pF C0G 5%,Crystal load capacitors,0402/0603,Yes,Recalculate for layout and specified crystal
+C27,1,4.7uF X7R,RP2350 1V1 core output capacitor,0603,Yes,Copy current official design
+C28-C33,6,TBD per official reference,RP2350 regulator ADC and IO support capacitors,0402/0603,Yes,Do not release until copied from current minimal design
+SW1,1,PTS636,Manual PROGRAM button,SMD 6x3.5mm,Yes,Pulls GPIO44 ADC ladder low only while USB mounted
+SW2,1,DPDT break-before-make slide,MD/SMS hardware mode switch,SMD right-angle slide,Yes,One pole 3V3 mode/FET gates; one pole 5V U7 disable
+SW3,1,PTS636,Master System PAUSE button,SMD 6x3.5mm,Yes,Drives Q4 gate only from SMS_MODE_3V3
+TP1-TP20,20,Test points,Power mode bus and mapper diagnostics,1.0mm SMD pad,Yes,Include USB_MODE and every memory control

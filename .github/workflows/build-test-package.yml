@@ -1,0 +1,110 @@
+name: Build, test, and package MatrixDrive
+
+on:
+  push:
+    branches:
+      - codemasters-64k-fram
+      - main
+    paths:
+      - "MatrixDrive_Dual_System_Cart_RevB/**"
+      - ".github/workflows/build-test-package.yml"
+  pull_request:
+    paths:
+      - "MatrixDrive_Dual_System_Cart_RevB/**"
+      - ".github/workflows/build-test-package.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  PROJECT_DIR: MatrixDrive_Dual_System_Cart_RevB
+  PICO_SDK_VERSION: 2.3.0
+  PACKAGE_NAME: MatrixDrive_Dual_System_Cart_RevB_Codemasters_64K_FRAM
+
+jobs:
+  build-test-package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install host, ARM, and RTL tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y             build-essential cmake ninja-build gcc-arm-none-eabi             libnewlib-arm-none-eabi iverilog zip
+
+      - name: Fetch Raspberry Pi Pico SDK
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --branch "$PICO_SDK_VERSION"             --recurse-submodules --shallow-submodules             https://github.com/raspberrypi/pico-sdk.git "$RUNNER_TEMP/pico-sdk"
+
+      - name: Regenerate PCB placement template
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 "$PROJECT_DIR/tools/generate_kicad_pcb.py"
+
+      - name: Run static, host, model, and RTL tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 "$PROJECT_DIR/tools/validate_project.py"
+
+      - name: Configure RP2350B firmware
+        shell: bash
+        env:
+          PICO_SDK_PATH: ${{ runner.temp }}/pico-sdk
+        run: |
+          set -euo pipefail
+          cmake -S "$PROJECT_DIR/firmware" -B build/firmware -G Ninja             -DPICO_BOARD=matrixdrive             -DPICO_PLATFORM=rp2350-arm-s             -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build RP2350B firmware
+        shell: bash
+        run: |
+          set -euo pipefail
+          cmake --build build/firmware
+
+      - name: Package source and firmware outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf dist
+          mkdir -p "dist/$PACKAGE_NAME/firmware/prebuilt"
+          cp -a "$PROJECT_DIR/." "dist/$PACKAGE_NAME/"
+          cp build/firmware/matrixdrive.uf2              build/firmware/matrixdrive.bin              build/firmware/matrixdrive.elf              build/firmware/matrixdrive.hex              "dist/$PACKAGE_NAME/firmware/prebuilt/"
+          {
+            echo "MatrixDrive Rev B Codemasters + 64 KiB FRAM build"
+            echo "Source commit: $GITHUB_SHA"
+            echo "Pico SDK: $PICO_SDK_VERSION"
+            echo "Validation: host C tests, Python mapper model, RTL simulation, RP2350B firmware build"
+          } > "dist/$PACKAGE_NAME/BUILD-INFO.txt"
+          (
+            cd dist
+            zip -qr "../$PACKAGE_NAME.zip" "$PACKAGE_NAME"
+          )
+
+      - name: Upload rebuilt project
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.PACKAGE_NAME }}
+          path: ${{ env.PACKAGE_NAME }}.zip
+          if-no-files-found: error
+
+      - name: Commit regenerated template and rebuilt ZIP
+        if: github.event_name == 'push' && github.ref == 'refs/heads/codemasters-64k-fram'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$PROJECT_DIR/hardware/MatrixDrive-RevB.kicad_pcb"                   "$PACKAGE_NAME.zip"
+          if git diff --cached --quiet; then
+            echo "Generated files are already current."
+            exit 0
+          fi
+          git commit -m "Regenerate PCB template and package build [skip ci]"
+          git push

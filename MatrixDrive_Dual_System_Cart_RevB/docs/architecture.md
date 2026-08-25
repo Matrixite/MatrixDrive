@@ -7,8 +7,8 @@ cartridge bus to 3.3 V, and an instant-on CPLD selects the address mapping.
 
 ```text
 MD mode:  68000 bus -> translators -> CPLD pass-through -> x16 NOR
-SMS mode: Z80 bus   -> translators -> CPLD Sega mapper   -> NOR low byte
-                         write tap -> mapper registers    -> x8 FRAM saves
+SMS mode: Z80 bus   -> translators -> CPLD selected mapper -> NOR low byte
+                         write tap -> Sega/Codies registers -> 2 x x8 FRAM
 USB mode: USB-C -> RP2350B -> staging SPI NOR -> active parallel NOR
 ```
 
@@ -44,13 +44,16 @@ Power-Base-Converter-style interface. The CPLD then:
 
 - uses translated VA1-VA16 as Z80 A0-A15;
 - observes `$FFFC-$FFFF` writes through a dedicated VD0-VD7 input translator;
-- maps three 16 KiB ROM slots and fixes `$0000-$03FF` to ROM bank zero;
+- maps three 16 KiB ROM slots using the power-off SW4 profile;
+- in Sega mode, fixes `$0000-$03FF` and decodes `$FFFC-$FFFF`;
+- in Codemasters mode, decodes exact writes at `$0000/$4000/$8000`;
 - uses `/CE_0` for `$0000-$7FFF` and `/CAS2` for `$8000-$BFFF`;
 - drives only the low console data byte for ROM and save-memory reads;
-- decodes Sega save RAM in slot 2 when mapper control bit 3 is set.
+- decodes 32 KiB Sega saves or banked 64 KiB Codemasters saves.
 
-SW3 pulls the cartridge PAUSE/NMI contact low through an open-drain FET. See
-`master-system-mode.md` for exact equations and compatibility.
+SW3 pulls the cartridge PAUSE/NMI contact low through an open-drain FET. SW4
+selects Sega or Codemasters mapper logic and must only move while unpowered.
+See `master-system-mode.md` for exact equations and compatibility.
 
 ## USB storage and installation
 
@@ -71,4 +74,5 @@ SMS 8-bit data.
 RP2350 GPIO0-GPIO39 share the NOR-side bus. They remain inputs when USB is
 absent. With USB present, U13 first releases its address/control outputs and the
 cartridge translators are isolated before firmware makes those GPIOs outputs.
-External pullups hold NOR and FRAM inactive during reset and handover.
+External pulls hold NOR/FRAM controls inactive and FRAM A13/A14 low during
+reset and handover. U17/U18 provide two 32 KiB halves of the 64 KiB save array.

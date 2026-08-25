@@ -12,13 +12,13 @@ depends on microcontroller response time while a game is running.
 | Console mode | File | Active image limit | Cartridge hardware |
 | --- | --- | ---: | --- |
 | Mega Drive / Genesis | `.BIN`, `.MD`, `.GEN` | 4 MiB | Linear `$000000-$3FFFFF` ROM |
-| Master System | `.SMS` | 2 MiB | Sega mapper, registers `$FFFC-$FFFF` |
+| Master System | `.SMS` | 2 MiB | Sega or Codemasters mapper selected by SW4 |
 
 SMS images are stored one byte per x16 NOR word so the cartridge can present an
-8-bit bus without a second ROM. The CPLD implements the normal Sega 16 KiB bank
-mapper, the fixed first 1 KiB region, and two 16 KiB banks of non-volatile FRAM
-save memory. Plain 8/16/32/48 KiB images and larger Sega-mapper images work.
-Codemasters, Korean and other special mappers are outside Revision B's scope.
+8-bit bus without a second ROM. The CPLD implements the normal Sega 16 KiB mapper or the Codemasters 16 KiB mapper selected by a
+power-off switch. Two 32 KiB parallel FRAMs provide 64 KiB of non-volatile save
+memory: Sega uses its lower 32 KiB, while Codemasters can select eight 8 KiB
+banks. Plain 8/16/32/48 KiB images and larger mapped images work.
 
 The intended host is a Mega Drive/Genesis with working Master System
 compatibility. It is not shaped for a standalone Master System cartridge slot.
@@ -32,10 +32,11 @@ Some later console revisions and clones omit or alter Master System support.
    erased, repacked and verified.
 4. Disconnect USB. With the console powered off, set `SW2` to **MD** for a Mega
    Drive image or **SMS** for a Master System image.
-5. Insert the cartridge and power on. In SMS mode, press the cartridge's
+5. For SMS, set `SW4` to **SEGA** or **CODEMASTERS** for the ROM's mapper.
+6. Insert the cartridge and power on. In SMS mode, press the cartridge's
    **PAUSE** button for games that use the Master System NMI pause input.
 
-Never move the MD/SMS switch with the console powered. Never connect USB while
+Never move the MD/SMS or Sega/Codemasters switch with the console powered. Never connect USB while
 the cartridge is inserted. Hardware isolates the bus and supply domains, but a
 console cannot boot while USB programming mode is active.
 
@@ -53,7 +54,8 @@ console cannot boot while USB programming mode is active.
 - RP2350B, USB Full-Speed Mass Storage and a 16 MiB FAT16 staging flash.
 - S29GL032N-compatible 32-Mbit x16 active parallel NOR.
 - ATF1508ASV-15AU100 CPLD for instant-on mode selection and SMS mapping.
-- FM18W08 32 KiB x8 FRAM for SMS save RAM, no battery required.
+- Two FM18W08 32 KiB x8 FRAMs (64 KiB total), no battery required.
+- Power-off Sega/Codemasters mapper selector for SMS images.
 - Dual-supply 5 V/3.3 V translation on every active cartridge signal.
 - USB/console source isolation, USB-present bus isolation, PROGRAM and PAUSE
   buttons, and an MD/SMS power-off slide switch.
@@ -67,7 +69,8 @@ console cannot boot while USB programming mode is active.
 - `hardware/bom.csv`, `connector-pinout.csv`, `electrical-netlist.csv` —
   component and connection authorities.
 - `hardware/MatrixDrive-RevB.kicad_pcb` — mechanical/placement-only template.
-- `cpld/matrixdrive_mapper.v` — synthesizable mapper source and host model test.
+- `cpld/matrixdrive_mapper.v` — synthesizable dual-profile mapper source.
+- `cpld/test_matrixdrive_mapper.v` — RTL mapper/FRAM decode testbench.
 - `firmware/` — RP2350/Pico SDK firmware source.
 
 ## Engineering status
@@ -99,6 +102,7 @@ proper VID/PID before distribution.
 - TinyUSB MSC: <https://docs.tinyusb.org/en/latest/examples/device/cdc_msc.html>
 - Cartridge signals: <https://plutiedev.com/cartridge-slot>
 - Sega SMS mapper: <https://www.smspower.org/Development/Mappers>
+- MAME Codemasters implementation: <https://github.com/mamedev/mame/blob/master/src/devices/bus/sega8/rom.cpp>
 - SMS memory map: <https://www.smspower.org/Development/MemoryMap>
 - ATF1508ASV: <https://www.microchip.com/en-us/product/atf1508asv>
 - FM18W08 FRAM: <https://www.infineon.com/part/FM18W08-SG>

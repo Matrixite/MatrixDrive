@@ -3,7 +3,7 @@ CART_5V_IN,J1.A2 and J1.A31,F1.1,Join both edge power contacts
 CART_5V,F1.2,"D1.A; U3-U8.VCCA/VCC as applicable; U14-U16.VCCA/VCC",Console-only 5V domain
 USB_VBUS,J2.VBUS,"D2.A; R5.1; R7.1; R29.1",USB source plus two independent presence dividers
 SYS_5V,D1.K and D2.K,"U11.IN; C23.1",Diode-ORed supply
-3V3,U11.OUT,"U1/U2/U9/U10/U13/U17 supplies; U3-U7/U14 VCCB; C decoupling",Digital 3.3V rail
+3V3,U11.OUT,"U1/U2/U9/U10/U13/U17/U18 supplies; U3-U7/U14 VCCB; C decoupling",Digital 3.3V rail
 GND,"J1.A1/A18/A32; J2.GND; all IC grounds",Ground plane,Single continuous plane
 USB_DP,J2.DP,R3.1,Route 90ohm differential with USB_DM
 USB_DP_MCU,R3.2,U1.USB_DP,Short matched pair
@@ -15,8 +15,9 @@ CC2,J2.CC2,R2.1,R2.2 to GND
 BUS_DISABLE,U8.Y,"U3-U6./OE; U14./OE; U15.1A",Low enables console translation; USB with console present drives high
 DATA_HIGH_DISABLE,U15.1Y,U7./OE,Logical BUS_DISABLE OR SMS_MODE_5V
 DATA_GATE_UNUSED,U15.2A/2B,GND,U15.2Y no-connect
-CART_A0-7,U3.B0-B7,"U13.cart_a0-7; U17.A0-7",U3 A-side from J1 VA1-VA8
-CART_A8-13,U4.B0-B5,"U13.cart_a8-13; U17.A8-13",Translated Z80/68000 address and FRAM low address
+CART_A0-7,U3.B0-B7,"U13.cart_a0-7; U17.A0-7; U18.A0-7",U3 A-side from J1 VA1-VA8
+CART_A8-12,U4.B0-B4,"U13.cart_a8-12; U17.A8-12; U18.A8-12",Translated address and FRAM 8 KiB window offset
+CART_A13,U4.B5,U13.cart_a13,Translated address; FRAM A13 is mapper-controlled
 CART_A14-15,U4.B6-B7,U13.cart_a14-15,Translated Z80/68000 address
 CART_A16-20,U5.B0-B4,U13.cart_a16-20,Translated MD address; A20 input is pulled low in SMS mode at edge
 CE0_3V3,U5.B5,U13.ce0_n,U5.A5 from J1.B17
@@ -29,19 +30,22 @@ AS_3V3,U14.B3,TP_AS_3V3,U14.A3 from J1.B18
 TIME_3V3,U14.B4,TP_TIME_3V3,U14.A4 from J1.B31
 CTRL2_UNUSED,U14.A5-A7,GND,Do not leave enabled translator inputs floating; B5-B7 no-connect
 LOW_DATA_DIR,U16.Y,U6.DIR,U16.A from J1.B28 LWR_N; high only during low-byte writes
-MEM_D0-7,U6.B0-B7,"U2.DQ0-DQ7; U17.DQ0-DQ7; U13.data_in0-7; U1.GPIO21-28",U6 A-side to J1 VD0-VD7; bidirectional by LOW_DATA_DIR
+MEM_D0-7,U6.B0-B7,"U2.DQ0-DQ7; U17.DQ0-DQ7; U18.DQ0-DQ7; U13.data_in0-7; U1.GPIO21-28",U6 A-side to J1 VD0-VD7; bidirectional by LOW_DATA_DIR
 MEM_D8-15,U7.B0-B7,"U2.DQ8-DQ15; U1.GPIO29-36",U7 DIR low; A-side to J1 VD8-VD15; disabled in SMS mode
 ROM_A0-20,U13.rom_a0-20,"U2.A0-A20; U1.GPIO0-20",CPLD drives console mapping; tri-states for USB programming
 ROM_CE_N,U13.rom_ce_n,"U2.CE_N; U1.GPIO37; R31.1",R31.2 to 3V3; CPLD releases in USB mode
 ROM_OE_N,U13.rom_oe_n,"U2.OE_N; U1.GPIO38; R32.1",R32.2 to 3V3; CPLD releases in USB mode
 ROM_WE_N,U1.GPIO39,"U2.WE_N; R12.1",R12.2 to 3V3; MCU input unless programming
-FRAM_A14,U13.fram_a14,"U17.A14; R33.1",R33.2 to GND; selects one of two 16KiB save banks
-FRAM_CE_N,U13.fram_ce_n,"U17.CE_N; R34.1",R34.2 to 3V3
-FRAM_OE_N,U13.fram_oe_n,"U17.OE_N; R35.1",R35.2 to 3V3
-FRAM_WE_N,U13.fram_we_n,"U17.WE_N; R36.1",R36.2 to 3V3
+FRAM_A13,U13.fram_a13,"U17.A13; U18.A13; R42.1",R42.2 to GND; Sega follows CPU A13; Codemasters bank bit 0
+FRAM_A14,U13.fram_a14,"U17.A14; U18.A14; R33.1",R33.2 to GND; Sega bank bit; Codemasters bank bit 1
+FRAM_CE_N,U13.fram_ce_n,"U17.CE_N; R34.1",R34.2 to 3V3; logical FRAM A15=0
+FRAM_HI_CE_N,U13.fram_hi_ce_n,"U18.CE_N; R43.1",R43.2 to 3V3; logical FRAM A15=1
+FRAM_OE_N,U13.fram_oe_n,"U17.OE_N; U18.OE_N; R35.1",R35.2 to 3V3
+FRAM_WE_N,U13.fram_we_n,"U17.WE_N; U18.WE_N; R36.1",R36.2 to 3V3
 USB_MODE_3V3,"R29.2; R30.1",U13.usb_mode,R30.2 to GND; independent VBUS/2 sense for CPLD output release
 SMS_MODE_3V3,SW2 pole A common,"U13.sms_mode; Q1-Q3 gates; SW3.1",SW2 selects 3V3 in SMS and GND in MD; R37-R39 pull gates down
 SMS_MODE_5V,SW2 pole B common,U15.1B,SW2 selects CART_5V in SMS and GND in MD
+SMS_MAPPER_CM_3V3,SW4 common,"U13.codemasters_mapper; R44.1",R44.2 to GND; SW4 selects 3V3 for Codemasters and GND for Sega; power-off only
 PAUSE_GATE,SW3.2,"Q4.G; R40.1",R40.2 to GND; only high when SMS_MODE_3V3 exists and SW3 pressed
 M3_OPEN_DRAIN,Q1.D,J1.B30,Q1.S to GND; never pull up
 VA21_OPEN_DRAIN,Q2.D,J1.B9,Q2.S to GND; also translated as address in MD

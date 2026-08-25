@@ -85,13 +85,15 @@ def build() -> str:
         placeholder("U13", "ATF1508ASV CPLD", 27, 26, 14, 14),
         placeholder("U14", "CTRL2 XCVR", 13, 27, 8, 6.5),
         placeholder("U15-U16", "DATA CONTROL", 75, 30, 7, 5),
-        placeholder("U17", "32KiB SMS FRAM", 87, 28, 10, 8),
+        placeholder("U17", "32KiB FRAM LOW", 88, 25, 10, 8),
+        placeholder("U18", "32KiB FRAM HIGH", 88, 34, 10, 8),
         placeholder("J4", "CPLD JTAG", 8, 4, 8, 5),
         placeholder("Y1", "12MHz", 40, 7, 4, 3),
         placeholder("L1", "POLARISED 3V3 CORE L", 57, 7, 4, 3),
         placeholder("SW1", "PROGRAM", 73, 7, 6, 4),
         placeholder("SW2", "MD / SMS", 86, 7, 8, 4),
         placeholder("SW3", "SMS PAUSE", 86, 14, 8, 4),
+        placeholder("SW4", "SEGA / CODEMASTERS", 86, 20, 12, 4),
         placeholder("D3-D5", "STATUS LEDS", 72, 19, 8, 4),
     ])
     body.append(text("B1/A1 AT LEFT IN THIS VIEW — VERIFY AGAINST DONOR", 50, 56))

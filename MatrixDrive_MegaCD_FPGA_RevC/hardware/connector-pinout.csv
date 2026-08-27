@@ -1,0 +1,65 @@
+Contact,Console signal,Revision C use,Direction at cartridge,Notes
+A1,GND,Ground,Power,Continuous ground plane
+A2,+5V,Protected cartridge supply,Power,Join A31 before F1
+A3,VA8,FPGA address input,Input,Through translator
+A4,VA11,FPGA address input,Input,Through translator
+A5,VA7,FPGA address input,Input,Through translator
+A6,VA12,FPGA address input,Input,Through translator
+A7,VA6,FPGA address input,Input,Through translator
+A8,VA13,FPGA address input,Input,Through translator
+A9,VA5,FPGA address input,Input,Through translator
+A10,VA14,FPGA address input,Input,Through translator
+A11,VA4,FPGA address input,Input,Through translator
+A12,VA15,FPGA address input,Input,Through translator
+A13,VA3,FPGA address input,Input,Through translator
+A14,VA16,FPGA address input,Input,Through translator
+A15,VA2,FPGA address input,Input,Through translator
+A16,VA17,FPGA address input,Input,Through translator
+A17,VA1,FPGA address input,Input,Through translator
+A18,GND,Ground,Power,Continuous ground plane
+A19,VD7,FPGA data bit 7,Bidirectional,Direction controlled per bus cycle
+A20,VD0,FPGA data bit 0,Bidirectional,Direction controlled per bus cycle
+A21,VD8,FPGA data bit 8,Bidirectional,Direction controlled per bus cycle
+A22,VD6,FPGA data bit 6,Bidirectional,Direction controlled per bus cycle
+A23,VD1,FPGA data bit 1,Bidirectional,Direction controlled per bus cycle
+A24,VD9,FPGA data bit 9,Bidirectional,Direction controlled per bus cycle
+A25,VD5,FPGA data bit 5,Bidirectional,Direction controlled per bus cycle
+A26,VD2,FPGA data bit 2,Bidirectional,Direction controlled per bus cycle
+A27,VD10,FPGA data bit 10,Bidirectional,Direction controlled per bus cycle
+A28,VD4,FPGA data bit 4,Bidirectional,Direction controlled per bus cycle
+A29,VD3,FPGA data bit 3,Bidirectional,Direction controlled per bus cycle
+A30,VD11,FPGA data bit 11,Bidirectional,Direction controlled per bus cycle
+A31,+5V,Protected cartridge supply,Power,Join A2 before F1
+A32,GND,Ground,Power,Continuous ground plane
+B1,SL1,Left FPGA audio into console,Output analog,AC-coupled measured-level output
+B2,/MRES,FPGA and MCU reset sense,Input,Never drive directly
+B3,SR2,Right FPGA audio into console,Output analog,AC-coupled measured-level output
+B4,VA9,FPGA address input,Input,Through translator
+B5,VA10,FPGA address input,Input,Through translator
+B6,VA18,FPGA address input,Input,Through translator
+B7,VA19,FPGA address input,Input,Through translator
+B8,VA20,FPGA address input,Input,Through translator
+B9,VA21,FPGA address input,Input,Through translator
+B10,VA22,FPGA address input,Input,Required for full 24-bit Mega-CD decode
+B11,VA23,FPGA address input,Input,Required for full 24-bit Mega-CD decode
+B12,/YS,Unused video signal,No connect,Test pad only
+B13,/VSYNC,Timing observation,Input,Optional debug capture
+B14,/HSYNC,Timing observation,Input,Optional debug capture
+B15,EDCLK,Timing observation,Input,Optional debug capture
+B16,/CAS0,FPGA data output-enable timing,Input,Through translator
+B17,/CE_0,ROM/RAM aperture select,Input,Through translator
+B18,/AS,Full bus-cycle qualifier,Input,Required for A120xx and backup aperture
+B19,VCLK,Console clock reference,Input,Use input buffer and timing constraint
+B20,/DTACK,FPGA open-drain wait-state acknowledge,Open drain,U20/Q1 only; never drive high
+B21,/CAS2,Secondary select and diagnostics,Input,Through translator
+B22,VD15,FPGA data bit 15,Bidirectional,Direction controlled per bus cycle
+B23,VD14,FPGA data bit 14,Bidirectional,Direction controlled per bus cycle
+B24,VD13,FPGA data bit 13,Bidirectional,Direction controlled per bus cycle
+B25,VD12,FPGA data bit 12,Bidirectional,Direction controlled per bus cycle
+B26,/ASEL,Address-mode observation,Input,Test and timing constraint
+B27,/VRES,Reset/timing observation,Input,Do not drive until function is proven
+B28,/LWR,Lower-byte write strobe,Input,Through translator
+B29,/UWR,Upper-byte write strobe,Input,Through translator
+B30,/M3,Remain inactive in Mega-CD mode,No connect,Do not assert SMS mode
+B31,/TIME,Cartridge I/O timing and observation,Input,Through translator
+B32,/CART,Bootable cartridge select,Output strap,0 ohm to ground in MCD profile

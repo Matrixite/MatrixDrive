@@ -1,6 +1,6 @@
-# MatrixDrive Dual-System USB Cartridge — Revision B
+# MatrixDrive Dual-System USB Cartridge — Revision B plus FPGA FM option
 
-MatrixDrive Revision B is a prototype USB-loadable Mega Drive/Genesis cartridge that can also supply ROM to a real 32X, run Master System software on compatible consoles, and act as the upper cartridge in Sonic & Knuckles lock-on mode. USB-C exposes a removable FAT16 drive named `MATRIXDRV`; after one ROM is copied and safely ejected, the RP2350B installs it into non-volatile parallel NOR.
+MatrixDrive Revision B is a prototype USB-loadable Mega Drive/Genesis cartridge that can also supply ROM to a real 32X, run Master System software on compatible consoles, and act as the upper cartridge in Sonic & Knuckles lock-on mode. USB-C exposes a removable FAT16 drive named `MATRIXDRV`; after one ROM is copied and safely ejected, the RP2350B installs it into non-volatile parallel NOR. An optional FPGA board spin implements Master System YM2413 FM audio.
 
 Console reads never depend on RP2350 response time. Translators and an instant-on CPLD connect the console directly to NOR or the selected FRAM.
 
@@ -11,7 +11,7 @@ Console reads never depend on RP2350 response time. Translators and an instant-o
 | Mega Drive / Genesis | `.BIN`, `.MD`, `.GEN` | 4 MiB | Linear `$000000-$3FFFFF` ROM |
 | 32X through a real 32X | `.32X` | 4 MiB | Linear x16 ROM with 4 MiB mask-ROM-style mirroring |
 | Sonic & Knuckles upper slot | Mega Drive image | 2 MiB recommended | Mirrored ROM; optional Sonic 3 save profile |
-| Master System | `.SMS` | 2 MiB | Sega or Codemasters mapper selected by SW4 |
+| Master System | `.SMS` | 2 MiB | Sega or Codemasters mapper selected by SW4; optional FPGA YM2413 |
 
 Power-of-two Mega Drive images smaller than 2 MiB are repeated by the installer through the full 2 MiB lock-on window. This gives a 1 MiB Sonic 2 image the mirroring expected from its original mask ROM.
 
@@ -20,6 +20,11 @@ Power-of-two `.32X` images smaller than 4 MiB are repeated through the complete 
 For Sonic 3 & Knuckles, SW4's high position in MD mode enables a dedicated 8 KiB odd-byte FRAM window at `$200001-$203FFF`. This storage is physically separate from the two FM18W08 devices that supply the complete 64 KiB SMS save array.
 
 SMS images are stored one byte per x16 NOR word. The CPLD implements Sega or Codemasters 16 KiB banking selected by SW4. Plain 8/16/32/48 KiB images and larger mapped images work.
+
+On the FPGA board spin, Master System ports `F0`/`F1` write the YM2413 and
+`F2` supplies the three-bit detection register. The FPGA uses VA19 as the
+mandatory `/IORQ` qualifier and injects filtered, AC-coupled mono audio through
+SL1 and SR2. See `fpga/README.md`.
 
 ## Normal use
 
@@ -46,7 +51,7 @@ Never move either switch while powered. Never connect USB while MatrixDrive is i
 
 MatrixDrive does not emulate a 32X. In this mode, the physical 32X supplies its dual SH2 processors, boot ROM, registers, video and audio hardware, while MatrixDrive behaves as the attached 4 MiB cartridge ROM. The 32X adapter performs its normal cartridge banking internally.
 
-Use SW2=MD and SW4=LINEAR. SW4's S3 SAVE position is not compatible because it intentionally replaces odd-byte addresses `$200001-$203FFF` with FRAM. Generic 32X SRAM/EEPROM saves, 32X CD software, images larger than 4 MiB, and special cartridge hardware are not implemented.
+Use SW2=MD and SW4=LINEAR. SW4's S3 SAVE position is not compatible because it intentionally replaces odd-byte addresses `$200001-$203FFF` with FRAM. Generic 32X SRAM/EEPROM saves, images larger than 4 MiB, and special cartridge hardware are not implemented.
 
 See `docs/32x-mode.md` for exact mapping and real-hardware bring-up requirements.
 
@@ -79,6 +84,7 @@ See `docs/sonic-knuckles-lock-on.md` for exact use and remaining physical-fit va
 - U17/U18: two FM18W08 32 KiB x8 FRAMs, exactly 64 KiB for SMS saves.
 - U20: dedicated FM18W08, with 8 KiB decoded for Sonic 3 lock-on saves.
 - U19: SN74LVC1T45 translating the MD high-data-disable control to CART_5V.
+- Optional U21 ECP5 FPGA, configuration flash, 14.318180 MHz clock, IKAOPLL core, and PDM audio filter.
 - Dual-supply 5 V/3.3 V translation on every active cartridge signal.
 - USB/console source isolation, PROGRAM and PAUSE buttons, and power-off selectors.
 
@@ -93,11 +99,12 @@ See `docs/sonic-knuckles-lock-on.md` for exact use and remaining physical-fit va
 - `hardware/MatrixDrive-RevB.kicad_pcb` — mechanical/placement-only template.
 - `cpld/matrixdrive_mapper.v` — synthesizable SMS and lock-on decoder RTL.
 - `cpld/test_matrixdrive_mapper.v` — RTL mapper/FRAM testbench.
+- `fpga/` — YM2413 RTL, vendored BSD core, tests, synthesis script, and logical hardware integration.
 - `firmware/` — RP2350/Pico SDK firmware source.
 
 ## Engineering status
 
-This is a **Revision B engineering prototype**, not a fabrication-ready or production-tested commercial cartridge. The PCB is intentionally unrouted. Before fabrication, capture and review a complete schematic, assign and fit the CPLD, verify resources and timing, copy the official RP2350B minimal design, confirm exact packages, and measure the edge/shell against a normal donor cartridge, a real 32X cartridge slot, and a real Sonic & Knuckles upper slot.
+This is a **Revision B engineering prototype**, not a fabrication-ready or production-tested commercial cartridge. The PCB is intentionally unrouted. Before fabrication, capture and review a complete schematic, assign and fit the CPLD, verify resources and timing, copy the official RP2350B minimal design, confirm exact packages, and measure the edge/shell against a normal donor cartridge, a real 32X cartridge slot, and a real Sonic & Knuckles upper slot. The FPGA FM option additionally requires a new board spin, package-pin constraints, place-and-route timing, power analysis, audio-filter measurement, and real-console validation.
 
 Do not send the included KiCad template directly to fabrication. Complete `docs/safety-and-bringup.md` before any console test.
 
@@ -108,6 +115,7 @@ Do not send the included KiCad template directly to fabrication. Complete `docs/
 - Icarus Verilog for RTL simulation.
 - KiCad 8 or later for the placement template.
 - A verified ATF1508ASV fitting/JED programming flow.
+- Yosys with ECP5 support and Icarus Verilog for the optional FM RTL; nextpnr-ecp5 after final pin constraints exist.
 
 The prototype USB descriptor uses TinyUSB's development VID `0xCAFE`. Obtain a proper VID/PID before distribution.
 
@@ -120,3 +128,6 @@ The prototype USB descriptor uses TinyUSB's development VID `0xCAFE`. Obtain a p
 - RP2350: <https://www.raspberrypi.com/documentation/microcontrollers/microcontroller-chips.html>
 - ATF1508ASV: <https://www.microchip.com/en-us/product/atf1508asv>
 - FM18W08 FRAM: <https://www.infineon.com/part/FM18W08-SG>
+- IKAOPLL YM2413 core: <https://github.com/ika-musume/IKAOPLL>
+- FM Power Base Converter decode reference: <https://github.com/db-electronics/FMPBC>
+- Lattice ECP5: <https://www.latticesemi.com/en/Products/FPGAandCPLD/ECP5>

@@ -5,18 +5,15 @@ on:
     branches:
       - codemasters-64k-fram
       - sonic-knuckles-lock-on
-      - megacd-fpga-ode
       - main
     paths:
       - "README.md"
       - "MatrixDrive_Dual_System_Cart_RevB/**"
-      - "MatrixDrive_MegaCD_FPGA_RevC/**"
       - ".github/workflows/build-test-package.yml"
   pull_request:
     paths:
       - "README.md"
       - "MatrixDrive_Dual_System_Cart_RevB/**"
-      - "MatrixDrive_MegaCD_FPGA_RevC/**"
       - ".github/workflows/build-test-package.yml"
   workflow_dispatch:
 
@@ -26,9 +23,7 @@ permissions:
 env:
   PROJECT_DIR: MatrixDrive_Dual_System_Cart_RevB
   PICO_SDK_VERSION: 2.3.0
-  PACKAGE_NAME: MatrixDrive_Dual_System_Cart_RevB_LockOn_Codemasters_64K_FRAM
-  MEGACD_PROJECT_DIR: MatrixDrive_MegaCD_FPGA_RevC
-  MEGACD_PACKAGE_NAME: MatrixDrive_MegaCD_FPGA_RevC_Prototype
+  PACKAGE_NAME: MatrixDrive_Dual_System_Cart_RevB_YM2413_FPGA
 
 jobs:
   build-test-package:
@@ -44,7 +39,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y \
             build-essential cmake ninja-build gcc-arm-none-eabi \
-            libnewlib-arm-none-eabi iverilog zip
+            libnewlib-arm-none-eabi iverilog yosys zip
 
       - name: Fetch Raspberry Pi Pico SDK
         shell: bash
@@ -66,11 +61,13 @@ jobs:
           set -euo pipefail
           python3 "$PROJECT_DIR/tools/validate_project.py"
 
-      - name: Validate MegaCD FPGA ODE prototype
+      - name: Test and synthesize Master System FM FPGA
         shell: bash
         run: |
           set -euo pipefail
-          python3 "$MEGACD_PROJECT_DIR/tools/validate_project.py"
+          make -C "$PROJECT_DIR/fpga" test
+          make -C "$PROJECT_DIR/fpga" lint
+          make -C "$PROJECT_DIR/fpga" synth
 
       - name: Configure RP2350B firmware
         shell: bash
@@ -94,6 +91,9 @@ jobs:
         run: |
           set -euo pipefail
           rm -rf dist
+          rm -f "$PROJECT_DIR/fpga/build/matrixdrive_sms_fm.json" \
+                "$PROJECT_DIR/fpga/build/test_sms_fm_bus" \
+                "$PROJECT_DIR/fpga/build/test_pdm_dac"
           mkdir -p "dist/$PACKAGE_NAME/firmware/prebuilt"
           cp -a "$PROJECT_DIR/." "dist/$PACKAGE_NAME/"
           cp build/firmware/matrixdrive.uf2 \
@@ -102,31 +102,14 @@ jobs:
              build/firmware/matrixdrive.hex \
              "dist/$PACKAGE_NAME/firmware/prebuilt/"
           {
-            echo "MatrixDrive Rev B 32X + Sonic & Knuckles lock-on + Codemasters + 64 KiB SMS FRAM build"
+            echo "MatrixDrive Rev B plus Master System YM2413 FPGA option"
             echo "Source commit: $GITHUB_SHA"
             echo "Pico SDK: $PICO_SDK_VERSION"
-            echo "Validation: host C tests including 32X validation/4 MiB mirroring and lock-on mirroring, Python mapper/save model, RTL simulation, RP2350B firmware build"
+            echo "Validation: host C tests, mapper/save RTL, SMS FM bus/PDM RTL, ECP5 YM2413 synthesis, RP2350B firmware build"
           } > "dist/$PACKAGE_NAME/BUILD-INFO.txt"
           (
             cd dist
             zip -qr "../$PACKAGE_NAME.zip" "$PACKAGE_NAME"
-          )
-
-      - name: Package MegaCD FPGA ODE prototype
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p "dist/$MEGACD_PACKAGE_NAME"
-          cp -a "$MEGACD_PROJECT_DIR/." "dist/$MEGACD_PACKAGE_NAME/"
-          {
-            echo "MatrixDrive MegaCD FPGA Rev C prototype source"
-            echo "Source commit: $GITHUB_SHA"
-            echo "Status: interface/parser development platform; not yet retail-game boot capable"
-            echo "Validation: ISO/BIN+CUE parser tests, cartridge bus bridge RTL, sector buffer RTL"
-          } > "dist/$MEGACD_PACKAGE_NAME/BUILD-INFO.txt"
-          (
-            cd dist
-            zip -qr "../$MEGACD_PACKAGE_NAME.zip" "$MEGACD_PACKAGE_NAME"
           )
 
       - name: Upload rebuilt project
@@ -134,13 +117,6 @@ jobs:
         with:
           name: ${{ env.PACKAGE_NAME }}
           path: ${{ env.PACKAGE_NAME }}.zip
-          if-no-files-found: error
-
-      - name: Upload MegaCD FPGA ODE prototype
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.MEGACD_PACKAGE_NAME }}
-          path: ${{ env.MEGACD_PACKAGE_NAME }}.zip
           if-no-files-found: error
 
       - name: Commit regenerated template and rebuilt ZIP
@@ -151,8 +127,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "$PROJECT_DIR/hardware/MatrixDrive-RevB.kicad_pcb" \
-                  "$PACKAGE_NAME.zip" \
-                  "$MEGACD_PACKAGE_NAME.zip"
+                  "$PACKAGE_NAME.zip"
           if git diff --cached --quiet; then
             echo "Generated files are already current."
             exit 0

@@ -2,9 +2,9 @@
 
 [![Build, test, and package](https://github.com/Matrixite/MatrixDrive/actions/workflows/build-test-package.yml/badge.svg)](https://github.com/Matrixite/MatrixDrive/actions/workflows/build-test-package.yml)
 
-**MatrixDrive Revision B** is an open hardware prototype for a USB-loadable Mega Drive/Genesis cartridge that can also supply cartridge ROM to a real 32X, run Master System software on compatible consoles, and operate as the upper cartridge in Sonic & Knuckles lock-on mode. It combines an RP2350B installer, parallel NOR ROM, an instant-on CPLD mapper, and battery-free FRAM saves.
+**MatrixDrive Revision B** is an open hardware prototype for a USB-loadable Mega Drive/Genesis cartridge that can also supply cartridge ROM to a real 32X, run Master System software on compatible consoles, and operate as the upper cartridge in Sonic & Knuckles lock-on mode. It combines an RP2350B installer, parallel NOR ROM, an instant-on CPLD mapper, and battery-free FRAM saves. An RTL-complete FPGA board-spin option adds Master System YM2413 FM audio.
 
-[Download the current source and prebuilt firmware package](https://github.com/Matrixite/MatrixDrive/raw/refs/heads/main/MatrixDrive_Dual_System_Cart_RevB_LockOn_Codemasters_64K_FRAM.zip)
+[Download the current source and prebuilt firmware package](https://github.com/Matrixite/MatrixDrive/raw/refs/heads/main/MatrixDrive_Dual_System_Cart_RevB_YM2413_FPGA.zip)
 
 > [!IMPORTANT]
 > This repository is an **engineering prototype**, not a fabrication-ready or production-tested cartridge. The included KiCad board is a mechanical/placement template and is intentionally unrouted. Complete the schematic, CPLD pin assignment/fitting, timing analysis, shell measurements, and staged hardware bring-up before fabrication or console use.
@@ -16,7 +16,7 @@
 | Mega Drive / Genesis | `.BIN`, `.MD`, `.GEN` | 4 MiB | Linear ROM; power-of-two images up to 2 MiB are mirrored for lock-on |
 | 32X through real 32X hardware | `.32X` | 4 MiB | Linear x16 ROM; smaller power-of-two images are mirrored to 4 MiB |
 | Sonic & Knuckles upper slot | Mega Drive images | 2 MiB recommended | Sonic 2 ROM or Sonic 3 ROM with dedicated 8 KiB save FRAM |
-| Master System | `.SMS` | 2 MiB | Sega or Codemasters mapper selected by SW4 |
+| Master System | `.SMS` | 2 MiB | Sega or Codemasters mapper selected by SW4; optional FPGA YM2413 |
 
 Master System mode requires a Mega Drive/Genesis revision with working SMS compatibility. It is not mechanically compatible with a standalone Master System cartridge slot. SMS mode is not supported through the Sonic & Knuckles upper slot.
 
@@ -30,6 +30,7 @@ Master System mode requires a Mega Drive/Genesis revision with working SMS compa
 - Dedicated odd-byte Sonic 3 save window at `$200001-$203FFF`.
 - ATF1508ASV CPLD for instant-on mode selection and mapper/save decoding.
 - Sega and Codemasters SMS mapper profiles selected by a power-off switch.
+- Cycle-accurate FPGA YM2413 path with F0/F1 writes, F2 detection and one-bit audio DAC.
 - 64 KiB battery-free SMS save memory using two 32 KiB FM18W08 FRAMs.
 - Dedicated FM18W08 for Sonic 3 lock-on saves; 8 KiB of it is decoded.
 - Dedicated Master System Pause/NMI button.
@@ -72,6 +73,17 @@ For Codemasters, writing bit 7 at `$4000` enables FRAM and bits 2:0 select one o
 
 See [Master System mode](MatrixDrive_Dual_System_Cart_RevB/docs/master-system-mode.md) for the full register behavior.
 
+## Optional Master System FM FPGA
+
+The FPGA option decodes Master System I/O ports `F0`, `F1`, and `F2` using
+VA19 as `/IORQ`, runs the BSD-licensed IKAOPLL YM2413 core, and feeds filtered,
+AC-coupled mono audio to cartridge inputs SL1 and SR2. F2 bit 0 gates FM audio;
+bits 2:0 are stored and read back with reset value `111`.
+
+This option requires a new schematic and PCB spin. It is not a wire-on retrofit
+for the Revision B placement template. See the [FPGA implementation](MatrixDrive_Dual_System_Cart_RevB/fpga/README.md)
+for RTL, synthesis, hardware integration and validation requirements.
+
 ## Loading a ROM
 
 1. Remove MatrixDrive from the console or lock-on cartridge.
@@ -104,6 +116,7 @@ See [Master System mode](MatrixDrive_Dual_System_Cart_RevB/docs/master-system-mo
 | [`cpld/`](MatrixDrive_Dual_System_Cart_RevB/cpld/) | MD/32X ROM path, SMS mappers, lock-on save decoder, model, and RTL testbench |
 | [`firmware/`](MatrixDrive_Dual_System_Cart_RevB/firmware/) | RP2350B/Pico SDK USB installer, 32X validation, and ROM mirroring |
 | [`hardware/`](MatrixDrive_Dual_System_Cart_RevB/hardware/) | BOM, electrical netlist, pinout, and KiCad placement template |
+| [`fpga/`](MatrixDrive_Dual_System_Cart_RevB/fpga/) | YM2413 core integration, bus front-end, PDM DAC, tests, and board-spin netlist |
 | [`docs/`](MatrixDrive_Dual_System_Cart_RevB/docs/) | Architecture, lock-on/SMS mapping, workflow, and bring-up guidance |
 | [`tools/`](MatrixDrive_Dual_System_Cart_RevB/tools/) | Project validator and KiCad template generator |
 | [Build workflow](.github/workflows/build-test-package.yml) | GitHub Actions build, test, and package pipeline |
@@ -130,6 +143,14 @@ cmake --build build/firmware
 
 The automated pipeline checks electrical/static consistency, FAT16 and installer host code, 32X validation and 4 MiB ROM mirroring, lock-on ROM mirroring, Sega/Codemasters models, Sonic 3 FRAM decode, RTL simulation, the complete RP2350B firmware build, and package creation.
 
+The optional FM block has its own tests and ECP5 synthesis flow:
+
+```sh
+make -C MatrixDrive_Dual_System_Cart_RevB/fpga test
+make -C MatrixDrive_Dual_System_Cart_RevB/fpga lint
+make -C MatrixDrive_Dual_System_Cart_RevB/fpga synth
+```
+
 ## Software-only test status
 
 MatrixDrive has been tested in software, but it has not yet been tested on a fabricated cartridge or real console. The following checks currently pass:
@@ -143,6 +164,8 @@ MatrixDrive has been tested in software, but it has not yet been tested on a fab
 - Sega and Codemasters Master System mapper reference-model tests.
 - Codemasters 64 KiB FRAM enable, banking, and ROM-window behavior.
 - CPLD RTL simulation for Mega Drive, lock-on, Sega SMS, and Codemasters SMS modes.
+- SMS FM F0/F1/F2 decode and PDM-density behavioral tests.
+- Complete FPGA hierarchy/structural checking and generic ECP5 synthesis of the YM2413 path.
 - A two-ROM lock-on emulator test using legally obtained Sonic 3 and Sonic & Knuckles images. It reached the combined Sonic 3 & Knuckles title screen and opening sequence, confirming the expected software mapping path.
 
 No commercial ROM images are included in this repository. These results verify the implemented logic and software behavior only; cartridge fit, 32X security/timing on a physical adapter, voltage translation, power isolation, save retention, and operation on real Sega hardware remain unverified.
@@ -160,8 +183,9 @@ The source and automated tests pass, but no physical MatrixDrive PCB or Sonic & 
 - route the PCB and run electrical/design-rule checks;
 - validate direct-console operation before testing through lock-on hardware;
 - capture real-console timing and current for both lock-on profiles.
+- complete the FPGA package-pin constraints, place-and-route timing, power-tree review, audio-filter measurement, and real-console FM tests.
 
-Only the Sonic 3 odd-byte MD save layout is implemented. Generic Mega Drive or 32X SRAM/EEPROM saves are not implemented. 32X CD software, ROMs larger than 4 MiB, enhancement hardware, Korean/multicart/game-specific SMS mappers, FM sound, light-gun support, and Sega mapper RAM-at-`$C000` mode are also outside this revision.
+Only the Sonic 3 odd-byte MD save layout is implemented. Generic Mega Drive or 32X SRAM/EEPROM saves are not implemented. ROMs larger than 4 MiB, enhancement hardware, Korean/multicart/game-specific SMS mappers, light-gun support, and Sega mapper RAM-at-`$C000` mode are also outside this revision. The FPGA FM option cannot mute the console's internal PSG from the cartridge, and it has not been validated on fabricated hardware.
 
 Start with [Safety and bring-up](MatrixDrive_Dual_System_Cart_RevB/docs/safety-and-bringup.md).
 
@@ -173,3 +197,6 @@ Start with [Safety and bring-up](MatrixDrive_Dual_System_Cart_RevB/docs/safety-a
 - [Microchip ATF1508ASV](https://www.microchip.com/en-us/product/atf1508asv)
 - [Infineon FM18W08 FRAM](https://www.infineon.com/part/FM18W08-SG)
 - [TI SN74LVC1T45](https://www.ti.com/product/SN74LVC1T45)
+- [IKAOPLL cycle-accurate YM2413 FPGA core](https://github.com/ika-musume/IKAOPLL)
+- [FM Power Base Converter cartridge I/O reference](https://github.com/db-electronics/FMPBC)
+- [Lattice ECP5 FPGA](https://www.latticesemi.com/en/Products/FPGAandCPLD/ECP5)

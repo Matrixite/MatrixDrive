@@ -1,0 +1,16 @@
+read_verilog -sv rtl/sms_fm_bus.v
+read_verilog -sv rtl/pdm_dac.v
+read_verilog -sv rtl/matrixdrive_sms_fm_top.v
+read_verilog -sv third_party/IKAOPLL/src/IKAOPLL.v
+read_verilog -sv third_party/IKAOPLL/src/IKAOPLL_modules/IKAOPLL_dac.v
+read_verilog -sv third_party/IKAOPLL/src/IKAOPLL_modules/IKAOPLL_eg.v
+read_verilog -sv third_party/IKAOPLL/src/IKAOPLL_modules/IKAOPLL_lfo.v
+read_verilog -sv third_party/IKAOPLL/src/IKAOPLL_modules/IKAOPLL_op.v
+read_verilog -sv third_party/IKAOPLL/src/IKAOPLL_modules/IKAOPLL_pg.v
+read_verilog -sv third_party/IKAOPLL/src/IKAOPLL_modules/IKAOPLL_primitives.v
+read_verilog -sv third_party/IKAOPLL/src/IKAOPLL_modules/IKAOPLL_reg.v
+read_verilog -sv third_party/IKAOPLL/src/IKAOPLL_modules/IKAOPLL_timinggen.v
+
+hierarchy -check -top matrixdrive_sms_fm_top
+synth_ecp5 -top matrixdrive_sms_fm_top -json build/matrixdrive_sms_fm.json
+stat

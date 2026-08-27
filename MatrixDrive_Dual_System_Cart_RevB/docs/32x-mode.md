@@ -59,7 +59,6 @@ inserted into the 32X.
 ## Limits
 
 - No generic 32X SRAM or EEPROM save emulation.
-- No 32X CD software; this mode is cartridge ROM only.
 - No ROM images larger than 4 MiB.
 - No special mapper, coprocessor, or enhancement cartridge hardware.
 - Physical fit, voltage levels, bus timing, boot/security completion, and game

@@ -1,0 +1,20 @@
+Net,From,To,Direction or rule
+FM_CLK_14M318,X1.OUT,U21.clk_14m318,3.3V clock with source termination only if required by layout review
+FM_RESET_N,MRES_3V3,U21.reset_n,Translated console hard reset
+FM_SMS_MODE,SMS_MODE_3V3,U21.sms_mode,High only in hardware SMS position
+FM_USB_MODE,USB_MODE_3V3,U21.usb_mode,High releases every cartridge-bus FPGA output
+FM_ADDR0-7,CART_A0-7,U21.cart_a0-7,Translated SMS low address byte
+FM_IORQ_N,CART_A18,U21.cart_a18_iorq_n,VA19 becomes active-low IORQ in SMS mode; mandatory decode qualifier
+FM_WR_N,LWR_3V3,U21.lwr_n,Translated SMS write strobe
+FM_RD_N,CAS0_3V3,U21.cas0_n,Translated SMS read/output-enable strobe
+FM_DATA0-7,MEM_D0-7,U21.mem_d0-7,Bidirectional 3.3V bus; FPGA drives only exact F2 I/O reads
+FM_PDM,U21.fm_pdm,R46.1,One-bit 14.31818MHz audio stream
+FM_LP1,R46.2,"C37.1; R47.1",C37.2 to GND
+FM_LP2,R47.2,"C38.1; C39.1",C38.2 to GND
+FM_AUDIO_AC,C39.2,"R48.1; R49.1; R50.1",R50.2 to GND
+FM_AUDIO_LEFT,R48.2,J1.B1 SL1,AC-coupled cartridge audio injection
+FM_AUDIO_RIGHT,R49.2,J1.B3 SR2,AC-coupled cartridge audio injection
+FM_1V1,U23.OUT,U21.VCC,Core rail; decouple every package power group
+FM_2V5,U24.OUT,U21.VCCAUX,Auxiliary rail; follow current ECP5 hardware checklist
+3V3,Existing board 3V3,"U21 VCCIO/config banks; U22; X1; U23.IN; U24.IN",Recalculate shared regulator and cartridge current budget
+FPGA_CONFIG,U22 SPI; J5 JTAG,U21 sysCONFIG,Select and document one boot mode before schematic release

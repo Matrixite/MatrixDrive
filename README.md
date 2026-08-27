@@ -4,6 +4,8 @@
 
 **MatrixDrive Revision B** is an open hardware prototype for a USB-loadable Mega Drive/Genesis cartridge that can also supply cartridge ROM to a real 32X, run Master System software on compatible consoles, and operate as the upper cartridge in Sonic & Knuckles lock-on mode. It combines an RP2350B installer, parallel NOR ROM, an instant-on CPLD mapper, and battery-free FRAM saves.
 
+The repository also contains an **experimental Revision C MegaCD FPGA ODE** architecture. Its target is MegaSD-style operation from the Mega Drive cartridge slot: the real console supplies the base Mega Drive hardware while the cartridge emulates the Mega-CD subsystem and streams legally obtained `.ISO` or `.CUE` plus `.BIN` images from microSD. Revision C is currently a source and simulation platform; it does not yet boot retail Mega-CD software.
+
 [Download the current source and prebuilt firmware package](https://github.com/Matrixite/MatrixDrive/raw/refs/heads/main/MatrixDrive_Dual_System_Cart_RevB_LockOn_Codemasters_64K_FRAM.zip)
 
 > [!IMPORTANT]
@@ -19,6 +21,21 @@
 | Master System | `.SMS` | 2 MiB | Sega or Codemasters mapper selected by SW4 |
 
 Master System mode requires a Mega Drive/Genesis revision with working SMS compatibility. It is not mechanically compatible with a standalone Master System cartridge slot. SMS mode is not supported through the Sonic & Knuckles upper slot.
+
+## Experimental MegaCD FPGA ODE
+
+[`MatrixDrive_MegaCD_FPGA_RevC/`](MatrixDrive_MegaCD_FPGA_RevC/) is a separate, clean-room development path for cartridge-slot Mega-CD emulation. It does not replace or modify the working Revision B source tree.
+
+The current prototype includes:
+
+- a candidate Cyclone V, RP2350B, SDRAM, microSD, USB-C, DAC, and cartridge-bus hardware architecture;
+- a synthesizable Mega Drive bus bridge with open-drain `/DTACK` control;
+- a raw 2,352-byte disc-sector handoff buffer;
+- a deterministic `.ISO` and `.CUE`/`.BIN` manifest generator, including mixed data/audio and multi-file discs;
+- self-checking parser and SystemVerilog simulations; and
+- a documented interface for later integration of a license-compatible Mega-CD FPGA core.
+
+The full Mega-CD gate array, Sub-68000, Word RAM arbitration, CDC/CDD behavior, graphics engine, PCM/CDDA audio path, BIOS mapping, and cartridge-specific interrupt/boot assist are not integrated yet. No Sega BIOS, commercial game image, proprietary MegaSD source, or proprietary bitstream is included.
 
 ### Highlights
 
@@ -101,6 +118,7 @@ See [Master System mode](MatrixDrive_Dual_System_Cart_RevB/docs/master-system-mo
 | Path | Contents |
 | --- | --- |
 | [`MatrixDrive_Dual_System_Cart_RevB/`](MatrixDrive_Dual_System_Cart_RevB/) | Main hardware, firmware, CPLD, tools, and documentation |
+| [`MatrixDrive_MegaCD_FPGA_RevC/`](MatrixDrive_MegaCD_FPGA_RevC/) | Experimental MegaSD-style FPGA ODE architecture, image parser, RTL shell, and tests |
 | [`cpld/`](MatrixDrive_Dual_System_Cart_RevB/cpld/) | MD/32X ROM path, SMS mappers, lock-on save decoder, model, and RTL testbench |
 | [`firmware/`](MatrixDrive_Dual_System_Cart_RevB/firmware/) | RP2350B/Pico SDK USB installer, 32X validation, and ROM mirroring |
 | [`hardware/`](MatrixDrive_Dual_System_Cart_RevB/hardware/) | BOM, electrical netlist, pinout, and KiCad placement template |
@@ -128,7 +146,14 @@ cmake -S MatrixDrive_Dual_System_Cart_RevB/firmware -B build/firmware -DPICO_BOA
 cmake --build build/firmware
 ```
 
-The automated pipeline checks electrical/static consistency, FAT16 and installer host code, 32X validation and 4 MiB ROM mirroring, lock-on ROM mirroring, Sega/Codemasters models, Sonic 3 FRAM decode, RTL simulation, the complete RP2350B firmware build, and package creation.
+MegaCD FPGA Rev C prototype validation:
+
+```sh
+cd MatrixDrive_MegaCD_FPGA_RevC
+python3 tools/validate_project.py
+```
+
+The automated pipeline checks electrical/static consistency, FAT16 and installer host code, 32X validation and 4 MiB ROM mirroring, lock-on ROM mirroring, Sega/Codemasters models, Sonic 3 FRAM decode, MegaCD disc manifests and interface RTL, the complete RP2350B firmware build, and package creation.
 
 ## Software-only test status
 
@@ -144,6 +169,8 @@ MatrixDrive has been tested in software, but it has not yet been tested on a fab
 - Codemasters 64 KiB FRAM enable, banking, and ROM-window behavior.
 - CPLD RTL simulation for Mega Drive, lock-on, Sega SMS, and Codemasters SMS modes.
 - A two-ROM lock-on emulator test using legally obtained Sonic 3 and Sonic & Knuckles images. It reached the combined Sonic 3 & Knuckles title screen and opening sequence, confirming the expected software mapping path.
+- MegaCD `.ISO` and `.CUE`/`.BIN` parser tests covering raw data, mixed-mode audio, pregaps, and multi-file discs.
+- MegaCD cartridge-bridge and raw-sector-buffer RTL simulations.
 
 No commercial ROM images are included in this repository. These results verify the implemented logic and software behavior only; cartridge fit, 32X security/timing on a physical adapter, voltage translation, power isolation, save retention, and operation on real Sega hardware remain unverified.
 
@@ -161,13 +188,14 @@ The source and automated tests pass, but no physical MatrixDrive PCB or Sonic & 
 - validate direct-console operation before testing through lock-on hardware;
 - capture real-console timing and current for both lock-on profiles.
 
-Only the Sonic 3 odd-byte MD save layout is implemented. Generic Mega Drive or 32X SRAM/EEPROM saves are not implemented. 32X CD software, ROMs larger than 4 MiB, enhancement hardware, Korean/multicart/game-specific SMS mappers, FM sound, light-gun support, and Sega mapper RAM-at-`$C000` mode are also outside this revision.
+Only the Sonic 3 odd-byte MD save layout is implemented in Revision B. Generic Mega Drive or 32X SRAM/EEPROM saves are not implemented. 32X CD software, ROMs larger than 4 MiB, enhancement hardware, Korean/multicart/game-specific SMS mappers, FM sound, light-gun support, and Sega mapper RAM-at-`$C000` mode are also outside Revision B. Revision C targets Mega-CD image playback, but remains pre-hardware and pre-game-boot until the complete Mega-CD core and cartridge interrupt/boot path are integrated.
 
 Start with [Safety and bring-up](MatrixDrive_Dual_System_Cart_RevB/docs/safety-and-bringup.md).
 
 ## Technical references
 
 - [Genesis Plus GX cartridge implementation](https://github.com/ekeeke/Genesis-Plus-GX/blob/master/core/cart_hw/md_cart.c)
+- [MiSTer Mega-CD FPGA core](https://github.com/MiSTer-devel/MegaCD_MiSTer)
 - [Sega 32X Hardware Manual transcription](https://github.com/matiaszanolli/sega-vr-disasm/blob/master/docs/32x-hardware-manual.md)
 - [Raspberry Pi RP2350 documentation](https://www.raspberrypi.com/documentation/microcontrollers/microcontroller-chips.html)
 - [Microchip ATF1508ASV](https://www.microchip.com/en-us/product/atf1508asv)

@@ -1,0 +1,32 @@
+Reference,Quantity,Candidate part,Function,Prototype status,Notes
+U1,1,5CEBA5F23C8N,Cyclone V FPGA,Required,Candidate only; prove core fit timing power and availability before layout
+U2,1,RP2350B,USB-C microSD and sector-service controller,Required,Reuses MatrixDrive firmware experience; not in live console timing path
+U3,1,AS4C16M16SA-6TIN,32 MiB x16 SDRAM,Required,FPGA Mega-CD RAM and sector cache
+U4,1,EPCQ64ASI16N,64-Mbit FPGA configuration flash,Required,Verify final FPGA configuration size
+U5,1,W25Q16JVSSIQ,RP2350 QSPI boot flash,Required,Dedicated controller firmware
+U6,1,PCM5102APWR,Stereo I2S DAC,Required,PCM and CDDA conversion; verify power-on mute
+U7,1,OPA1678IDR,Stereo output filter and level stage,Required,Set cartridge-audio level from measurements
+U8-U13,6,SN74LVC8T245PWR,5V and 3V3 cartridge-bus translation,Required,Exact directions and OE controls in electrical-netlist.csv
+U14,1,SN74LVC2T45DCUR,Bidirectional control translation,Required,For DTACK and any individually controlled bus signal
+U15,1,TLV75533PDBVR,3.3V rail regulator,Required,Size after FPGA/SDRAM power estimate
+U16,1,TPS62867AQWRXSRQ1,1.1V FPGA core regulator,Required,Candidate 4A buck; verify Intel rail limits and sequencing
+U17,1,TPS62867AQWRXSRQ1,2.5V FPGA auxiliary regulator,Required,Candidate; final need depends on selected I/O standards
+U18,1,FM18W08-SG,32 KiB backup FRAM,Required,Nonvolatile Mega-CD backup RAM and metadata
+U19,1,TPD2EUSB30DRTR,USB D+/D- ESD protection,Required,Place at J2
+U20,1,74LVC1G07DBVR,Open-drain DTACK buffer,Required,Must never source console DTACK high
+U21,1,SN74LVC1G17DBVR,USB-present bus-disable buffer,Required,Require Ioff and partial-power-down behavior
+J1,1,2x32 Mega Drive card edge,Console interface,Required,Hard gold bevel and donor-board measurement required
+J2,1,USB4105-GF-A,USB-C USB2 device receptacle,Required,PC exposes microSD only with console absent
+J3,1,Molex 104031-0811,microSD push-push socket,Required,FAT32 or exFAT game storage
+J4,1,2x5 1.27mm header,FPGA JTAG,Required,Prototype programming and SignalTap
+J5,1,2x5 1.27mm header,RP2350 SWD/UART,Required,Prototype debug
+Y1,1,SG-210STF 50.0000ML,50MHz FPGA oscillator,Required,PLL reference; validate jitter
+Y2,1,ABM8-272-T3,12MHz RP2350 crystal,Required,Copy current RP2350 reference network
+Q1,1,2N7002,DTACK open-drain stage,Optional,U20 may drive directly only after VIH/VIL and power-off review
+F1,1,MF-MSMF050-2,500mA resettable fuse,Required,Do not finalise until measured slot-current budget is safe
+SW1,1,Power-off slide switch,LINEAR versus MCD FPGA profile,Required,Break-before-make and inaccessible while inserted
+SW2,1,PTS636,Menu/reset request button,Required,Never directly drive console reset
+R1-R2,2,5.1k 1%,USB-C CC pull-downs,Required,One per CC pin
+R3-R4,2,27R 1%,USB D+/D- source series resistors,Required,Place near U2
+C1-C40,40,TBD decoupling network,FPGA SDRAM MCU and analog decoupling,Required,Derive quantities/values from official reference designs
+SD1,1,16GB or larger high-endurance microSD,Removable disc storage,User supplied,Not included in production BOM

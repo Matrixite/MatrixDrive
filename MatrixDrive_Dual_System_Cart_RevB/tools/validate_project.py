@@ -108,12 +108,6 @@ def run_mapper_test() -> None:
         subprocess.run(["vvp", str(output)], check=True)
 
 
-def run_sms_fm_model_test() -> None:
-    subprocess.run([
-        "python3", str(ROOT / "fpga" / "tb" / "test_sms_fm_model.py")
-    ], check=True)
-
-
 def check_rev_b_hardware() -> None:
     bom = (ROOT / "hardware" / "bom.csv").read_text()
     netlist = (ROOT / "hardware" / "electrical-netlist.csv").read_text()
@@ -139,46 +133,13 @@ def check_rev_b_hardware() -> None:
     assert (ROOT / "docs" / "32x-mode.md").is_file()
 
 
-def check_sms_fm_fpga() -> None:
-    required = (
-        ROOT / "fpga" / "rtl" / "sms_fm_bus.v",
-        ROOT / "fpga" / "rtl" / "pdm_dac.v",
-        ROOT / "fpga" / "rtl" / "matrixdrive_sms_fm_top.v",
-        ROOT / "fpga" / "tb" / "test_ikaopll.v",
-        ROOT / "fpga" / "third_party" / "IKAOPLL" / "src" / "IKAOPLL.v",
-        ROOT / "fpga" / "third_party" / "IKAOPLL" / "LICENSE",
-        ROOT / "fpga" / "hardware" / "fpga-addon-bom.csv",
-        ROOT / "fpga" / "hardware" / "logical-netlist.csv",
-        ROOT / "fpga" / "hardware" / "pin-assignment-template.csv",
-    )
-    for path in required:
-        assert path.is_file(), path
-
-    bus = (ROOT / "fpga" / "rtl" / "sms_fm_bus.v").read_text()
-    for token in (
-        "sms_iorq_n", "8'hF0", "8'hF1", "8'hF2", "detect_reg",
-        "sms_data_oe", "usb_mode",
-    ):
-        assert token in bus
-
-    top = (ROOT / "fpga" / "rtl" / "matrixdrive_sms_fm_top.v").read_text()
-    for token in ("IKAOPLL", "pdm_dac", "cart_a18_iorq_n", "fm_pdm"):
-        assert token in top
-
-    connector = (ROOT / "hardware" / "connector-pinout.csv").read_text()
-    for token in ("active-low IORQ in SMS mode", "AC-coupled FM audio"):
-        assert token in connector
-
-
 if __name__ == "__main__":
     check_public_references()
     check_connector()
     check_gpio_map()
     check_pcb()
     check_rev_b_hardware()
-    check_sms_fm_fpga()
     run_fat_test()
     run_installer_test()
     run_mapper_test()
-    run_sms_fm_model_test()
     print("MatrixDrive Rev B static validation passed")

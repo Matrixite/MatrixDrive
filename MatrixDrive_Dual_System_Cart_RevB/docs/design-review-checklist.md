@@ -49,26 +49,6 @@ Official source: <https://pip.raspberrypi.com/categories/1214-rp2350>
   FRAM banks through logical addresses `$0000-$FFFF`.
 - Check unused console inputs are not accidentally driven.
 
-## Optional YM2413 FPGA spin
-
-- Complete every item in `../fpga/README.md`; Revision B cannot be retrofitted
-  merely by loading FPGA RTL.
-- Capture the current ECP5 power, sysCONFIG, JTAG, oscillator and decoupling
-  circuits in the reviewed schematic. Do not assign package pins from the
-  logical template without completing BGA escape and bank-voltage review.
-- Constrain the 14.318180 MHz clock, run place-and-route, close timing, archive
-  the exact bitstream hash, and verify configuration completes safely.
-- Prove ECP5 bus pins are high-impedance while unconfigured, in MD mode, with
-  USB present, and during all non-F2 cycles.
-- Scope VA19 as `/IORQ` on every intended console revision and verify F0/F1
-  writes and F2 reads/writes cannot collide with NOR or FRAM.
-- Recalculate the 3.3 V rail, 1.1 V/2.5 V regulators, inrush and cartridge
-  fuse from post-route power estimates and measured current.
-- Measure the PDM filter response, DC leakage, ultrasonic residue and peak
-  voltage before fitting SL1/SR2 injection resistors.
-- Run a YM2413 diagnostic and FM-capable games, including rhythm mode and F2
-  enable/disable behavior, on NTSC and PAL targets.
-
 ## USB and power
 
 - Route D+/D- as a short 90-ohm differential pair over an uninterrupted ground

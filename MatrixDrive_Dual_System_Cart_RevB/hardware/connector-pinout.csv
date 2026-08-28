@@ -31,13 +31,13 @@ A29,VD3,Bidirectional,DATA_LOW_XCVR_A3,ROM/SMS data bit 3
 A30,VD11,Bidirectional,DATA_HIGH_XCVR_A3,MD data bit 11; U7 disabled in SMS and MD Sonic 3 FRAM cycles
 A31,+5V,Power,CART_5V_IN,Join A2 before fuse F1
 A32,GND,Power,GND,Ground
-B1,SL1,Not used on Rev B,NC,Optional FPGA spin injects filtered AC-coupled FM audio
+B1,SL1,Not used,NC,Audio input
 B2,/MRES,Input,CTRL2_XCVR_MRES,CPLD asynchronous mapper reset
-B3,SR2,Not used on Rev B,NC,Optional FPGA spin injects filtered AC-coupled FM audio
+B3,SR2,Not used,NC,Audio input
 B4,VA9,Input,ADDR_XCVR_A8,Cart address bit 8
 B5,VA10,Input,ADDR_XCVR_A9,Cart address bit 9
 B6,VA18,Input,ADDR_XCVR_A17,MD address bit 17
-B7,VA19,Input,ADDR_XCVR_A18,MD address bit 18; active-low IORQ in SMS mode and FPGA FM qualifier
+B7,VA19,Input,ADDR_XCVR_A18,MD address bit 18
 B8,VA20,Input,ADDR_XCVR_A19,MD address bit 19
 B9,VA21,Bidirectional mode,ADDR_XCVR_A20 and Q2 drain,MD address bit 20; open-drain low in SMS mode
 B10,VA22,Mode,Q3 drain,Open-drain low in SMS mode; floating in MD mode

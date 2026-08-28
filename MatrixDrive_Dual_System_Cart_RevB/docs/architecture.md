@@ -9,7 +9,6 @@ MD/32X mode:  cartridge bus -> translators -> CPLD -> x16 NOR
 S3 save:      odd byte  -> low translator -> CPLD -> dedicated x8 FRAM
 SMS mode:     Z80 bus   -> translators -> CPLD mapper -> NOR low byte
                                       write/save tap -> 2 x x8 SMS FRAM
-SMS FM spin:  VA19 /IORQ + F0/F1/F2 -> ECP5 YM2413 -> PDM filter -> SL1/SR2
 USB mode:     USB-C -> RP2350B -> staging SPI NOR -> active parallel NOR
 ```
 
@@ -70,17 +69,6 @@ With power off, SW2 is moved to SMS. Open-drain FETs pull `/M3`, VA21, and VA22 
 - decodes 32 KiB Sega saves or banked 64 KiB Codemasters saves.
 
 SW3 pulls the PAUSE/NMI contact low through an open-drain FET. See `master-system-mode.md`.
-
-The optional FPGA spin taps translated A0-A7, D0-D7, `/LWR`, `/CAS0`, reset,
-SMS/USB mode, and `CART_A18`. VA19 becomes `/IORQ` only in SMS mode, so
-`CART_A18` is the mandatory I/O-cycle qualifier. The ECP5 never participates
-in ROM or save mapping and drives MEM_D0-D7 only for an exact F2 I/O read.
-
-The FPGA uses a dedicated 14.318180 MHz oscillator, a one-in-four phiM clock
-enable, the IKAOPLL YM2413 core, and a one-bit PDM output. A passive two-pole
-filter plus DC blocking and left/right series resistors inject mono FM into
-SL1 and SR2. The FPGA option's separate logical connection authority is
-`../fpga/hardware/logical-netlist.csv`.
 
 ## USB storage and installation
 

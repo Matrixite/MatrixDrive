@@ -21,7 +21,7 @@ CART_A0-7,U3.B0-B7,"U13.cart_a0-7; U17.A0-7; U18.A0-7; U20.A0-7",U3 A-side from 
 CART_A8-12,U4.B0-B4,"U13.cart_a8-12; U17.A8-12; U18.A8-12; U20.A8-12",Translated address and FRAM 8 KiB window offset
 CART_A13,U4.B5,U13.cart_a13,Translated address; FRAM A13 is mapper-controlled
 CART_A14-15,U4.B6-B7,U13.cart_a14-15,Translated Z80/68000 address
-CART_A16-20,U5.B0-B4,U13.cart_a16-20,Translated MD address; A18 is VA19 active-low IORQ in SMS mode and taps optional FM FPGA; A20 is pulled low in SMS mode
+CART_A16-20,U5.B0-B4,U13.cart_a16-20,Translated MD address; A20 input is pulled low in SMS mode at edge
 CE0_3V3,U5.B5,U13.ce0_n,U5.A5 from J1.B17
 CAS0_3V3,U5.B6,U13.cas0_n,U5.A6 from J1.B16
 CAS2_3V3,U5.B7,U13.cas2_n,U5.A7 from J1.B21

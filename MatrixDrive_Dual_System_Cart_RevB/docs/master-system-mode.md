@@ -14,15 +14,11 @@ Implemented:
 - Codemasters mapper ROMs through 2 MiB;
 - power-off Sega/Codemasters mapper selector;
 - 64 KiB non-volatile FRAM shared by both mapper profiles;
-- physical Pause/NMI button;
-- optional FPGA YM2413 with `F0`/`F1` writes, `F2` detection and cartridge audio output.
+- physical Pause/NMI button.
 
-Not implemented: Korean, multicart or game-specific mappers;
+Not implemented: Korean, multicart or game-specific mappers; FM sound;
 light-gun accessory circuitry; Mega Drive save hardware; Sega mapper bit 4
 RAM-at-`$C000` mode. These require a later verified CPLD profile.
-
-The FM option requires a new board spin and is not present on the Revision B
-placement template.
 
 ## Power-off mapper selector
 
@@ -74,31 +70,6 @@ and high halves.
 The Codemasters behaviour matches the reset and banking implementation in
 [Genesis Plus GX](https://github.com/ekeeke/Genesis-Plus-GX/blob/master/core/cart_hw/sms_cart.c).
 
-## FPGA YM2413 option
-
-In SMS mode, Mega Drive cartridge edge signal VA19 becomes the Z80 `/IORQ`.
-Revision B already translates VA19 as `CART_A18`; the FPGA spin taps that net
-along with A0-A7, D0-D7, `/LWR`, `/CAS0`, reset and the mode signals.
-
-| I/O port | Behavior |
-| --- | --- |
-| `F0` | Write YM2413 register address |
-| `F1` | Write YM2413 register data |
-| `F2` | Read/write the three-bit FM/detection register |
-
-The F2 register resets to `111`; reads return `11111xxx`. Bit 0 enables FM
-audio. Bits 1 and 2 are stored for compatibility, but a cartridge cannot mute
-the Mega Drive's internal PSG, so bit 1 is not able to reproduce that system-
-level function.
-
-F0 and F1 are forwarded to the cycle-accurate IKAOPLL core. Its signed output
-feeds a one-bit PDM DAC, a two-pole low-pass filter, AC coupling, and separate
-SL1/SR2 injection resistors. The FPGA bus pins are high-impedance in MD mode,
-with USB present, and on every cycle other than an exact F2 I/O read.
-
-See `../fpga/README.md` for RTL, clocking, synthesis, licensing and hardware
-release gates.
-
 ## NOR representation
 
 The installer writes SMS byte `n` to NOR word address `n` as
@@ -122,8 +93,3 @@ The CPLD address mux plus translator plus NOR/FRAM access must fit the SMS read
 and write windows at worst-case voltage and temperature. Archive fitted-CPLD
 timing plus oscilloscope/logic-analyser captures for both mapper profiles,
 FRAM reads/writes, reset defaults, selector states and Pause NMI.
-
-For the FPGA spin, also archive captures of F0/F1/F2 I/O cycles showing VA19
-`/IORQ`, `/LWR` or `/CAS0`, address, data and FPGA output enable. Verify F2
-turnaround through U6, confirm NOR/FRAM remain inactive, and measure filtered
-audio amplitude and ultrasonic residue at both SL1 and SR2.

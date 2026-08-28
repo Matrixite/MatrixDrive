@@ -37,29 +37,6 @@ Do not use a console for this stage. Apply current-limited 5 V at `CART_5V` thro
 8. In SMS/CODEMASTERS, verify exact mapper writes, ROM at `$8000-$9FFF`, and all eight 8 KiB FRAM banks.
 9. Confirm worst-case translator+CPLD+NOR/FRAM delay meets the console bus windows.
 
-## FPGA FM spin bench test
-
-Only begin after the base SMS bus tests pass. Keep SL1 and SR2 disconnected for
-the first logic tests.
-
-1. Power the FPGA rails from a current-limited breakout and verify 1.1 V, 2.5 V
-   and 3.3 V sequencing/current before fitting the FPGA configuration flash.
-2. Program a diagnostic bitstream and prove every MEM_D pin is high-impedance
-   during configuration, MD mode and USB mode.
-3. In SMS mode, drive qualified F0/F1 writes and verify exactly one clean core
-   write for each I/O cycle. Repeat the same low address with `/IORQ` inactive
-   and verify no write occurs.
-4. Verify F2 resets to `FF`, stores only bits 2:0, and drives MEM_D0-D7 only
-   while VA19 `/IORQ` and `/CAS0` are both active for port `F2`.
-5. Prove the NOR and all FRAM chip enables remain inactive throughout F0-F2
-   cycles and that U6 turnaround has no contention.
-6. With audio injection still disconnected, measure FM_PDM and both low-pass
-   nodes for expected density, cutoff, DC blocking and ultrasonic residue.
-7. Fit conservative 10 kOhm SL1/SR2 injection resistors, then scope peak and DC
-   levels into a powered console before listening tests.
-8. Run the YM2413 diagnostic followed by several FM-capable games. Stop for
-   abnormal current, heat, bus overshoot or audio clipping.
-
 ## Dual-source isolation test
 
 1. Apply current-limited 5 V independently to both sources.

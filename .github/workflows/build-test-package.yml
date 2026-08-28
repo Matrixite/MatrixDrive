@@ -138,7 +138,7 @@ jobs:
           path: ${{ env.KICAD_PACKAGE_NAME }}.zip
           if-no-files-found: error
 
-      - name: Commit regenerated template and rebuilt ZIP
+      - name: Commit regenerated KiCad files and rebuilt packages
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/sonic-knuckles-lock-on')
         shell: bash
         run: |
@@ -157,5 +157,5 @@ jobs:
             echo "Generated files are already current."
             exit 0
           fi
-          git commit -m "Regenerate MatrixDrive PCB template and package [skip ci]"
+          git commit -m "Regenerate MatrixDrive KiCad project and packages [skip ci]"
           git push

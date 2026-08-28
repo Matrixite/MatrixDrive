@@ -24,6 +24,7 @@ env:
   PROJECT_DIR: MatrixDrive_Dual_System_Cart_RevB
   PICO_SDK_VERSION: 2.3.0
   PACKAGE_NAME: MatrixDrive_Dual_System_Cart_RevB_LockOn_Codemasters_64K_FRAM
+  KICAD_PACKAGE_NAME: MatrixDrive_RevB_KiCad_Project
 
 jobs:
   build-test-package:
@@ -49,11 +50,11 @@ jobs:
             --recurse-submodules --shallow-submodules \
             https://github.com/raspberrypi/pico-sdk.git "$RUNNER_TEMP/pico-sdk"
 
-      - name: Regenerate PCB placement template
+      - name: Regenerate KiCad schematic and PCB
         shell: bash
         run: |
           set -euo pipefail
-          python3 "$PROJECT_DIR/tools/generate_kicad_pcb.py"
+          python3 "$PROJECT_DIR/tools/generate_kicad_project.py"
 
       - name: Run static, host, model, and RTL tests
         shell: bash
@@ -108,6 +109,35 @@ jobs:
           path: ${{ env.PACKAGE_NAME }}.zip
           if-no-files-found: error
 
+      - name: Package and upload KiCad project
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf "dist/$KICAD_PACKAGE_NAME"
+          mkdir -p "dist/$KICAD_PACKAGE_NAME"
+          cp "$PROJECT_DIR/hardware/MatrixDrive-RevB.sch" \
+             "$PROJECT_DIR/hardware/MatrixDrive-RevB.kicad_pcb" \
+             "$PROJECT_DIR/hardware/MatrixDrive-RevB.kicad_pro" \
+             "$PROJECT_DIR/hardware/MatrixDrive_RevB.lib" \
+             "$PROJECT_DIR/hardware/sym-lib-table" \
+             "$PROJECT_DIR/hardware/kicad-project-manifest.json" \
+             "$PROJECT_DIR/hardware/README-KICAD.md" \
+             "$PROJECT_DIR/hardware/bom.csv" \
+             "$PROJECT_DIR/hardware/connector-pinout.csv" \
+             "$PROJECT_DIR/hardware/electrical-netlist.csv" \
+             "dist/$KICAD_PACKAGE_NAME/"
+          (
+            cd dist
+            zip -qr "../$KICAD_PACKAGE_NAME.zip" "$KICAD_PACKAGE_NAME"
+          )
+
+      - name: Upload KiCad project
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.KICAD_PACKAGE_NAME }}
+          path: ${{ env.KICAD_PACKAGE_NAME }}.zip
+          if-no-files-found: error
+
       - name: Commit regenerated template and rebuilt ZIP
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/sonic-knuckles-lock-on')
         shell: bash
@@ -116,7 +146,13 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "$PROJECT_DIR/hardware/MatrixDrive-RevB.kicad_pcb" \
-                  "$PACKAGE_NAME.zip"
+                  "$PROJECT_DIR/hardware/MatrixDrive-RevB.kicad_pro" \
+                  "$PROJECT_DIR/hardware/MatrixDrive-RevB.sch" \
+                  "$PROJECT_DIR/hardware/MatrixDrive_RevB.lib" \
+                  "$PROJECT_DIR/hardware/kicad-project-manifest.json" \
+                  "$PROJECT_DIR/hardware/sym-lib-table" \
+                  "$PACKAGE_NAME.zip" \
+                  "$KICAD_PACKAGE_NAME.zip"
           if git diff --cached --quiet; then
             echo "Generated files are already current."
             exit 0

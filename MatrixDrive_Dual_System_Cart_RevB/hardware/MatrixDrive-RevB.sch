@@ -1,0 +1,4659 @@
+EESchema Schematic File Version 4
+LIBS:MatrixDrive_RevB
+EELAYER 29 0
+EELAYER END
+$Descr A0 46811 33110
+encoding utf-8
+Sheet 1 1
+Title "MatrixDrive Revision B - Complete Logical Engineering Capture"
+Date "2026-08-28"
+Rev "B-LOGICAL"
+Comp "Matrixite"
+Comment1 "NOT FOR FABRICATION - verify RP2350B, NOR and CPLD package pins"
+Comment2 "KiCad 8/9 can open and convert this legacy schematic"
+Comment3 "Generated from tools/generate_kicad_project.py"
+Comment4 "USB-loadable MD/32X/SMS cartridge with lock-on saves"
+$EndDescr
+Text Notes 1200 900 0    120  ~ 24
+MATRIXDRIVE REV B - LOGICAL ENGINEERING SCHEMATIC
+Text Notes 1200 1200 0    70   ~ 14
+All repeated net labels are electrically connected. Programmable-device physical pin numbers remain release gates.
+$Comp
+L MatrixDrive_RevB:J1_MEGA_DRIVE_EDGE_2x32 J1
+U 1 1 66000001
+P 14500 3850
+F 0 "J1" H 14500 3930 50  0000 C CNN
+F 1 "MEGA_DRIVE_EDGE_2x32" H 14500 3770 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    14500 3850
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	13700 2300 13400 2300
+Text Label 13400 2300 0    35   ~ 0
+GND
+Wire Wire Line
+	13700 2400 13400 2400
+Text Label 13400 2400 0    35   ~ 0
+CART_5V_IN
+Wire Wire Line
+	13700 2500 13400 2500
+Text Label 13400 2500 0    35   ~ 0
+VA8
+Wire Wire Line
+	13700 2600 13400 2600
+Text Label 13400 2600 0    35   ~ 0
+VA11
+Wire Wire Line
+	13700 2700 13400 2700
+Text Label 13400 2700 0    35   ~ 0
+VA7
+Wire Wire Line
+	13700 2800 13400 2800
+Text Label 13400 2800 0    35   ~ 0
+VA12
+Wire Wire Line
+	13700 2900 13400 2900
+Text Label 13400 2900 0    35   ~ 0
+VA6
+Wire Wire Line
+	13700 3000 13400 3000
+Text Label 13400 3000 0    35   ~ 0
+VA13
+Wire Wire Line
+	13700 3100 13400 3100
+Text Label 13400 3100 0    35   ~ 0
+VA5
+Wire Wire Line
+	13700 3200 13400 3200
+Text Label 13400 3200 0    35   ~ 0
+VA14
+Wire Wire Line
+	13700 3300 13400 3300
+Text Label 13400 3300 0    35   ~ 0
+VA4
+Wire Wire Line
+	13700 3400 13400 3400
+Text Label 13400 3400 0    35   ~ 0
+VA15
+Wire Wire Line
+	13700 3500 13400 3500
+Text Label 13400 3500 0    35   ~ 0
+VA3
+Wire Wire Line
+	13700 3600 13400 3600
+Text Label 13400 3600 0    35   ~ 0
+VA16
+Wire Wire Line
+	13700 3700 13400 3700
+Text Label 13400 3700 0    35   ~ 0
+VA2
+Wire Wire Line
+	13700 3800 13400 3800
+Text Label 13400 3800 0    35   ~ 0
+VA17
+Wire Wire Line
+	13700 3900 13400 3900
+Text Label 13400 3900 0    35   ~ 0
+VA1
+Wire Wire Line
+	13700 4000 13400 4000
+Text Label 13400 4000 0    35   ~ 0
+GND
+Wire Wire Line
+	13700 4100 13400 4100
+Text Label 13400 4100 0    35   ~ 0
+VD7
+Wire Wire Line
+	13700 4200 13400 4200
+Text Label 13400 4200 0    35   ~ 0
+VD0
+Wire Wire Line
+	13700 4300 13400 4300
+Text Label 13400 4300 0    35   ~ 0
+VD8
+Wire Wire Line
+	13700 4400 13400 4400
+Text Label 13400 4400 0    35   ~ 0
+VD6
+Wire Wire Line
+	13700 4500 13400 4500
+Text Label 13400 4500 0    35   ~ 0
+VD1
+Wire Wire Line
+	13700 4600 13400 4600
+Text Label 13400 4600 0    35   ~ 0
+VD9
+Wire Wire Line
+	13700 4700 13400 4700
+Text Label 13400 4700 0    35   ~ 0
+VD5
+Wire Wire Line
+	13700 4800 13400 4800
+Text Label 13400 4800 0    35   ~ 0
+VD2
+Wire Wire Line
+	13700 4900 13400 4900
+Text Label 13400 4900 0    35   ~ 0
+VD10
+Wire Wire Line
+	13700 5000 13400 5000
+Text Label 13400 5000 0    35   ~ 0
+VD4
+Wire Wire Line
+	13700 5100 13400 5100
+Text Label 13400 5100 0    35   ~ 0
+VD3
+Wire Wire Line
+	13700 5200 13400 5200
+Text Label 13400 5200 0    35   ~ 0
+VD11
+Wire Wire Line
+	13700 5300 13400 5300
+Text Label 13400 5300 0    35   ~ 0
+CART_5V_IN
+Wire Wire Line
+	13700 5400 13400 5400
+Text Label 13400 5400 0    35   ~ 0
+GND
+NoConn ~ 15300 2300
+Wire Wire Line
+	15300 2400 15600 2400
+Text Label 15600 2400 2    35   ~ 0
+MRES_N
+NoConn ~ 15300 2500
+Wire Wire Line
+	15300 2600 15600 2600
+Text Label 15600 2600 2    35   ~ 0
+VA9
+Wire Wire Line
+	15300 2700 15600 2700
+Text Label 15600 2700 2    35   ~ 0
+VA10
+Wire Wire Line
+	15300 2800 15600 2800
+Text Label 15600 2800 2    35   ~ 0
+VA18
+Wire Wire Line
+	15300 2900 15600 2900
+Text Label 15600 2900 2    35   ~ 0
+VA19
+Wire Wire Line
+	15300 3000 15600 3000
+Text Label 15600 3000 2    35   ~ 0
+VA20
+Wire Wire Line
+	15300 3100 15600 3100
+Text Label 15600 3100 2    35   ~ 0
+VA21
+Wire Wire Line
+	15300 3200 15600 3200
+Text Label 15600 3200 2    35   ~ 0
+VA22
+Wire Wire Line
+	15300 3300 15600 3300
+Text Label 15600 3300 2    35   ~ 0
+VA23_PAUSE
+NoConn ~ 15300 3400
+NoConn ~ 15300 3500
+NoConn ~ 15300 3600
+NoConn ~ 15300 3700
+Wire Wire Line
+	15300 3800 15600 3800
+Text Label 15600 3800 2    35   ~ 0
+CAS0_N
+Wire Wire Line
+	15300 3900 15600 3900
+Text Label 15600 3900 2    35   ~ 0
+CE0_N
+Wire Wire Line
+	15300 4000 15600 4000
+Text Label 15600 4000 2    35   ~ 0
+AS_N
+Wire Wire Line
+	15300 4100 15600 4100
+Text Label 15600 4100 2    35   ~ 0
+VCLK
+NoConn ~ 15300 4200
+Wire Wire Line
+	15300 4300 15600 4300
+Text Label 15600 4300 2    35   ~ 0
+CAS2_N
+Wire Wire Line
+	15300 4400 15600 4400
+Text Label 15600 4400 2    35   ~ 0
+VD15
+Wire Wire Line
+	15300 4500 15600 4500
+Text Label 15600 4500 2    35   ~ 0
+VD14
+Wire Wire Line
+	15300 4600 15600 4600
+Text Label 15600 4600 2    35   ~ 0
+VD13
+Wire Wire Line
+	15300 4700 15600 4700
+Text Label 15600 4700 2    35   ~ 0
+VD12
+NoConn ~ 15300 4800
+Wire Wire Line
+	15300 4900 15600 4900
+Text Label 15600 4900 2    35   ~ 0
+VRES_N
+Wire Wire Line
+	15300 5000 15600 5000
+Text Label 15600 5000 2    35   ~ 0
+LWR_N
+Wire Wire Line
+	15300 5100 15600 5100
+Text Label 15600 5100 2    35   ~ 0
+UWR_N
+Wire Wire Line
+	15300 5200 15600 5200
+Text Label 15600 5200 2    35   ~ 0
+M3_N
+Wire Wire Line
+	15300 5300 15600 5300
+Text Label 15600 5300 2    35   ~ 0
+TIME_N
+Wire Wire Line
+	15300 5400 15600 5400
+Text Label 15600 5400 2    35   ~ 0
+CART_N
+$Comp
+L MatrixDrive_RevB:J2_USB4105_GF_A J2
+U 1 1 66000002
+P 42000 6250
+F 0 "J2" H 42000 6330 50  0000 C CNN
+F 1 "USB4105-GF-A" H 42000 6170 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    42000 6250
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	41200 5900 40900 5900
+Text Label 40900 5900 0    35   ~ 0
+GND
+Wire Wire Line
+	41200 6000 40900 6000
+Text Label 40900 6000 0    35   ~ 0
+USB_VBUS
+Wire Wire Line
+	41200 6100 40900 6100
+Text Label 40900 6100 0    35   ~ 0
+CC1
+Wire Wire Line
+	41200 6200 40900 6200
+Text Label 40900 6200 0    35   ~ 0
+USB_DP
+Wire Wire Line
+	41200 6300 40900 6300
+Text Label 40900 6300 0    35   ~ 0
+USB_DM
+Wire Wire Line
+	41200 6400 40900 6400
+Text Label 40900 6400 0    35   ~ 0
+USB_VBUS
+Wire Wire Line
+	41200 6500 40900 6500
+Text Label 40900 6500 0    35   ~ 0
+GND
+Wire Wire Line
+	41200 6600 40900 6600
+Text Label 40900 6600 0    35   ~ 0
+GND
+Wire Wire Line
+	42800 5900 43100 5900
+Text Label 43100 5900 2    35   ~ 0
+USB_VBUS
+Wire Wire Line
+	42800 6000 43100 6000
+Text Label 43100 6000 2    35   ~ 0
+CC2
+Wire Wire Line
+	42800 6100 43100 6100
+Text Label 43100 6100 2    35   ~ 0
+USB_DP
+Wire Wire Line
+	42800 6200 43100 6200
+Text Label 43100 6200 2    35   ~ 0
+USB_DM
+Wire Wire Line
+	42800 6300 43100 6300
+Text Label 43100 6300 2    35   ~ 0
+USB_VBUS
+Wire Wire Line
+	42800 6400 43100 6400
+Text Label 43100 6400 2    35   ~ 0
+GND
+Wire Wire Line
+	42800 6500 43100 6500
+Text Label 43100 6500 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:U1_RP2350B U1
+U 1 1 66000003
+P 9000 4100
+F 0 "U1" H 9000 4180 50  0000 C CNN
+F 1 "RP2350B" H 9000 4020 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    9000 4100
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	8200 2300 7900 2300
+Text Label 7900 2300 0    35   ~ 0
+ROM_A0
+Wire Wire Line
+	8200 2400 7900 2400
+Text Label 7900 2400 0    35   ~ 0
+ROM_A1
+Wire Wire Line
+	8200 2500 7900 2500
+Text Label 7900 2500 0    35   ~ 0
+ROM_A2
+Wire Wire Line
+	8200 2600 7900 2600
+Text Label 7900 2600 0    35   ~ 0
+ROM_A3
+Wire Wire Line
+	8200 2700 7900 2700
+Text Label 7900 2700 0    35   ~ 0
+ROM_A4
+Wire Wire Line
+	8200 2800 7900 2800
+Text Label 7900 2800 0    35   ~ 0
+ROM_A5
+Wire Wire Line
+	8200 2900 7900 2900
+Text Label 7900 2900 0    35   ~ 0
+ROM_A6
+Wire Wire Line
+	8200 3000 7900 3000
+Text Label 7900 3000 0    35   ~ 0
+ROM_A7
+Wire Wire Line
+	8200 3100 7900 3100
+Text Label 7900 3100 0    35   ~ 0
+ROM_A8
+Wire Wire Line
+	8200 3200 7900 3200
+Text Label 7900 3200 0    35   ~ 0
+ROM_A9
+Wire Wire Line
+	8200 3300 7900 3300
+Text Label 7900 3300 0    35   ~ 0
+ROM_A10
+Wire Wire Line
+	8200 3400 7900 3400
+Text Label 7900 3400 0    35   ~ 0
+ROM_A11
+Wire Wire Line
+	8200 3500 7900 3500
+Text Label 7900 3500 0    35   ~ 0
+ROM_A12
+Wire Wire Line
+	8200 3600 7900 3600
+Text Label 7900 3600 0    35   ~ 0
+ROM_A13
+Wire Wire Line
+	8200 3700 7900 3700
+Text Label 7900 3700 0    35   ~ 0
+ROM_A14
+Wire Wire Line
+	8200 3800 7900 3800
+Text Label 7900 3800 0    35   ~ 0
+ROM_A15
+Wire Wire Line
+	8200 3900 7900 3900
+Text Label 7900 3900 0    35   ~ 0
+ROM_A16
+Wire Wire Line
+	8200 4000 7900 4000
+Text Label 7900 4000 0    35   ~ 0
+ROM_A17
+Wire Wire Line
+	8200 4100 7900 4100
+Text Label 7900 4100 0    35   ~ 0
+ROM_A18
+Wire Wire Line
+	8200 4200 7900 4200
+Text Label 7900 4200 0    35   ~ 0
+ROM_A19
+Wire Wire Line
+	8200 4300 7900 4300
+Text Label 7900 4300 0    35   ~ 0
+ROM_A20
+Wire Wire Line
+	8200 4400 7900 4400
+Text Label 7900 4400 0    35   ~ 0
+MEM_D0
+Wire Wire Line
+	8200 4500 7900 4500
+Text Label 7900 4500 0    35   ~ 0
+MEM_D1
+Wire Wire Line
+	8200 4600 7900 4600
+Text Label 7900 4600 0    35   ~ 0
+MEM_D2
+Wire Wire Line
+	8200 4700 7900 4700
+Text Label 7900 4700 0    35   ~ 0
+MEM_D3
+Wire Wire Line
+	8200 4800 7900 4800
+Text Label 7900 4800 0    35   ~ 0
+MEM_D4
+Wire Wire Line
+	8200 4900 7900 4900
+Text Label 7900 4900 0    35   ~ 0
+MEM_D5
+Wire Wire Line
+	8200 5000 7900 5000
+Text Label 7900 5000 0    35   ~ 0
+MEM_D6
+Wire Wire Line
+	8200 5100 7900 5100
+Text Label 7900 5100 0    35   ~ 0
+MEM_D7
+Wire Wire Line
+	8200 5200 7900 5200
+Text Label 7900 5200 0    35   ~ 0
+MEM_D8
+Wire Wire Line
+	8200 5300 7900 5300
+Text Label 7900 5300 0    35   ~ 0
+MEM_D9
+Wire Wire Line
+	8200 5400 7900 5400
+Text Label 7900 5400 0    35   ~ 0
+MEM_D10
+Wire Wire Line
+	8200 5500 7900 5500
+Text Label 7900 5500 0    35   ~ 0
+MEM_D11
+Wire Wire Line
+	8200 5600 7900 5600
+Text Label 7900 5600 0    35   ~ 0
+MEM_D12
+Wire Wire Line
+	8200 5700 7900 5700
+Text Label 7900 5700 0    35   ~ 0
+MEM_D13
+Wire Wire Line
+	8200 5800 7900 5800
+Text Label 7900 5800 0    35   ~ 0
+MEM_D14
+Wire Wire Line
+	8200 5900 7900 5900
+Text Label 7900 5900 0    35   ~ 0
+MEM_D15
+Wire Wire Line
+	9800 2300 10100 2300
+Text Label 10100 2300 2    35   ~ 0
+ROM_CE_N
+Wire Wire Line
+	9800 2400 10100 2400
+Text Label 10100 2400 2    35   ~ 0
+ROM_OE_N
+Wire Wire Line
+	9800 2500 10100 2500
+Text Label 10100 2500 2    35   ~ 0
+ROM_WE_N
+Wire Wire Line
+	9800 2600 10100 2600
+Text Label 10100 2600 2    35   ~ 0
+STAGE_MISO
+Wire Wire Line
+	9800 2700 10100 2700
+Text Label 10100 2700 2    35   ~ 0
+STAGE_CS_N
+Wire Wire Line
+	9800 2800 10100 2800
+Text Label 10100 2800 2    35   ~ 0
+STAGE_SCK
+Wire Wire Line
+	9800 2900 10100 2900
+Text Label 10100 2900 2    35   ~ 0
+STAGE_MOSI
+Wire Wire Line
+	9800 3000 10100 3000
+Text Label 10100 3000 2    35   ~ 0
+USB_SENSE_PROGRAM
+Wire Wire Line
+	9800 3100 10100 3100
+Text Label 10100 3100 2    35   ~ 0
+LED_GREEN
+Wire Wire Line
+	9800 3200 10100 3200
+Text Label 10100 3200 2    35   ~ 0
+LED_AMBER
+Wire Wire Line
+	9800 3300 10100 3300
+Text Label 10100 3300 2    35   ~ 0
+LED_RED
+Wire Wire Line
+	9800 3400 10100 3400
+Text Label 10100 3400 2    35   ~ 0
+USB_DP_MCU
+Wire Wire Line
+	9800 3500 10100 3500
+Text Label 10100 3500 2    35   ~ 0
+USB_DM_MCU
+Wire Wire Line
+	9800 3600 10100 3600
+Text Label 10100 3600 2    35   ~ 0
+XIN
+Wire Wire Line
+	9800 3700 10100 3700
+Text Label 10100 3700 2    35   ~ 0
+XOUT
+Wire Wire Line
+	9800 3800 10100 3800
+Text Label 10100 3800 2    35   ~ 0
+BOOT_QSPI_CS
+Wire Wire Line
+	9800 3900 10100 3900
+Text Label 10100 3900 2    35   ~ 0
+BOOT_QSPI_SCK
+Wire Wire Line
+	9800 4000 10100 4000
+Text Label 10100 4000 2    35   ~ 0
+BOOT_QSPI_IO0
+Wire Wire Line
+	9800 4100 10100 4100
+Text Label 10100 4100 2    35   ~ 0
+BOOT_QSPI_IO1
+Wire Wire Line
+	9800 4200 10100 4200
+Text Label 10100 4200 2    35   ~ 0
+BOOT_QSPI_IO2
+Wire Wire Line
+	9800 4300 10100 4300
+Text Label 10100 4300 2    35   ~ 0
+BOOT_QSPI_IO3
+Wire Wire Line
+	9800 4400 10100 4400
+Text Label 10100 4400 2    35   ~ 0
+SWDIO
+Wire Wire Line
+	9800 4500 10100 4500
+Text Label 10100 4500 2    35   ~ 0
+SWCLK
+Wire Wire Line
+	9800 4600 10100 4600
+Text Label 10100 4600 2    35   ~ 0
+RUN_N
+Wire Wire Line
+	9800 4700 10100 4700
+Text Label 10100 4700 2    35   ~ 0
+UART_TX
+Wire Wire Line
+	9800 4800 10100 4800
+Text Label 10100 4800 2    35   ~ 0
+UART_RX
+Wire Wire Line
+	9800 4900 10100 4900
+Text Label 10100 4900 2    35   ~ 0
+3V3
+Wire Wire Line
+	9800 5000 10100 5000
+Text Label 10100 5000 2    35   ~ 0
+VREG_SW
+Wire Wire Line
+	9800 5100 10100 5100
+Text Label 10100 5100 2    35   ~ 0
+1V1
+Wire Wire Line
+	9800 5200 10100 5200
+Text Label 10100 5200 2    35   ~ 0
+VREG_AVDD
+Wire Wire Line
+	9800 5300 10100 5300
+Text Label 10100 5300 2    35   ~ 0
+ADC_AVDD
+Wire Wire Line
+	9800 5400 10100 5400
+Text Label 10100 5400 2    35   ~ 0
+3V3
+Wire Wire Line
+	9800 5500 10100 5500
+Text Label 10100 5500 2    35   ~ 0
+3V3
+Wire Wire Line
+	9800 5600 10100 5600
+Text Label 10100 5600 2    35   ~ 0
+1V1
+Wire Wire Line
+	9800 5700 10100 5700
+Text Label 10100 5700 2    35   ~ 0
+GND
+Wire Wire Line
+	9800 5800 10100 5800
+Text Label 10100 5800 2    35   ~ 0
+GND
+Wire Wire Line
+	9800 5900 10100 5900
+Text Label 10100 5900 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:U2_S29GL032N90TFI040 U2
+U 1 1 66000004
+P 20000 3400
+F 0 "U2" H 20000 3480 50  0000 C CNN
+F 1 "S29GL032N90TFI040" H 20000 3320 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    20000 3400
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	19200 2300 18900 2300
+Text Label 18900 2300 0    35   ~ 0
+ROM_A0
+Wire Wire Line
+	19200 2400 18900 2400
+Text Label 18900 2400 0    35   ~ 0
+ROM_A1
+Wire Wire Line
+	19200 2500 18900 2500
+Text Label 18900 2500 0    35   ~ 0
+ROM_A2
+Wire Wire Line
+	19200 2600 18900 2600
+Text Label 18900 2600 0    35   ~ 0
+ROM_A3
+Wire Wire Line
+	19200 2700 18900 2700
+Text Label 18900 2700 0    35   ~ 0
+ROM_A4
+Wire Wire Line
+	19200 2800 18900 2800
+Text Label 18900 2800 0    35   ~ 0
+ROM_A5
+Wire Wire Line
+	19200 2900 18900 2900
+Text Label 18900 2900 0    35   ~ 0
+ROM_A6
+Wire Wire Line
+	19200 3000 18900 3000
+Text Label 18900 3000 0    35   ~ 0
+ROM_A7
+Wire Wire Line
+	19200 3100 18900 3100
+Text Label 18900 3100 0    35   ~ 0
+ROM_A8
+Wire Wire Line
+	19200 3200 18900 3200
+Text Label 18900 3200 0    35   ~ 0
+ROM_A9
+Wire Wire Line
+	19200 3300 18900 3300
+Text Label 18900 3300 0    35   ~ 0
+ROM_A10
+Wire Wire Line
+	19200 3400 18900 3400
+Text Label 18900 3400 0    35   ~ 0
+ROM_A11
+Wire Wire Line
+	19200 3500 18900 3500
+Text Label 18900 3500 0    35   ~ 0
+ROM_A12
+Wire Wire Line
+	19200 3600 18900 3600
+Text Label 18900 3600 0    35   ~ 0
+ROM_A13
+Wire Wire Line
+	19200 3700 18900 3700
+Text Label 18900 3700 0    35   ~ 0
+ROM_A14
+Wire Wire Line
+	19200 3800 18900 3800
+Text Label 18900 3800 0    35   ~ 0
+ROM_A15
+Wire Wire Line
+	19200 3900 18900 3900
+Text Label 18900 3900 0    35   ~ 0
+ROM_A16
+Wire Wire Line
+	19200 4000 18900 4000
+Text Label 18900 4000 0    35   ~ 0
+ROM_A17
+Wire Wire Line
+	19200 4100 18900 4100
+Text Label 18900 4100 0    35   ~ 0
+ROM_A18
+Wire Wire Line
+	19200 4200 18900 4200
+Text Label 18900 4200 0    35   ~ 0
+ROM_A19
+Wire Wire Line
+	19200 4300 18900 4300
+Text Label 18900 4300 0    35   ~ 0
+ROM_A20
+Wire Wire Line
+	19200 4400 18900 4400
+Text Label 18900 4400 0    35   ~ 0
+MEM_D0
+Wire Wire Line
+	19200 4500 18900 4500
+Text Label 18900 4500 0    35   ~ 0
+MEM_D1
+Wire Wire Line
+	20800 2300 21100 2300
+Text Label 21100 2300 2    35   ~ 0
+MEM_D2
+Wire Wire Line
+	20800 2400 21100 2400
+Text Label 21100 2400 2    35   ~ 0
+MEM_D3
+Wire Wire Line
+	20800 2500 21100 2500
+Text Label 21100 2500 2    35   ~ 0
+MEM_D4
+Wire Wire Line
+	20800 2600 21100 2600
+Text Label 21100 2600 2    35   ~ 0
+MEM_D5
+Wire Wire Line
+	20800 2700 21100 2700
+Text Label 21100 2700 2    35   ~ 0
+MEM_D6
+Wire Wire Line
+	20800 2800 21100 2800
+Text Label 21100 2800 2    35   ~ 0
+MEM_D7
+Wire Wire Line
+	20800 2900 21100 2900
+Text Label 21100 2900 2    35   ~ 0
+MEM_D8
+Wire Wire Line
+	20800 3000 21100 3000
+Text Label 21100 3000 2    35   ~ 0
+MEM_D9
+Wire Wire Line
+	20800 3100 21100 3100
+Text Label 21100 3100 2    35   ~ 0
+MEM_D10
+Wire Wire Line
+	20800 3200 21100 3200
+Text Label 21100 3200 2    35   ~ 0
+MEM_D11
+Wire Wire Line
+	20800 3300 21100 3300
+Text Label 21100 3300 2    35   ~ 0
+MEM_D12
+Wire Wire Line
+	20800 3400 21100 3400
+Text Label 21100 3400 2    35   ~ 0
+MEM_D13
+Wire Wire Line
+	20800 3500 21100 3500
+Text Label 21100 3500 2    35   ~ 0
+MEM_D14
+Wire Wire Line
+	20800 3600 21100 3600
+Text Label 21100 3600 2    35   ~ 0
+MEM_D15
+Wire Wire Line
+	20800 3700 21100 3700
+Text Label 21100 3700 2    35   ~ 0
+ROM_CE_N
+Wire Wire Line
+	20800 3800 21100 3800
+Text Label 21100 3800 2    35   ~ 0
+ROM_OE_N
+Wire Wire Line
+	20800 3900 21100 3900
+Text Label 21100 3900 2    35   ~ 0
+ROM_WE_N
+Wire Wire Line
+	20800 4000 21100 4000
+Text Label 21100 4000 2    35   ~ 0
+ROM_RESET_N
+Wire Wire Line
+	20800 4100 21100 4100
+Text Label 21100 4100 2    35   ~ 0
+ROM_WP_N
+Wire Wire Line
+	20800 4200 21100 4200
+Text Label 21100 4200 2    35   ~ 0
+ROM_BYTE_N
+Wire Wire Line
+	20800 4300 21100 4300
+Text Label 21100 4300 2    35   ~ 0
+3V3
+Wire Wire Line
+	20800 4400 21100 4400
+Text Label 21100 4400 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:U3_SN74LVC8T245PWR U3
+U 1 1 66000005
+P 42000 4600
+F 0 "U3" H 42000 4680 50  0000 C CNN
+F 1 "SN74LVC8T245PWR" H 42000 4520 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    42000 4600
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	41200 4100 40900 4100
+Text Label 40900 4100 0    35   ~ 0
+VA1
+Wire Wire Line
+	41200 4200 40900 4200
+Text Label 40900 4200 0    35   ~ 0
+CART_A0
+Wire Wire Line
+	41200 4300 40900 4300
+Text Label 40900 4300 0    35   ~ 0
+VA2
+Wire Wire Line
+	41200 4400 40900 4400
+Text Label 40900 4400 0    35   ~ 0
+CART_A1
+Wire Wire Line
+	41200 4500 40900 4500
+Text Label 40900 4500 0    35   ~ 0
+VA3
+Wire Wire Line
+	41200 4600 40900 4600
+Text Label 40900 4600 0    35   ~ 0
+CART_A2
+Wire Wire Line
+	41200 4700 40900 4700
+Text Label 40900 4700 0    35   ~ 0
+VA4
+Wire Wire Line
+	41200 4800 40900 4800
+Text Label 40900 4800 0    35   ~ 0
+CART_A3
+Wire Wire Line
+	41200 4900 40900 4900
+Text Label 40900 4900 0    35   ~ 0
+VA5
+Wire Wire Line
+	41200 5000 40900 5000
+Text Label 40900 5000 0    35   ~ 0
+CART_A4
+Wire Wire Line
+	41200 5100 40900 5100
+Text Label 40900 5100 0    35   ~ 0
+VA6
+Wire Wire Line
+	42800 4100 43100 4100
+Text Label 43100 4100 2    35   ~ 0
+CART_A5
+Wire Wire Line
+	42800 4200 43100 4200
+Text Label 43100 4200 2    35   ~ 0
+VA7
+Wire Wire Line
+	42800 4300 43100 4300
+Text Label 43100 4300 2    35   ~ 0
+CART_A6
+Wire Wire Line
+	42800 4400 43100 4400
+Text Label 43100 4400 2    35   ~ 0
+VA8
+Wire Wire Line
+	42800 4500 43100 4500
+Text Label 43100 4500 2    35   ~ 0
+CART_A7
+Wire Wire Line
+	42800 4600 43100 4600
+Text Label 43100 4600 2    35   ~ 0
+U3_DIR
+Wire Wire Line
+	42800 4700 43100 4700
+Text Label 43100 4700 2    35   ~ 0
+BUS_DISABLE
+Wire Wire Line
+	42800 4800 43100 4800
+Text Label 43100 4800 2    35   ~ 0
+CART_5V
+Wire Wire Line
+	42800 4900 43100 4900
+Text Label 43100 4900 2    35   ~ 0
+3V3
+Wire Wire Line
+	42800 5000 43100 5000
+Text Label 43100 5000 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:U4_SN74LVC8T245PWR U4
+U 1 1 66000006
+P 25500 4900
+F 0 "U4" H 25500 4980 50  0000 C CNN
+F 1 "SN74LVC8T245PWR" H 25500 4820 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    25500 4900
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	24700 4400 24400 4400
+Text Label 24400 4400 0    35   ~ 0
+VA9
+Wire Wire Line
+	24700 4500 24400 4500
+Text Label 24400 4500 0    35   ~ 0
+CART_A8
+Wire Wire Line
+	24700 4600 24400 4600
+Text Label 24400 4600 0    35   ~ 0
+VA10
+Wire Wire Line
+	24700 4700 24400 4700
+Text Label 24400 4700 0    35   ~ 0
+CART_A9
+Wire Wire Line
+	24700 4800 24400 4800
+Text Label 24400 4800 0    35   ~ 0
+VA11
+Wire Wire Line
+	24700 4900 24400 4900
+Text Label 24400 4900 0    35   ~ 0
+CART_A10
+Wire Wire Line
+	24700 5000 24400 5000
+Text Label 24400 5000 0    35   ~ 0
+VA12
+Wire Wire Line
+	24700 5100 24400 5100
+Text Label 24400 5100 0    35   ~ 0
+CART_A11
+Wire Wire Line
+	24700 5200 24400 5200
+Text Label 24400 5200 0    35   ~ 0
+VA13
+Wire Wire Line
+	24700 5300 24400 5300
+Text Label 24400 5300 0    35   ~ 0
+CART_A12
+Wire Wire Line
+	24700 5400 24400 5400
+Text Label 24400 5400 0    35   ~ 0
+VA14
+Wire Wire Line
+	26300 4400 26600 4400
+Text Label 26600 4400 2    35   ~ 0
+CART_A13
+Wire Wire Line
+	26300 4500 26600 4500
+Text Label 26600 4500 2    35   ~ 0
+VA15
+Wire Wire Line
+	26300 4600 26600 4600
+Text Label 26600 4600 2    35   ~ 0
+CART_A14
+Wire Wire Line
+	26300 4700 26600 4700
+Text Label 26600 4700 2    35   ~ 0
+VA16
+Wire Wire Line
+	26300 4800 26600 4800
+Text Label 26600 4800 2    35   ~ 0
+CART_A15
+Wire Wire Line
+	26300 4900 26600 4900
+Text Label 26600 4900 2    35   ~ 0
+U4_DIR
+Wire Wire Line
+	26300 5000 26600 5000
+Text Label 26600 5000 2    35   ~ 0
+BUS_DISABLE
+Wire Wire Line
+	26300 5100 26600 5100
+Text Label 26600 5100 2    35   ~ 0
+CART_5V
+Wire Wire Line
+	26300 5200 26600 5200
+Text Label 26600 5200 2    35   ~ 0
+3V3
+Wire Wire Line
+	26300 5300 26600 5300
+Text Label 26600 5300 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:U5_SN74LVC8T245PWR U5
+U 1 1 66000007
+P 31000 4900
+F 0 "U5" H 31000 4980 50  0000 C CNN
+F 1 "SN74LVC8T245PWR" H 31000 4820 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    31000 4900
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	30200 4400 29900 4400
+Text Label 29900 4400 0    35   ~ 0
+VA17
+Wire Wire Line
+	30200 4500 29900 4500
+Text Label 29900 4500 0    35   ~ 0
+CART_A16
+Wire Wire Line
+	30200 4600 29900 4600
+Text Label 29900 4600 0    35   ~ 0
+VA18
+Wire Wire Line
+	30200 4700 29900 4700
+Text Label 29900 4700 0    35   ~ 0
+CART_A17
+Wire Wire Line
+	30200 4800 29900 4800
+Text Label 29900 4800 0    35   ~ 0
+VA19
+Wire Wire Line
+	30200 4900 29900 4900
+Text Label 29900 4900 0    35   ~ 0
+CART_A18
+Wire Wire Line
+	30200 5000 29900 5000
+Text Label 29900 5000 0    35   ~ 0
+VA20
+Wire Wire Line
+	30200 5100 29900 5100
+Text Label 29900 5100 0    35   ~ 0
+CART_A19
+Wire Wire Line
+	30200 5200 29900 5200
+Text Label 29900 5200 0    35   ~ 0
+VA21
+Wire Wire Line
+	30200 5300 29900 5300
+Text Label 29900 5300 0    35   ~ 0
+CART_A20
+Wire Wire Line
+	30200 5400 29900 5400
+Text Label 29900 5400 0    35   ~ 0
+CE0_N
+Wire Wire Line
+	31800 4400 32100 4400
+Text Label 32100 4400 2    35   ~ 0
+CE0_3V3
+Wire Wire Line
+	31800 4500 32100 4500
+Text Label 32100 4500 2    35   ~ 0
+CAS0_N
+Wire Wire Line
+	31800 4600 32100 4600
+Text Label 32100 4600 2    35   ~ 0
+CAS0_3V3
+Wire Wire Line
+	31800 4700 32100 4700
+Text Label 32100 4700 2    35   ~ 0
+CAS2_N
+Wire Wire Line
+	31800 4800 32100 4800
+Text Label 32100 4800 2    35   ~ 0
+CAS2_3V3
+Wire Wire Line
+	31800 4900 32100 4900
+Text Label 32100 4900 2    35   ~ 0
+U5_DIR
+Wire Wire Line
+	31800 5000 32100 5000
+Text Label 32100 5000 2    35   ~ 0
+BUS_DISABLE
+Wire Wire Line
+	31800 5100 32100 5100
+Text Label 32100 5100 2    35   ~ 0
+CART_5V
+Wire Wire Line
+	31800 5200 32100 5200
+Text Label 32100 5200 2    35   ~ 0
+3V3
+Wire Wire Line
+	31800 5300 32100 5300
+Text Label 32100 5300 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:U6_SN74LVC8T245PWR U6
+U 1 1 66000008
+P 36500 4900
+F 0 "U6" H 36500 4980 50  0000 C CNN
+F 1 "SN74LVC8T245PWR" H 36500 4820 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    36500 4900
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	35700 4400 35400 4400
+Text Label 35400 4400 0    35   ~ 0
+VD0
+Wire Wire Line
+	35700 4500 35400 4500
+Text Label 35400 4500 0    35   ~ 0
+MEM_D0
+Wire Wire Line
+	35700 4600 35400 4600
+Text Label 35400 4600 0    35   ~ 0
+VD1
+Wire Wire Line
+	35700 4700 35400 4700
+Text Label 35400 4700 0    35   ~ 0
+MEM_D1
+Wire Wire Line
+	35700 4800 35400 4800
+Text Label 35400 4800 0    35   ~ 0
+VD2
+Wire Wire Line
+	35700 4900 35400 4900
+Text Label 35400 4900 0    35   ~ 0
+MEM_D2
+Wire Wire Line
+	35700 5000 35400 5000
+Text Label 35400 5000 0    35   ~ 0
+VD3
+Wire Wire Line
+	35700 5100 35400 5100
+Text Label 35400 5100 0    35   ~ 0
+MEM_D3
+Wire Wire Line
+	35700 5200 35400 5200
+Text Label 35400 5200 0    35   ~ 0
+VD4
+Wire Wire Line
+	35700 5300 35400 5300
+Text Label 35400 5300 0    35   ~ 0
+MEM_D4
+Wire Wire Line
+	35700 5400 35400 5400
+Text Label 35400 5400 0    35   ~ 0
+VD5
+Wire Wire Line
+	37300 4400 37600 4400
+Text Label 37600 4400 2    35   ~ 0
+MEM_D5
+Wire Wire Line
+	37300 4500 37600 4500
+Text Label 37600 4500 2    35   ~ 0
+VD6
+Wire Wire Line
+	37300 4600 37600 4600
+Text Label 37600 4600 2    35   ~ 0
+MEM_D6
+Wire Wire Line
+	37300 4700 37600 4700
+Text Label 37600 4700 2    35   ~ 0
+VD7
+Wire Wire Line
+	37300 4800 37600 4800
+Text Label 37600 4800 2    35   ~ 0
+MEM_D7
+Wire Wire Line
+	37300 4900 37600 4900
+Text Label 37600 4900 2    35   ~ 0
+LOW_DATA_DIR
+Wire Wire Line
+	37300 5000 37600 5000
+Text Label 37600 5000 2    35   ~ 0
+BUS_DISABLE
+Wire Wire Line
+	37300 5100 37600 5100
+Text Label 37600 5100 2    35   ~ 0
+CART_5V
+Wire Wire Line
+	37300 5200 37600 5200
+Text Label 37600 5200 2    35   ~ 0
+3V3
+Wire Wire Line
+	37300 5300 37600 5300
+Text Label 37600 5300 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:U7_SN74LVC8T245PWR U7
+U 1 1 66000009
+P 20000 5800
+F 0 "U7" H 20000 5880 50  0000 C CNN
+F 1 "SN74LVC8T245PWR" H 20000 5720 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    20000 5800
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	19200 5300 18900 5300
+Text Label 18900 5300 0    35   ~ 0
+VD8
+Wire Wire Line
+	19200 5400 18900 5400
+Text Label 18900 5400 0    35   ~ 0
+MEM_D8
+Wire Wire Line
+	19200 5500 18900 5500
+Text Label 18900 5500 0    35   ~ 0
+VD9
+Wire Wire Line
+	19200 5600 18900 5600
+Text Label 18900 5600 0    35   ~ 0
+MEM_D9
+Wire Wire Line
+	19200 5700 18900 5700
+Text Label 18900 5700 0    35   ~ 0
+VD10
+Wire Wire Line
+	19200 5800 18900 5800
+Text Label 18900 5800 0    35   ~ 0
+MEM_D10
+Wire Wire Line
+	19200 5900 18900 5900
+Text Label 18900 5900 0    35   ~ 0
+VD11
+Wire Wire Line
+	19200 6000 18900 6000
+Text Label 18900 6000 0    35   ~ 0
+MEM_D11
+Wire Wire Line
+	19200 6100 18900 6100
+Text Label 18900 6100 0    35   ~ 0
+VD12
+Wire Wire Line
+	19200 6200 18900 6200
+Text Label 18900 6200 0    35   ~ 0
+MEM_D12
+Wire Wire Line
+	19200 6300 18900 6300
+Text Label 18900 6300 0    35   ~ 0
+VD13
+Wire Wire Line
+	20800 5300 21100 5300
+Text Label 21100 5300 2    35   ~ 0
+MEM_D13
+Wire Wire Line
+	20800 5400 21100 5400
+Text Label 21100 5400 2    35   ~ 0
+VD14
+Wire Wire Line
+	20800 5500 21100 5500
+Text Label 21100 5500 2    35   ~ 0
+MEM_D14
+Wire Wire Line
+	20800 5600 21100 5600
+Text Label 21100 5600 2    35   ~ 0
+VD15
+Wire Wire Line
+	20800 5700 21100 5700
+Text Label 21100 5700 2    35   ~ 0
+MEM_D15
+Wire Wire Line
+	20800 5800 21100 5800
+Text Label 21100 5800 2    35   ~ 0
+U7_DIR
+Wire Wire Line
+	20800 5900 21100 5900
+Text Label 21100 5900 2    35   ~ 0
+DATA_HIGH_DISABLE
+Wire Wire Line
+	20800 6000 21100 6000
+Text Label 21100 6000 2    35   ~ 0
+CART_5V
+Wire Wire Line
+	20800 6100 21100 6100
+Text Label 21100 6100 2    35   ~ 0
+3V3
+Wire Wire Line
+	20800 6200 21100 6200
+Text Label 21100 6200 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:U14_SN74LVC8T245PWR U14
+U 1 1 6600000A
+P 42000 2800
+F 0 "U14" H 42000 2880 50  0000 C CNN
+F 1 "SN74LVC8T245PWR" H 42000 2720 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    42000 2800
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	41200 2300 40900 2300
+Text Label 40900 2300 0    35   ~ 0
+LWR_N
+Wire Wire Line
+	41200 2400 40900 2400
+Text Label 40900 2400 0    35   ~ 0
+LWR_3V3
+Wire Wire Line
+	41200 2500 40900 2500
+Text Label 40900 2500 0    35   ~ 0
+MRES_N
+Wire Wire Line
+	41200 2600 40900 2600
+Text Label 40900 2600 0    35   ~ 0
+MRES_3V3
+Wire Wire Line
+	41200 2700 40900 2700
+Text Label 40900 2700 0    35   ~ 0
+UWR_N
+Wire Wire Line
+	41200 2800 40900 2800
+Text Label 40900 2800 0    35   ~ 0
+UWR_3V3
+Wire Wire Line
+	41200 2900 40900 2900
+Text Label 40900 2900 0    35   ~ 0
+AS_N
+Wire Wire Line
+	41200 3000 40900 3000
+Text Label 40900 3000 0    35   ~ 0
+AS_3V3
+Wire Wire Line
+	41200 3100 40900 3100
+Text Label 40900 3100 0    35   ~ 0
+TIME_N
+Wire Wire Line
+	41200 3200 40900 3200
+Text Label 40900 3200 0    35   ~ 0
+TIME_3V3
+Wire Wire Line
+	41200 3300 40900 3300
+Text Label 40900 3300 0    35   ~ 0
+GND
+NoConn ~ 42800 2300
+Wire Wire Line
+	42800 2400 43100 2400
+Text Label 43100 2400 2    35   ~ 0
+GND
+NoConn ~ 42800 2500
+Wire Wire Line
+	42800 2600 43100 2600
+Text Label 43100 2600 2    35   ~ 0
+GND
+NoConn ~ 42800 2700
+Wire Wire Line
+	42800 2800 43100 2800
+Text Label 43100 2800 2    35   ~ 0
+U14_DIR
+Wire Wire Line
+	42800 2900 43100 2900
+Text Label 43100 2900 2    35   ~ 0
+BUS_DISABLE
+Wire Wire Line
+	42800 3000 43100 3000
+Text Label 43100 3000 2    35   ~ 0
+CART_5V
+Wire Wire Line
+	42800 3100 43100 3100
+Text Label 43100 3100 2    35   ~ 0
+3V3
+Wire Wire Line
+	42800 3200 43100 3200
+Text Label 43100 3200 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:U8_SN74LVC1G17DBVR U8
+U 1 1 6600000B
+P 25500 19600
+F 0 "U8" H 25500 19680 50  0000 C CNN
+F 1 "SN74LVC1G17DBVR" H 25500 19520 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    25500 19600
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	24700 19400 24400 19400
+Text Label 24400 19400 0    35   ~ 0
+USB_PRESENT
+Wire Wire Line
+	24700 19500 24400 19500
+Text Label 24400 19500 0    35   ~ 0
+BUS_DISABLE
+Wire Wire Line
+	26300 19400 26600 19400
+Text Label 26600 19400 2    35   ~ 0
+CART_5V
+Wire Wire Line
+	26300 19500 26600 19500
+Text Label 26600 19500 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:U9_W25Q16JVSSIQ U9
+U 1 1 6600000C
+P 14500 25600
+F 0 "U9" H 14500 25680 50  0000 C CNN
+F 1 "W25Q16JVSSIQ" H 14500 25520 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    14500 25600
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	13700 25400 13400 25400
+Text Label 13400 25400 0    35   ~ 0
+BOOT_QSPI_CS
+Wire Wire Line
+	13700 25500 13400 25500
+Text Label 13400 25500 0    35   ~ 0
+BOOT_QSPI_IO1
+Wire Wire Line
+	13700 25600 13400 25600
+Text Label 13400 25600 0    35   ~ 0
+BOOT_QSPI_IO2
+Wire Wire Line
+	13700 25700 13400 25700
+Text Label 13400 25700 0    35   ~ 0
+GND
+Wire Wire Line
+	15300 25400 15600 25400
+Text Label 15600 25400 2    35   ~ 0
+BOOT_QSPI_IO0
+Wire Wire Line
+	15300 25500 15600 25500
+Text Label 15600 25500 2    35   ~ 0
+BOOT_QSPI_SCK
+Wire Wire Line
+	15300 25600 15600 25600
+Text Label 15600 25600 2    35   ~ 0
+BOOT_QSPI_IO3
+Wire Wire Line
+	15300 25700 15600 25700
+Text Label 15600 25700 2    35   ~ 0
+3V3
+$Comp
+L MatrixDrive_RevB:U10_W25Q128JVSIQ U10
+U 1 1 6600000D
+P 3500 25000
+F 0 "U10" H 3500 25080 50  0000 C CNN
+F 1 "W25Q128JVSIQ" H 3500 24920 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    3500 25000
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	2700 24800 2400 24800
+Text Label 2400 24800 0    35   ~ 0
+STAGE_CS_N
+Wire Wire Line
+	2700 24900 2400 24900
+Text Label 2400 24900 0    35   ~ 0
+STAGE_MISO
+Wire Wire Line
+	2700 25000 2400 25000
+Text Label 2400 25000 0    35   ~ 0
+3V3
+Wire Wire Line
+	2700 25100 2400 25100
+Text Label 2400 25100 0    35   ~ 0
+GND
+Wire Wire Line
+	4300 24800 4600 24800
+Text Label 4600 24800 2    35   ~ 0
+STAGE_MOSI
+Wire Wire Line
+	4300 24900 4600 24900
+Text Label 4600 24900 2    35   ~ 0
+STAGE_SCK
+Wire Wire Line
+	4300 25000 4600 25000
+Text Label 4600 25000 2    35   ~ 0
+3V3
+Wire Wire Line
+	4300 25100 4600 25100
+Text Label 4600 25100 2    35   ~ 0
+3V3
+$Comp
+L MatrixDrive_RevB:U11_TLV75533PDBVR U11
+U 1 1 6600000E
+P 14500 19600
+F 0 "U11" H 14500 19680 50  0000 C CNN
+F 1 "TLV75533PDBVR" H 14500 19520 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    14500 19600
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	13700 19400 13400 19400
+Text Label 13400 19400 0    35   ~ 0
+SYS_5V
+Wire Wire Line
+	13700 19500 13400 19500
+Text Label 13400 19500 0    35   ~ 0
+GND
+Wire Wire Line
+	13700 19600 13400 19600
+Text Label 13400 19600 0    35   ~ 0
+SYS_5V
+NoConn ~ 15300 19400
+Wire Wire Line
+	15300 19500 15600 19500
+Text Label 15600 19500 2    35   ~ 0
+3V3
+$Comp
+L MatrixDrive_RevB:U12_TPD2EUSB30DRTR U12
+U 1 1 6600000F
+P 20000 25300
+F 0 "U12" H 20000 25380 50  0000 C CNN
+F 1 "TPD2EUSB30DRTR" H 20000 25220 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    20000 25300
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	19200 25100 18900 25100
+Text Label 18900 25100 0    35   ~ 0
+USB_DP
+Wire Wire Line
+	19200 25200 18900 25200
+Text Label 18900 25200 0    35   ~ 0
+USB_DP_MCU
+Wire Wire Line
+	19200 25300 18900 25300
+Text Label 18900 25300 0    35   ~ 0
+USB_DM
+Wire Wire Line
+	20800 25100 21100 25100
+Text Label 21100 25100 2    35   ~ 0
+USB_DM_MCU
+Wire Wire Line
+	20800 25200 21100 25200
+Text Label 21100 25200 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:U13_ATF1508ASV_15AU100 U13
+U 1 1 66000010
+P 3500 4150
+F 0 "U13" H 3500 4230 50  0000 C CNN
+F 1 "ATF1508ASV-15AU100" H 3500 4070 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    3500 4150
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	2700 2300 2400 2300
+Text Label 2400 2300 0    35   ~ 0
+CART_A0
+Wire Wire Line
+	2700 2400 2400 2400
+Text Label 2400 2400 0    35   ~ 0
+CART_A1
+Wire Wire Line
+	2700 2500 2400 2500
+Text Label 2400 2500 0    35   ~ 0
+CART_A2
+Wire Wire Line
+	2700 2600 2400 2600
+Text Label 2400 2600 0    35   ~ 0
+CART_A3
+Wire Wire Line
+	2700 2700 2400 2700
+Text Label 2400 2700 0    35   ~ 0
+CART_A4
+Wire Wire Line
+	2700 2800 2400 2800
+Text Label 2400 2800 0    35   ~ 0
+CART_A5
+Wire Wire Line
+	2700 2900 2400 2900
+Text Label 2400 2900 0    35   ~ 0
+CART_A6
+Wire Wire Line
+	2700 3000 2400 3000
+Text Label 2400 3000 0    35   ~ 0
+CART_A7
+Wire Wire Line
+	2700 3100 2400 3100
+Text Label 2400 3100 0    35   ~ 0
+CART_A8
+Wire Wire Line
+	2700 3200 2400 3200
+Text Label 2400 3200 0    35   ~ 0
+CART_A9
+Wire Wire Line
+	2700 3300 2400 3300
+Text Label 2400 3300 0    35   ~ 0
+CART_A10
+Wire Wire Line
+	2700 3400 2400 3400
+Text Label 2400 3400 0    35   ~ 0
+CART_A11
+Wire Wire Line
+	2700 3500 2400 3500
+Text Label 2400 3500 0    35   ~ 0
+CART_A12
+Wire Wire Line
+	2700 3600 2400 3600
+Text Label 2400 3600 0    35   ~ 0
+CART_A13
+Wire Wire Line
+	2700 3700 2400 3700
+Text Label 2400 3700 0    35   ~ 0
+CART_A14
+Wire Wire Line
+	2700 3800 2400 3800
+Text Label 2400 3800 0    35   ~ 0
+CART_A15
+Wire Wire Line
+	2700 3900 2400 3900
+Text Label 2400 3900 0    35   ~ 0
+CART_A16
+Wire Wire Line
+	2700 4000 2400 4000
+Text Label 2400 4000 0    35   ~ 0
+CART_A17
+Wire Wire Line
+	2700 4100 2400 4100
+Text Label 2400 4100 0    35   ~ 0
+CART_A18
+Wire Wire Line
+	2700 4200 2400 4200
+Text Label 2400 4200 0    35   ~ 0
+CART_A19
+Wire Wire Line
+	2700 4300 2400 4300
+Text Label 2400 4300 0    35   ~ 0
+CART_A20
+Wire Wire Line
+	2700 4400 2400 4400
+Text Label 2400 4400 0    35   ~ 0
+MEM_D0
+Wire Wire Line
+	2700 4500 2400 4500
+Text Label 2400 4500 0    35   ~ 0
+MEM_D1
+Wire Wire Line
+	2700 4600 2400 4600
+Text Label 2400 4600 0    35   ~ 0
+MEM_D2
+Wire Wire Line
+	2700 4700 2400 4700
+Text Label 2400 4700 0    35   ~ 0
+MEM_D3
+Wire Wire Line
+	2700 4800 2400 4800
+Text Label 2400 4800 0    35   ~ 0
+MEM_D4
+Wire Wire Line
+	2700 4900 2400 4900
+Text Label 2400 4900 0    35   ~ 0
+MEM_D5
+Wire Wire Line
+	2700 5000 2400 5000
+Text Label 2400 5000 0    35   ~ 0
+MEM_D6
+Wire Wire Line
+	2700 5100 2400 5100
+Text Label 2400 5100 0    35   ~ 0
+MEM_D7
+Wire Wire Line
+	2700 5200 2400 5200
+Text Label 2400 5200 0    35   ~ 0
+CE0_3V3
+Wire Wire Line
+	2700 5300 2400 5300
+Text Label 2400 5300 0    35   ~ 0
+CAS0_3V3
+Wire Wire Line
+	2700 5400 2400 5400
+Text Label 2400 5400 0    35   ~ 0
+CAS2_3V3
+Wire Wire Line
+	2700 5500 2400 5500
+Text Label 2400 5500 0    35   ~ 0
+LWR_3V3
+Wire Wire Line
+	2700 5600 2400 5600
+Text Label 2400 5600 0    35   ~ 0
+MRES_3V3
+Wire Wire Line
+	2700 5700 2400 5700
+Text Label 2400 5700 0    35   ~ 0
+SMS_MODE_3V3
+Wire Wire Line
+	2700 5800 2400 5800
+Text Label 2400 5800 0    35   ~ 0
+SMS_MAPPER_CM_3V3
+Wire Wire Line
+	2700 5900 2400 5900
+Text Label 2400 5900 0    35   ~ 0
+USB_MODE_3V3
+Wire Wire Line
+	2700 6000 2400 6000
+Text Label 2400 6000 0    35   ~ 0
+ROM_A0
+Wire Wire Line
+	4300 2300 4600 2300
+Text Label 4600 2300 2    35   ~ 0
+ROM_A1
+Wire Wire Line
+	4300 2400 4600 2400
+Text Label 4600 2400 2    35   ~ 0
+ROM_A2
+Wire Wire Line
+	4300 2500 4600 2500
+Text Label 4600 2500 2    35   ~ 0
+ROM_A3
+Wire Wire Line
+	4300 2600 4600 2600
+Text Label 4600 2600 2    35   ~ 0
+ROM_A4
+Wire Wire Line
+	4300 2700 4600 2700
+Text Label 4600 2700 2    35   ~ 0
+ROM_A5
+Wire Wire Line
+	4300 2800 4600 2800
+Text Label 4600 2800 2    35   ~ 0
+ROM_A6
+Wire Wire Line
+	4300 2900 4600 2900
+Text Label 4600 2900 2    35   ~ 0
+ROM_A7
+Wire Wire Line
+	4300 3000 4600 3000
+Text Label 4600 3000 2    35   ~ 0
+ROM_A8
+Wire Wire Line
+	4300 3100 4600 3100
+Text Label 4600 3100 2    35   ~ 0
+ROM_A9
+Wire Wire Line
+	4300 3200 4600 3200
+Text Label 4600 3200 2    35   ~ 0
+ROM_A10
+Wire Wire Line
+	4300 3300 4600 3300
+Text Label 4600 3300 2    35   ~ 0
+ROM_A11
+Wire Wire Line
+	4300 3400 4600 3400
+Text Label 4600 3400 2    35   ~ 0
+ROM_A12
+Wire Wire Line
+	4300 3500 4600 3500
+Text Label 4600 3500 2    35   ~ 0
+ROM_A13
+Wire Wire Line
+	4300 3600 4600 3600
+Text Label 4600 3600 2    35   ~ 0
+ROM_A14
+Wire Wire Line
+	4300 3700 4600 3700
+Text Label 4600 3700 2    35   ~ 0
+ROM_A15
+Wire Wire Line
+	4300 3800 4600 3800
+Text Label 4600 3800 2    35   ~ 0
+ROM_A16
+Wire Wire Line
+	4300 3900 4600 3900
+Text Label 4600 3900 2    35   ~ 0
+ROM_A17
+Wire Wire Line
+	4300 4000 4600 4000
+Text Label 4600 4000 2    35   ~ 0
+ROM_A18
+Wire Wire Line
+	4300 4100 4600 4100
+Text Label 4600 4100 2    35   ~ 0
+ROM_A19
+Wire Wire Line
+	4300 4200 4600 4200
+Text Label 4600 4200 2    35   ~ 0
+ROM_A20
+Wire Wire Line
+	4300 4300 4600 4300
+Text Label 4600 4300 2    35   ~ 0
+ROM_CE_N
+Wire Wire Line
+	4300 4400 4600 4400
+Text Label 4600 4400 2    35   ~ 0
+ROM_OE_N
+Wire Wire Line
+	4300 4500 4600 4500
+Text Label 4600 4500 2    35   ~ 0
+FRAM_A13
+Wire Wire Line
+	4300 4600 4600 4600
+Text Label 4600 4600 2    35   ~ 0
+FRAM_A14
+Wire Wire Line
+	4300 4700 4600 4700
+Text Label 4600 4700 2    35   ~ 0
+FRAM_CE_N
+Wire Wire Line
+	4300 4800 4600 4800
+Text Label 4600 4800 2    35   ~ 0
+FRAM_HI_CE_N
+Wire Wire Line
+	4300 4900 4600 4900
+Text Label 4600 4900 2    35   ~ 0
+MD_FRAM_CE_N
+Wire Wire Line
+	4300 5000 4600 5000
+Text Label 4600 5000 2    35   ~ 0
+FRAM_OE_N
+Wire Wire Line
+	4300 5100 4600 5100
+Text Label 4600 5100 2    35   ~ 0
+FRAM_WE_N
+Wire Wire Line
+	4300 5200 4600 5200
+Text Label 4600 5200 2    35   ~ 0
+MD_HIGH_DISABLE_3V3
+Wire Wire Line
+	4300 5300 4600 5300
+Text Label 4600 5300 2    35   ~ 0
+CPLD_TCK
+Wire Wire Line
+	4300 5400 4600 5400
+Text Label 4600 5400 2    35   ~ 0
+CPLD_TMS
+Wire Wire Line
+	4300 5500 4600 5500
+Text Label 4600 5500 2    35   ~ 0
+CPLD_TDI
+Wire Wire Line
+	4300 5600 4600 5600
+Text Label 4600 5600 2    35   ~ 0
+CPLD_TDO
+Wire Wire Line
+	4300 5700 4600 5700
+Text Label 4600 5700 2    35   ~ 0
+3V3
+Wire Wire Line
+	4300 5800 4600 5800
+Text Label 4600 5800 2    35   ~ 0
+3V3
+Wire Wire Line
+	4300 5900 4600 5900
+Text Label 4600 5900 2    35   ~ 0
+GND
+Wire Wire Line
+	4300 6000 4600 6000
+Text Label 4600 6000 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:U15_SN74LVC2G32DCUR U15
+U 1 1 66000011
+P 25500 6400
+F 0 "U15" H 25500 6480 50  0000 C CNN
+F 1 "SN74LVC2G32DCUR" H 25500 6320 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    25500 6400
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	24700 6200 24400 6200
+Text Label 24400 6200 0    35   ~ 0
+BUS_DISABLE
+Wire Wire Line
+	24700 6300 24400 6300
+Text Label 24400 6300 0    35   ~ 0
+SMS_MODE_5V
+Wire Wire Line
+	24700 6400 24400 6400
+Text Label 24400 6400 0    35   ~ 0
+DATA_HIGH_BASE_DISABLE
+Wire Wire Line
+	24700 6500 24400 6500
+Text Label 24400 6500 0    35   ~ 0
+GND
+Wire Wire Line
+	26300 6200 26600 6200
+Text Label 26600 6200 2    35   ~ 0
+DATA_HIGH_DISABLE
+Wire Wire Line
+	26300 6300 26600 6300
+Text Label 26600 6300 2    35   ~ 0
+DATA_HIGH_BASE_DISABLE
+Wire Wire Line
+	26300 6400 26600 6400
+Text Label 26600 6400 2    35   ~ 0
+MD_HIGH_DISABLE_5V
+Wire Wire Line
+	26300 6500 26600 6500
+Text Label 26600 6500 2    35   ~ 0
+CART_5V
+$Comp
+L MatrixDrive_RevB:U16_SN74LVC1G04DBVR U16
+U 1 1 66000012
+P 31000 6400
+F 0 "U16" H 31000 6480 50  0000 C CNN
+F 1 "SN74LVC1G04DBVR" H 31000 6320 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    31000 6400
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	30200 6200 29900 6200
+Text Label 29900 6200 0    35   ~ 0
+LWR_N
+Wire Wire Line
+	30200 6300 29900 6300
+Text Label 29900 6300 0    35   ~ 0
+GND
+Wire Wire Line
+	31800 6200 32100 6200
+Text Label 32100 6200 2    35   ~ 0
+LOW_DATA_DIR
+Wire Wire Line
+	31800 6300 32100 6300
+Text Label 32100 6300 2    35   ~ 0
+CART_5V
+$Comp
+L MatrixDrive_RevB:U17_FM18W08_SG U17
+U 1 1 66000013
+P 25500 2950
+F 0 "U17" H 25500 3030 50  0000 C CNN
+F 1 "FM18W08-SG" H 25500 2870 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    25500 2950
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	24700 2300 24400 2300
+Text Label 24400 2300 0    35   ~ 0
+CART_A0
+Wire Wire Line
+	24700 2400 24400 2400
+Text Label 24400 2400 0    35   ~ 0
+CART_A1
+Wire Wire Line
+	24700 2500 24400 2500
+Text Label 24400 2500 0    35   ~ 0
+CART_A2
+Wire Wire Line
+	24700 2600 24400 2600
+Text Label 24400 2600 0    35   ~ 0
+CART_A3
+Wire Wire Line
+	24700 2700 24400 2700
+Text Label 24400 2700 0    35   ~ 0
+CART_A4
+Wire Wire Line
+	24700 2800 24400 2800
+Text Label 24400 2800 0    35   ~ 0
+CART_A5
+Wire Wire Line
+	24700 2900 24400 2900
+Text Label 24400 2900 0    35   ~ 0
+CART_A6
+Wire Wire Line
+	24700 3000 24400 3000
+Text Label 24400 3000 0    35   ~ 0
+CART_A7
+Wire Wire Line
+	24700 3100 24400 3100
+Text Label 24400 3100 0    35   ~ 0
+CART_A8
+Wire Wire Line
+	24700 3200 24400 3200
+Text Label 24400 3200 0    35   ~ 0
+CART_A9
+Wire Wire Line
+	24700 3300 24400 3300
+Text Label 24400 3300 0    35   ~ 0
+CART_A10
+Wire Wire Line
+	24700 3400 24400 3400
+Text Label 24400 3400 0    35   ~ 0
+CART_A11
+Wire Wire Line
+	24700 3500 24400 3500
+Text Label 24400 3500 0    35   ~ 0
+CART_A12
+Wire Wire Line
+	24700 3600 24400 3600
+Text Label 24400 3600 0    35   ~ 0
+FRAM_A13
+Wire Wire Line
+	26300 2300 26600 2300
+Text Label 26600 2300 2    35   ~ 0
+FRAM_A14
+Wire Wire Line
+	26300 2400 26600 2400
+Text Label 26600 2400 2    35   ~ 0
+MEM_D0
+Wire Wire Line
+	26300 2500 26600 2500
+Text Label 26600 2500 2    35   ~ 0
+MEM_D1
+Wire Wire Line
+	26300 2600 26600 2600
+Text Label 26600 2600 2    35   ~ 0
+MEM_D2
+Wire Wire Line
+	26300 2700 26600 2700
+Text Label 26600 2700 2    35   ~ 0
+MEM_D3
+Wire Wire Line
+	26300 2800 26600 2800
+Text Label 26600 2800 2    35   ~ 0
+MEM_D4
+Wire Wire Line
+	26300 2900 26600 2900
+Text Label 26600 2900 2    35   ~ 0
+MEM_D5
+Wire Wire Line
+	26300 3000 26600 3000
+Text Label 26600 3000 2    35   ~ 0
+MEM_D6
+Wire Wire Line
+	26300 3100 26600 3100
+Text Label 26600 3100 2    35   ~ 0
+MEM_D7
+Wire Wire Line
+	26300 3200 26600 3200
+Text Label 26600 3200 2    35   ~ 0
+FRAM_CE_N
+Wire Wire Line
+	26300 3300 26600 3300
+Text Label 26600 3300 2    35   ~ 0
+FRAM_OE_N
+Wire Wire Line
+	26300 3400 26600 3400
+Text Label 26600 3400 2    35   ~ 0
+FRAM_WE_N
+Wire Wire Line
+	26300 3500 26600 3500
+Text Label 26600 3500 2    35   ~ 0
+3V3
+Wire Wire Line
+	26300 3600 26600 3600
+Text Label 26600 3600 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:U18_FM18W08_SG U18
+U 1 1 66000014
+P 31000 2950
+F 0 "U18" H 31000 3030 50  0000 C CNN
+F 1 "FM18W08-SG" H 31000 2870 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    31000 2950
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	30200 2300 29900 2300
+Text Label 29900 2300 0    35   ~ 0
+CART_A0
+Wire Wire Line
+	30200 2400 29900 2400
+Text Label 29900 2400 0    35   ~ 0
+CART_A1
+Wire Wire Line
+	30200 2500 29900 2500
+Text Label 29900 2500 0    35   ~ 0
+CART_A2
+Wire Wire Line
+	30200 2600 29900 2600
+Text Label 29900 2600 0    35   ~ 0
+CART_A3
+Wire Wire Line
+	30200 2700 29900 2700
+Text Label 29900 2700 0    35   ~ 0
+CART_A4
+Wire Wire Line
+	30200 2800 29900 2800
+Text Label 29900 2800 0    35   ~ 0
+CART_A5
+Wire Wire Line
+	30200 2900 29900 2900
+Text Label 29900 2900 0    35   ~ 0
+CART_A6
+Wire Wire Line
+	30200 3000 29900 3000
+Text Label 29900 3000 0    35   ~ 0
+CART_A7
+Wire Wire Line
+	30200 3100 29900 3100
+Text Label 29900 3100 0    35   ~ 0
+CART_A8
+Wire Wire Line
+	30200 3200 29900 3200
+Text Label 29900 3200 0    35   ~ 0
+CART_A9
+Wire Wire Line
+	30200 3300 29900 3300
+Text Label 29900 3300 0    35   ~ 0
+CART_A10
+Wire Wire Line
+	30200 3400 29900 3400
+Text Label 29900 3400 0    35   ~ 0
+CART_A11
+Wire Wire Line
+	30200 3500 29900 3500
+Text Label 29900 3500 0    35   ~ 0
+CART_A12
+Wire Wire Line
+	30200 3600 29900 3600
+Text Label 29900 3600 0    35   ~ 0
+FRAM_A13
+Wire Wire Line
+	31800 2300 32100 2300
+Text Label 32100 2300 2    35   ~ 0
+FRAM_A14
+Wire Wire Line
+	31800 2400 32100 2400
+Text Label 32100 2400 2    35   ~ 0
+MEM_D0
+Wire Wire Line
+	31800 2500 32100 2500
+Text Label 32100 2500 2    35   ~ 0
+MEM_D1
+Wire Wire Line
+	31800 2600 32100 2600
+Text Label 32100 2600 2    35   ~ 0
+MEM_D2
+Wire Wire Line
+	31800 2700 32100 2700
+Text Label 32100 2700 2    35   ~ 0
+MEM_D3
+Wire Wire Line
+	31800 2800 32100 2800
+Text Label 32100 2800 2    35   ~ 0
+MEM_D4
+Wire Wire Line
+	31800 2900 32100 2900
+Text Label 32100 2900 2    35   ~ 0
+MEM_D5
+Wire Wire Line
+	31800 3000 32100 3000
+Text Label 32100 3000 2    35   ~ 0
+MEM_D6
+Wire Wire Line
+	31800 3100 32100 3100
+Text Label 32100 3100 2    35   ~ 0
+MEM_D7
+Wire Wire Line
+	31800 3200 32100 3200
+Text Label 32100 3200 2    35   ~ 0
+FRAM_HI_CE_N
+Wire Wire Line
+	31800 3300 32100 3300
+Text Label 32100 3300 2    35   ~ 0
+FRAM_OE_N
+Wire Wire Line
+	31800 3400 32100 3400
+Text Label 32100 3400 2    35   ~ 0
+FRAM_WE_N
+Wire Wire Line
+	31800 3500 32100 3500
+Text Label 32100 3500 2    35   ~ 0
+3V3
+Wire Wire Line
+	31800 3600 32100 3600
+Text Label 32100 3600 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:U20_FM18W08_SG U20
+U 1 1 66000015
+P 36500 2950
+F 0 "U20" H 36500 3030 50  0000 C CNN
+F 1 "FM18W08-SG" H 36500 2870 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    36500 2950
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	35700 2300 35400 2300
+Text Label 35400 2300 0    35   ~ 0
+CART_A0
+Wire Wire Line
+	35700 2400 35400 2400
+Text Label 35400 2400 0    35   ~ 0
+CART_A1
+Wire Wire Line
+	35700 2500 35400 2500
+Text Label 35400 2500 0    35   ~ 0
+CART_A2
+Wire Wire Line
+	35700 2600 35400 2600
+Text Label 35400 2600 0    35   ~ 0
+CART_A3
+Wire Wire Line
+	35700 2700 35400 2700
+Text Label 35400 2700 0    35   ~ 0
+CART_A4
+Wire Wire Line
+	35700 2800 35400 2800
+Text Label 35400 2800 0    35   ~ 0
+CART_A5
+Wire Wire Line
+	35700 2900 35400 2900
+Text Label 35400 2900 0    35   ~ 0
+CART_A6
+Wire Wire Line
+	35700 3000 35400 3000
+Text Label 35400 3000 0    35   ~ 0
+CART_A7
+Wire Wire Line
+	35700 3100 35400 3100
+Text Label 35400 3100 0    35   ~ 0
+CART_A8
+Wire Wire Line
+	35700 3200 35400 3200
+Text Label 35400 3200 0    35   ~ 0
+CART_A9
+Wire Wire Line
+	35700 3300 35400 3300
+Text Label 35400 3300 0    35   ~ 0
+CART_A10
+Wire Wire Line
+	35700 3400 35400 3400
+Text Label 35400 3400 0    35   ~ 0
+CART_A11
+Wire Wire Line
+	35700 3500 35400 3500
+Text Label 35400 3500 0    35   ~ 0
+CART_A12
+Wire Wire Line
+	35700 3600 35400 3600
+Text Label 35400 3600 0    35   ~ 0
+GND
+Wire Wire Line
+	37300 2300 37600 2300
+Text Label 37600 2300 2    35   ~ 0
+GND
+Wire Wire Line
+	37300 2400 37600 2400
+Text Label 37600 2400 2    35   ~ 0
+MEM_D0
+Wire Wire Line
+	37300 2500 37600 2500
+Text Label 37600 2500 2    35   ~ 0
+MEM_D1
+Wire Wire Line
+	37300 2600 37600 2600
+Text Label 37600 2600 2    35   ~ 0
+MEM_D2
+Wire Wire Line
+	37300 2700 37600 2700
+Text Label 37600 2700 2    35   ~ 0
+MEM_D3
+Wire Wire Line
+	37300 2800 37600 2800
+Text Label 37600 2800 2    35   ~ 0
+MEM_D4
+Wire Wire Line
+	37300 2900 37600 2900
+Text Label 37600 2900 2    35   ~ 0
+MEM_D5
+Wire Wire Line
+	37300 3000 37600 3000
+Text Label 37600 3000 2    35   ~ 0
+MEM_D6
+Wire Wire Line
+	37300 3100 37600 3100
+Text Label 37600 3100 2    35   ~ 0
+MEM_D7
+Wire Wire Line
+	37300 3200 37600 3200
+Text Label 37600 3200 2    35   ~ 0
+MD_FRAM_CE_N
+Wire Wire Line
+	37300 3300 37600 3300
+Text Label 37600 3300 2    35   ~ 0
+FRAM_OE_N
+Wire Wire Line
+	37300 3400 37600 3400
+Text Label 37600 3400 2    35   ~ 0
+FRAM_WE_N
+Wire Wire Line
+	37300 3500 37600 3500
+Text Label 37600 3500 2    35   ~ 0
+3V3
+Wire Wire Line
+	37300 3600 37600 3600
+Text Label 37600 3600 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:U19_SN74LVC1T45DBVR U19
+U 1 1 66000016
+P 36500 6400
+F 0 "U19" H 36500 6480 50  0000 C CNN
+F 1 "SN74LVC1T45DBVR" H 36500 6320 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    36500 6400
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	35700 6200 35400 6200
+Text Label 35400 6200 0    35   ~ 0
+3V3
+Wire Wire Line
+	35700 6300 35400 6300
+Text Label 35400 6300 0    35   ~ 0
+MD_HIGH_DISABLE_3V3
+Wire Wire Line
+	35700 6400 35400 6400
+Text Label 35400 6400 0    35   ~ 0
+GND
+Wire Wire Line
+	37300 6200 37600 6200
+Text Label 37600 6200 2    35   ~ 0
+MD_HIGH_DISABLE_5V
+Wire Wire Line
+	37300 6300 37600 6300
+Text Label 37600 6300 2    35   ~ 0
+3V3
+Wire Wire Line
+	37300 6400 37600 6400
+Text Label 37600 6400 2    35   ~ 0
+CART_5V
+$Comp
+L MatrixDrive_RevB:J3_SWD_UART_2x5 J3
+U 1 1 66000017
+P 36500 24400
+F 0 "J3" H 36500 24480 50  0000 C CNN
+F 1 "SWD_UART_2x5" H 36500 24320 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    36500 24400
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	35700 24200 35400 24200
+Text Label 35400 24200 0    35   ~ 0
+3V3
+Wire Wire Line
+	35700 24300 35400 24300
+Text Label 35400 24300 0    35   ~ 0
+SWDIO
+Wire Wire Line
+	35700 24400 35400 24400
+Text Label 35400 24400 0    35   ~ 0
+GND
+Wire Wire Line
+	35700 24500 35400 24500
+Text Label 35400 24500 0    35   ~ 0
+SWCLK
+Wire Wire Line
+	35700 24600 35400 24600
+Text Label 35400 24600 0    35   ~ 0
+GND
+Wire Wire Line
+	37300 24200 37600 24200
+Text Label 37600 24200 2    35   ~ 0
+RUN_N
+NoConn ~ 37300 24300
+Wire Wire Line
+	37300 24400 37600 24400
+Text Label 37600 24400 2    35   ~ 0
+UART_TX
+Wire Wire Line
+	37300 24500 37600 24500
+Text Label 37600 24500 2    35   ~ 0
+GND
+Wire Wire Line
+	37300 24600 37600 24600
+Text Label 37600 24600 2    35   ~ 0
+UART_RX
+$Comp
+L MatrixDrive_RevB:J4_CPLD_JTAG_2x5 J4
+U 1 1 66000018
+P 14500 7600
+F 0 "J4" H 14500 7680 50  0000 C CNN
+F 1 "CPLD_JTAG_2x5" H 14500 7520 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    14500 7600
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	13700 7400 13400 7400
+Text Label 13400 7400 0    35   ~ 0
+3V3
+Wire Wire Line
+	13700 7500 13400 7500
+Text Label 13400 7500 0    35   ~ 0
+CPLD_TMS
+Wire Wire Line
+	13700 7600 13400 7600
+Text Label 13400 7600 0    35   ~ 0
+GND
+Wire Wire Line
+	13700 7700 13400 7700
+Text Label 13400 7700 0    35   ~ 0
+CPLD_TCK
+Wire Wire Line
+	13700 7800 13400 7800
+Text Label 13400 7800 0    35   ~ 0
+GND
+Wire Wire Line
+	15300 7400 15600 7400
+Text Label 15600 7400 2    35   ~ 0
+CPLD_TDO
+NoConn ~ 15300 7500
+Wire Wire Line
+	15300 7600 15600 7600
+Text Label 15600 7600 2    35   ~ 0
+CPLD_TDI
+Wire Wire Line
+	15300 7700 15600 7700
+Text Label 15600 7700 2    35   ~ 0
+GND
+NoConn ~ 15300 7800
+$Comp
+L MatrixDrive_RevB:F1_MF_MSMF020_2 F1
+U 1 1 66000019
+P 20000 19300
+F 0 "F1" H 20000 19380 50  0000 C CNN
+F 1 "MF-MSMF020-2" H 20000 19220 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    20000 19300
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	19200 19100 18900 19100
+Text Label 18900 19100 0    35   ~ 0
+CART_5V_IN
+Wire Wire Line
+	20800 19100 21100 19100
+Text Label 21100 19100 2    35   ~ 0
+CART_5V
+$Comp
+L MatrixDrive_RevB:D1_PMEG2010AEB D1
+U 1 1 6600001A
+P 9000 18900
+F 0 "D1" H 9000 18980 50  0000 C CNN
+F 1 "PMEG2010AEB" H 9000 18820 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    9000 18900
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	8200 18700 7900 18700
+Text Label 7900 18700 0    35   ~ 0
+CART_5V
+Wire Wire Line
+	9800 18700 10100 18700
+Text Label 10100 18700 2    35   ~ 0
+SYS_5V
+$Comp
+L MatrixDrive_RevB:D2_PMEG2010AEB D2
+U 1 1 6600001B
+P 3500 19000
+F 0 "D2" H 3500 19080 50  0000 C CNN
+F 1 "PMEG2010AEB" H 3500 18920 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    3500 19000
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	2700 18800 2400 18800
+Text Label 2400 18800 0    35   ~ 0
+USB_VBUS
+Wire Wire Line
+	4300 18800 4600 18800
+Text Label 4600 18800 2    35   ~ 0
+SYS_5V
+$Comp
+L MatrixDrive_RevB:D3_GREEN_LED D3
+U 1 1 6600001C
+P 9000 6900
+F 0 "D3" H 9000 6980 50  0000 C CNN
+F 1 "GREEN_LED" H 9000 6820 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    9000 6900
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	8200 6700 7900 6700
+Text Label 7900 6700 0    35   ~ 0
+LED_GREEN_A
+Wire Wire Line
+	9800 6700 10100 6700
+Text Label 10100 6700 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:D4_AMBER_LED D4
+U 1 1 6600001D
+P 3500 7000
+F 0 "D4" H 3500 7080 50  0000 C CNN
+F 1 "AMBER_LED" H 3500 6920 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    3500 7000
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	2700 6800 2400 6800
+Text Label 2400 6800 0    35   ~ 0
+LED_AMBER_A
+Wire Wire Line
+	4300 6800 4600 6800
+Text Label 4600 6800 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:D5_RED_LED D5
+U 1 1 6600001E
+P 20000 7300
+F 0 "D5" H 20000 7380 50  0000 C CNN
+F 1 "RED_LED" H 20000 7220 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    20000 7300
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	19200 7100 18900 7100
+Text Label 18900 7100 0    35   ~ 0
+LED_RED_A
+Wire Wire Line
+	20800 7100 21100 7100
+Text Label 21100 7100 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:Y1_12MHz_CRYSTAL Y1
+U 1 1 6600001F
+P 25500 25600
+F 0 "Y1" H 25500 25680 50  0000 C CNN
+F 1 "12MHz_CRYSTAL" H 25500 25520 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    25500 25600
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	24700 25400 24400 25400
+Text Label 24400 25400 0    35   ~ 0
+XIN_XTAL
+Wire Wire Line
+	26300 25400 26600 25400
+Text Label 26600 25400 2    35   ~ 0
+XOUT
+$Comp
+L MatrixDrive_RevB:L1_3_3uH L1
+U 1 1 66000020
+P 42000 24400
+F 0 "L1" H 42000 24480 50  0000 C CNN
+F 1 "3.3uH" H 42000 24320 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    42000 24400
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	41200 24200 40900 24200
+Text Label 40900 24200 0    35   ~ 0
+VREG_SW
+Wire Wire Line
+	42800 24200 43100 24200
+Text Label 43100 24200 2    35   ~ 0
+1V1
+$Comp
+L MatrixDrive_RevB:Q1_2N7002 Q1
+U 1 1 66000021
+P 25500 7600
+F 0 "Q1" H 25500 7680 50  0000 C CNN
+F 1 "2N7002" H 25500 7520 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    25500 7600
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	24700 7400 24400 7400
+Text Label 24400 7400 0    35   ~ 0
+SMS_MODE_3V3
+Wire Wire Line
+	24700 7500 24400 7500
+Text Label 24400 7500 0    35   ~ 0
+GND
+Wire Wire Line
+	26300 7400 26600 7400
+Text Label 26600 7400 2    35   ~ 0
+M3_N
+$Comp
+L MatrixDrive_RevB:Q2_2N7002 Q2
+U 1 1 66000022
+P 31000 7600
+F 0 "Q2" H 31000 7680 50  0000 C CNN
+F 1 "2N7002" H 31000 7520 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    31000 7600
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	30200 7400 29900 7400
+Text Label 29900 7400 0    35   ~ 0
+SMS_MODE_3V3
+Wire Wire Line
+	30200 7500 29900 7500
+Text Label 29900 7500 0    35   ~ 0
+GND
+Wire Wire Line
+	31800 7400 32100 7400
+Text Label 32100 7400 2    35   ~ 0
+VA21
+$Comp
+L MatrixDrive_RevB:Q3_2N7002 Q3
+U 1 1 66000023
+P 36500 7600
+F 0 "Q3" H 36500 7680 50  0000 C CNN
+F 1 "2N7002" H 36500 7520 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    36500 7600
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	35700 7400 35400 7400
+Text Label 35400 7400 0    35   ~ 0
+SMS_MODE_3V3
+Wire Wire Line
+	35700 7500 35400 7500
+Text Label 35400 7500 0    35   ~ 0
+GND
+Wire Wire Line
+	37300 7400 37600 7400
+Text Label 37600 7400 2    35   ~ 0
+VA22
+$Comp
+L MatrixDrive_RevB:Q4_2N7002 Q4
+U 1 1 66000024
+P 42000 7600
+F 0 "Q4" H 42000 7680 50  0000 C CNN
+F 1 "2N7002" H 42000 7520 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    42000 7600
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	41200 7400 40900 7400
+Text Label 40900 7400 0    35   ~ 0
+PAUSE_GATE
+Wire Wire Line
+	41200 7500 40900 7500
+Text Label 40900 7500 0    35   ~ 0
+GND
+Wire Wire Line
+	42800 7400 43100 7400
+Text Label 43100 7400 2    35   ~ 0
+VA23_PAUSE
+$Comp
+L MatrixDrive_RevB:SW1_PROGRAM SW1
+U 1 1 66000025
+P 9000 24900
+F 0 "SW1" H 9000 24980 50  0000 C CNN
+F 1 "PROGRAM" H 9000 24820 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    9000 24900
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	8200 24700 7900 24700
+Text Label 7900 24700 0    35   ~ 0
+USB_SENSE_PROGRAM
+Wire Wire Line
+	9800 24700 10100 24700
+Text Label 10100 24700 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:SW2_MD_SMS_DPDT SW2
+U 1 1 66000026
+P 9000 8100
+F 0 "SW2" H 9000 8180 50  0000 C CNN
+F 1 "MD_SMS_DPDT" H 9000 8020 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    9000 8100
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	8200 7900 7900 7900
+Text Label 7900 7900 0    35   ~ 0
+GND
+Wire Wire Line
+	8200 8000 7900 8000
+Text Label 7900 8000 0    35   ~ 0
+SMS_MODE_3V3
+Wire Wire Line
+	8200 8100 7900 8100
+Text Label 7900 8100 0    35   ~ 0
+3V3
+Wire Wire Line
+	9800 7900 10100 7900
+Text Label 10100 7900 2    35   ~ 0
+GND
+Wire Wire Line
+	9800 8000 10100 8000
+Text Label 10100 8000 2    35   ~ 0
+SMS_MODE_5V
+Wire Wire Line
+	9800 8100 10100 8100
+Text Label 10100 8100 2    35   ~ 0
+CART_5V
+$Comp
+L MatrixDrive_RevB:SW3_SMS_PAUSE SW3
+U 1 1 66000027
+P 3500 8200
+F 0 "SW3" H 3500 8280 50  0000 C CNN
+F 1 "SMS_PAUSE" H 3500 8120 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    3500 8200
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	2700 8000 2400 8000
+Text Label 2400 8000 0    35   ~ 0
+SMS_MODE_3V3
+Wire Wire Line
+	4300 8000 4600 8000
+Text Label 4600 8000 2    35   ~ 0
+PAUSE_GATE
+$Comp
+L MatrixDrive_RevB:SW4_PROFILE_SPDT SW4
+U 1 1 66000028
+P 20000 8500
+F 0 "SW4" H 20000 8580 50  0000 C CNN
+F 1 "PROFILE_SPDT" H 20000 8420 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    20000 8500
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	19200 8300 18900 8300
+Text Label 18900 8300 0    35   ~ 0
+GND
+Wire Wire Line
+	19200 8400 18900 8400
+Text Label 18900 8400 0    35   ~ 0
+SMS_MAPPER_CM_3V3
+Wire Wire Line
+	20800 8300 21100 8300
+Text Label 21100 8300 2    35   ~ 0
+3V3
+$Comp
+L MatrixDrive_RevB:R1_5_1k R1
+U 1 1 66000029
+P 31000 11200
+F 0 "R1" H 31000 11280 50  0000 C CNN
+F 1 "5.1k" H 31000 11120 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    31000 11200
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	30200 11000 29900 11000
+Text Label 29900 11000 0    35   ~ 0
+CC1
+Wire Wire Line
+	31800 11000 32100 11000
+Text Label 32100 11000 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:R2_5_1k R2
+U 1 1 6600002A
+P 9000 12900
+F 0 "R2" H 9000 12980 50  0000 C CNN
+F 1 "5.1k" H 9000 12820 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    9000 12900
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	8200 12700 7900 12700
+Text Label 7900 12700 0    35   ~ 0
+CC2
+Wire Wire Line
+	9800 12700 10100 12700
+Text Label 10100 12700 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:R3_27R R3
+U 1 1 6600002B
+P 14500 14800
+F 0 "R3" H 14500 14880 50  0000 C CNN
+F 1 "27R" H 14500 14720 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    14500 14800
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	13700 14600 13400 14600
+Text Label 13400 14600 0    35   ~ 0
+USB_DP
+Wire Wire Line
+	15300 14600 15600 14600
+Text Label 15600 14600 2    35   ~ 0
+USB_DP_MCU
+$Comp
+L MatrixDrive_RevB:R4_27R R4
+U 1 1 6600002C
+P 36500 16000
+F 0 "R4" H 36500 16080 50  0000 C CNN
+F 1 "27R" H 36500 15920 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    36500 16000
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	35700 15800 35400 15800
+Text Label 35400 15800 0    35   ~ 0
+USB_DM
+Wire Wire Line
+	37300 15800 37600 15800
+Text Label 37600 15800 2    35   ~ 0
+USB_DM_MCU
+$Comp
+L MatrixDrive_RevB:R5_10k R5
+U 1 1 6600002D
+P 31000 17200
+F 0 "R5" H 31000 17280 50  0000 C CNN
+F 1 "10k" H 31000 17120 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    31000 17200
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	30200 17000 29900 17000
+Text Label 29900 17000 0    35   ~ 0
+USB_VBUS
+Wire Wire Line
+	31800 17000 32100 17000
+Text Label 32100 17000 2    35   ~ 0
+USB_PRESENT
+$Comp
+L MatrixDrive_RevB:R6_100k R6
+U 1 1 6600002E
+P 36500 17200
+F 0 "R6" H 36500 17280 50  0000 C CNN
+F 1 "100k" H 36500 17120 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    36500 17200
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	35700 17000 35400 17000
+Text Label 35400 17000 0    35   ~ 0
+USB_PRESENT
+Wire Wire Line
+	37300 17000 37600 17000
+Text Label 37600 17000 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:R7_100k R7
+U 1 1 6600002F
+P 42000 17200
+F 0 "R7" H 42000 17280 50  0000 C CNN
+F 1 "100k" H 42000 17120 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    42000 17200
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	41200 17000 40900 17000
+Text Label 40900 17000 0    35   ~ 0
+USB_VBUS
+Wire Wire Line
+	42800 17000 43100 17000
+Text Label 43100 17000 2    35   ~ 0
+USB_SENSE_PROGRAM
+$Comp
+L MatrixDrive_RevB:R8_100k R8
+U 1 1 66000030
+P 9000 17700
+F 0 "R8" H 9000 17780 50  0000 C CNN
+F 1 "100k" H 9000 17620 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    9000 17700
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	8200 17500 7900 17500
+Text Label 7900 17500 0    35   ~ 0
+USB_SENSE_PROGRAM
+Wire Wire Line
+	9800 17500 10100 17500
+Text Label 10100 17500 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:R9_1k R9
+U 1 1 66000031
+P 3500 17800
+F 0 "R9" H 3500 17880 50  0000 C CNN
+F 1 "1k" H 3500 17720 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    3500 17800
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	2700 17600 2400 17600
+Text Label 2400 17600 0    35   ~ 0
+LED_GREEN
+Wire Wire Line
+	4300 17600 4600 17600
+Text Label 4600 17600 2    35   ~ 0
+LED_GREEN_A
+$Comp
+L MatrixDrive_RevB:R10_1k R10
+U 1 1 66000032
+P 36500 11200
+F 0 "R10" H 36500 11280 50  0000 C CNN
+F 1 "1k" H 36500 11120 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    36500 11200
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	35700 11000 35400 11000
+Text Label 35400 11000 0    35   ~ 0
+LED_AMBER
+Wire Wire Line
+	37300 11000 37600 11000
+Text Label 37600 11000 2    35   ~ 0
+LED_AMBER_A
+$Comp
+L MatrixDrive_RevB:R11_1k R11
+U 1 1 66000033
+P 42000 11200
+F 0 "R11" H 42000 11280 50  0000 C CNN
+F 1 "1k" H 42000 11120 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    42000 11200
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	41200 11000 40900 11000
+Text Label 40900 11000 0    35   ~ 0
+LED_RED
+Wire Wire Line
+	42800 11000 43100 11000
+Text Label 43100 11000 2    35   ~ 0
+LED_RED_A
+$Comp
+L MatrixDrive_RevB:R12_10k R12
+U 1 1 66000034
+P 9000 11700
+F 0 "R12" H 9000 11780 50  0000 C CNN
+F 1 "10k" H 9000 11620 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    9000 11700
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	8200 11500 7900 11500
+Text Label 7900 11500 0    35   ~ 0
+ROM_WE_N
+Wire Wire Line
+	9800 11500 10100 11500
+Text Label 10100 11500 2    35   ~ 0
+3V3
+$Comp
+L MatrixDrive_RevB:R13_0R R13
+U 1 1 66000035
+P 3500 11800
+F 0 "R13" H 3500 11880 50  0000 C CNN
+F 1 "0R" H 3500 11720 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    3500 11800
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	2700 11600 2400 11600
+Text Label 2400 11600 0    35   ~ 0
+CART_N
+Wire Wire Line
+	4300 11600 4600 11600
+Text Label 4600 11600 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:R14_100k R14
+U 1 1 66000036
+P 20000 12100
+F 0 "R14" H 20000 12180 50  0000 C CNN
+F 1 "100k" H 20000 12020 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    20000 12100
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	19200 11900 18900 11900
+Text Label 18900 11900 0    35   ~ 0
+BUS_DISABLE
+Wire Wire Line
+	20800 11900 21100 11900
+Text Label 21100 11900 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:R15_10k R15
+U 1 1 66000037
+P 14500 12400
+F 0 "R15" H 14500 12480 50  0000 C CNN
+F 1 "10k" H 14500 12320 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    14500 12400
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	13700 12200 13400 12200
+Text Label 13400 12200 0    35   ~ 0
+BUS_DISABLE
+Wire Wire Line
+	15300 12200 15600 12200
+Text Label 15600 12200 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:R16_10k R16
+U 1 1 66000038
+P 25500 12400
+F 0 "R16" H 25500 12480 50  0000 C CNN
+F 1 "10k" H 25500 12320 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    25500 12400
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	24700 12200 24400 12200
+Text Label 24400 12200 0    35   ~ 0
+BUS_DISABLE
+Wire Wire Line
+	26300 12200 26600 12200
+Text Label 26600 12200 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:R17_10k R17
+U 1 1 66000039
+P 31000 12400
+F 0 "R17" H 31000 12480 50  0000 C CNN
+F 1 "10k" H 31000 12320 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    31000 12400
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	30200 12200 29900 12200
+Text Label 29900 12200 0    35   ~ 0
+BUS_DISABLE
+Wire Wire Line
+	31800 12200 32100 12200
+Text Label 32100 12200 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:R18_10k R18
+U 1 1 6600003A
+P 36500 12400
+F 0 "R18" H 36500 12480 50  0000 C CNN
+F 1 "10k" H 36500 12320 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    36500 12400
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	35700 12200 35400 12200
+Text Label 35400 12200 0    35   ~ 0
+BUS_DISABLE
+Wire Wire Line
+	37300 12200 37600 12200
+Text Label 37600 12200 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:R19_10k R19
+U 1 1 6600003B
+P 42000 12400
+F 0 "R19" H 42000 12480 50  0000 C CNN
+F 1 "10k" H 42000 12320 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    42000 12400
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	41200 12200 40900 12200
+Text Label 40900 12200 0    35   ~ 0
+U3_DIR
+Wire Wire Line
+	42800 12200 43100 12200
+Text Label 43100 12200 2    35   ~ 0
+CART_5V
+$Comp
+L MatrixDrive_RevB:R20_10k R20
+U 1 1 6600003C
+P 3500 13000
+F 0 "R20" H 3500 13080 50  0000 C CNN
+F 1 "10k" H 3500 12920 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    3500 13000
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	2700 12800 2400 12800
+Text Label 2400 12800 0    35   ~ 0
+U4_DIR
+Wire Wire Line
+	4300 12800 4600 12800
+Text Label 4600 12800 2    35   ~ 0
+CART_5V
+$Comp
+L MatrixDrive_RevB:R21_10k R21
+U 1 1 6600003D
+P 20000 13300
+F 0 "R21" H 20000 13380 50  0000 C CNN
+F 1 "10k" H 20000 13220 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    20000 13300
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	19200 13100 18900 13100
+Text Label 18900 13100 0    35   ~ 0
+U5_DIR
+Wire Wire Line
+	20800 13100 21100 13100
+Text Label 21100 13100 2    35   ~ 0
+CART_5V
+$Comp
+L MatrixDrive_RevB:R22_10k R22
+U 1 1 6600003E
+P 14500 13600
+F 0 "R22" H 14500 13680 50  0000 C CNN
+F 1 "10k" H 14500 13520 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    14500 13600
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	13700 13400 13400 13400
+Text Label 13400 13400 0    35   ~ 0
+U14_DIR
+Wire Wire Line
+	15300 13400 15600 13400
+Text Label 15600 13400 2    35   ~ 0
+CART_5V
+$Comp
+L MatrixDrive_RevB:R23_10k R23
+U 1 1 6600003F
+P 25500 13600
+F 0 "R23" H 25500 13680 50  0000 C CNN
+F 1 "10k" H 25500 13520 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    25500 13600
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	24700 13400 24400 13400
+Text Label 24400 13400 0    35   ~ 0
+U7_DIR
+Wire Wire Line
+	26300 13400 26600 13400
+Text Label 26600 13400 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:R24_33R R24
+U 1 1 66000040
+P 31000 13600
+F 0 "R24" H 31000 13680 50  0000 C CNN
+F 1 "33R" H 31000 13520 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    31000 13600
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	30200 13400 29900 13400
+Text Label 29900 13400 0    35   ~ 0
+3V3
+Wire Wire Line
+	31800 13400 32100 13400
+Text Label 32100 13400 2    35   ~ 0
+VREG_AVDD
+$Comp
+L MatrixDrive_RevB:R25_10k R25
+U 1 1 66000041
+P 36500 13600
+F 0 "R25" H 36500 13680 50  0000 C CNN
+F 1 "10k" H 36500 13520 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    36500 13600
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	35700 13400 35400 13400
+Text Label 35400 13400 0    35   ~ 0
+ROM_RESET_N
+Wire Wire Line
+	37300 13400 37600 13400
+Text Label 37600 13400 2    35   ~ 0
+3V3
+$Comp
+L MatrixDrive_RevB:R26_10k R26
+U 1 1 66000042
+P 42000 13600
+F 0 "R26" H 42000 13680 50  0000 C CNN
+F 1 "10k" H 42000 13520 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    42000 13600
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	41200 13400 40900 13400
+Text Label 40900 13400 0    35   ~ 0
+ROM_WP_N
+Wire Wire Line
+	42800 13400 43100 13400
+Text Label 43100 13400 2    35   ~ 0
+3V3
+$Comp
+L MatrixDrive_RevB:R27_10k R27
+U 1 1 66000043
+P 9000 14100
+F 0 "R27" H 9000 14180 50  0000 C CNN
+F 1 "10k" H 9000 14020 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    9000 14100
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	8200 13900 7900 13900
+Text Label 7900 13900 0    35   ~ 0
+ROM_BYTE_N
+Wire Wire Line
+	9800 13900 10100 13900
+Text Label 10100 13900 2    35   ~ 0
+3V3
+$Comp
+L MatrixDrive_RevB:R28_1k R28
+U 1 1 66000044
+P 3500 14200
+F 0 "R28" H 3500 14280 50  0000 C CNN
+F 1 "1k" H 3500 14120 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    3500 14200
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	2700 14000 2400 14000
+Text Label 2400 14000 0    35   ~ 0
+XIN_XTAL
+Wire Wire Line
+	4300 14000 4600 14000
+Text Label 4600 14000 2    35   ~ 0
+XIN
+$Comp
+L MatrixDrive_RevB:R29_100k R29
+U 1 1 66000045
+P 20000 14500
+F 0 "R29" H 20000 14580 50  0000 C CNN
+F 1 "100k" H 20000 14420 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    20000 14500
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	19200 14300 18900 14300
+Text Label 18900 14300 0    35   ~ 0
+USB_VBUS
+Wire Wire Line
+	20800 14300 21100 14300
+Text Label 21100 14300 2    35   ~ 0
+USB_MODE_3V3
+$Comp
+L MatrixDrive_RevB:R30_100k R30
+U 1 1 66000046
+P 25500 14800
+F 0 "R30" H 25500 14880 50  0000 C CNN
+F 1 "100k" H 25500 14720 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    25500 14800
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	24700 14600 24400 14600
+Text Label 24400 14600 0    35   ~ 0
+USB_MODE_3V3
+Wire Wire Line
+	26300 14600 26600 14600
+Text Label 26600 14600 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:R31_10k R31
+U 1 1 66000047
+P 31000 14800
+F 0 "R31" H 31000 14880 50  0000 C CNN
+F 1 "10k" H 31000 14720 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    31000 14800
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	30200 14600 29900 14600
+Text Label 29900 14600 0    35   ~ 0
+ROM_CE_N
+Wire Wire Line
+	31800 14600 32100 14600
+Text Label 32100 14600 2    35   ~ 0
+3V3
+$Comp
+L MatrixDrive_RevB:R32_10k R32
+U 1 1 66000048
+P 36500 14800
+F 0 "R32" H 36500 14880 50  0000 C CNN
+F 1 "10k" H 36500 14720 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    36500 14800
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	35700 14600 35400 14600
+Text Label 35400 14600 0    35   ~ 0
+ROM_OE_N
+Wire Wire Line
+	37300 14600 37600 14600
+Text Label 37600 14600 2    35   ~ 0
+3V3
+$Comp
+L MatrixDrive_RevB:R33_10k R33
+U 1 1 66000049
+P 42000 14800
+F 0 "R33" H 42000 14880 50  0000 C CNN
+F 1 "10k" H 42000 14720 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    42000 14800
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	41200 14600 40900 14600
+Text Label 40900 14600 0    35   ~ 0
+FRAM_A14
+Wire Wire Line
+	42800 14600 43100 14600
+Text Label 43100 14600 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:R34_10k R34
+U 1 1 6600004A
+P 9000 15300
+F 0 "R34" H 9000 15380 50  0000 C CNN
+F 1 "10k" H 9000 15220 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    9000 15300
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	8200 15100 7900 15100
+Text Label 7900 15100 0    35   ~ 0
+FRAM_CE_N
+Wire Wire Line
+	9800 15100 10100 15100
+Text Label 10100 15100 2    35   ~ 0
+3V3
+$Comp
+L MatrixDrive_RevB:R35_10k R35
+U 1 1 6600004B
+P 3500 15400
+F 0 "R35" H 3500 15480 50  0000 C CNN
+F 1 "10k" H 3500 15320 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    3500 15400
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	2700 15200 2400 15200
+Text Label 2400 15200 0    35   ~ 0
+FRAM_OE_N
+Wire Wire Line
+	4300 15200 4600 15200
+Text Label 4600 15200 2    35   ~ 0
+3V3
+$Comp
+L MatrixDrive_RevB:R36_10k R36
+U 1 1 6600004C
+P 20000 15700
+F 0 "R36" H 20000 15780 50  0000 C CNN
+F 1 "10k" H 20000 15620 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    20000 15700
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	19200 15500 18900 15500
+Text Label 18900 15500 0    35   ~ 0
+FRAM_WE_N
+Wire Wire Line
+	20800 15500 21100 15500
+Text Label 21100 15500 2    35   ~ 0
+3V3
+$Comp
+L MatrixDrive_RevB:R37_100k R37
+U 1 1 6600004D
+P 14500 16000
+F 0 "R37" H 14500 16080 50  0000 C CNN
+F 1 "100k" H 14500 15920 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    14500 16000
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	13700 15800 13400 15800
+Text Label 13400 15800 0    35   ~ 0
+SMS_MODE_3V3
+Wire Wire Line
+	15300 15800 15600 15800
+Text Label 15600 15800 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:R38_100k R38
+U 1 1 6600004E
+P 25500 16000
+F 0 "R38" H 25500 16080 50  0000 C CNN
+F 1 "100k" H 25500 15920 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    25500 16000
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	24700 15800 24400 15800
+Text Label 24400 15800 0    35   ~ 0
+SMS_MODE_3V3
+Wire Wire Line
+	26300 15800 26600 15800
+Text Label 26600 15800 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:R39_100k R39
+U 1 1 6600004F
+P 31000 16000
+F 0 "R39" H 31000 16080 50  0000 C CNN
+F 1 "100k" H 31000 15920 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    31000 16000
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	30200 15800 29900 15800
+Text Label 29900 15800 0    35   ~ 0
+SMS_MODE_3V3
+Wire Wire Line
+	31800 15800 32100 15800
+Text Label 32100 15800 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:R40_100k R40
+U 1 1 66000050
+P 42000 16000
+F 0 "R40" H 42000 16080 50  0000 C CNN
+F 1 "100k" H 42000 15920 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    42000 16000
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	41200 15800 40900 15800
+Text Label 40900 15800 0    35   ~ 0
+PAUSE_GATE
+Wire Wire Line
+	42800 15800 43100 15800
+Text Label 43100 15800 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:R41_100k R41
+U 1 1 66000051
+P 9000 16500
+F 0 "R41" H 9000 16580 50  0000 C CNN
+F 1 "100k" H 9000 16420 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    9000 16500
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	8200 16300 7900 16300
+Text Label 7900 16300 0    35   ~ 0
+MRES_3V3
+Wire Wire Line
+	9800 16300 10100 16300
+Text Label 10100 16300 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:R42_10k R42
+U 1 1 66000052
+P 3500 16600
+F 0 "R42" H 3500 16680 50  0000 C CNN
+F 1 "10k" H 3500 16520 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    3500 16600
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	2700 16400 2400 16400
+Text Label 2400 16400 0    35   ~ 0
+FRAM_A13
+Wire Wire Line
+	4300 16400 4600 16400
+Text Label 4600 16400 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:R43_10k R43
+U 1 1 66000053
+P 20000 16900
+F 0 "R43" H 20000 16980 50  0000 C CNN
+F 1 "10k" H 20000 16820 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    20000 16900
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	19200 16700 18900 16700
+Text Label 18900 16700 0    35   ~ 0
+FRAM_HI_CE_N
+Wire Wire Line
+	20800 16700 21100 16700
+Text Label 21100 16700 2    35   ~ 0
+3V3
+$Comp
+L MatrixDrive_RevB:R44_100k R44
+U 1 1 66000054
+P 14500 17200
+F 0 "R44" H 14500 17280 50  0000 C CNN
+F 1 "100k" H 14500 17120 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    14500 17200
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	13700 17000 13400 17000
+Text Label 13400 17000 0    35   ~ 0
+SMS_MAPPER_CM_3V3
+Wire Wire Line
+	15300 17000 15600 17000
+Text Label 15600 17000 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:R45_10k R45
+U 1 1 66000055
+P 25500 17200
+F 0 "R45" H 25500 17280 50  0000 C CNN
+F 1 "10k" H 25500 17120 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    25500 17200
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	24700 17000 24400 17000
+Text Label 24400 17000 0    35   ~ 0
+MD_FRAM_CE_N
+Wire Wire Line
+	26300 17000 26600 17000
+Text Label 26600 17000 2    35   ~ 0
+3V3
+$Comp
+L MatrixDrive_RevB:C1_100nF C1
+U 1 1 66000056
+P 14500 8800
+F 0 "C1" H 14500 8880 50  0000 C CNN
+F 1 "100nF" H 14500 8720 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    14500 8800
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	13700 8600 13400 8600
+Text Label 13400 8600 0    35   ~ 0
+3V3
+Wire Wire Line
+	15300 8600 15600 8600
+Text Label 15600 8600 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C2_100nF C2
+U 1 1 66000057
+P 31000 10000
+F 0 "C2" H 31000 10080 50  0000 C CNN
+F 1 "100nF" H 31000 9920 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    31000 10000
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	30200 9800 29900 9800
+Text Label 29900 9800 0    35   ~ 0
+3V3
+Wire Wire Line
+	31800 9800 32100 9800
+Text Label 32100 9800 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C3_100nF C3
+U 1 1 66000058
+P 36500 10000
+F 0 "C3" H 36500 10080 50  0000 C CNN
+F 1 "100nF" H 36500 9920 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    36500 10000
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	35700 9800 35400 9800
+Text Label 35400 9800 0    35   ~ 0
+3V3
+Wire Wire Line
+	37300 9800 37600 9800
+Text Label 37600 9800 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C4_100nF C4
+U 1 1 66000059
+P 42000 10000
+F 0 "C4" H 42000 10080 50  0000 C CNN
+F 1 "100nF" H 42000 9920 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    42000 10000
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	41200 9800 40900 9800
+Text Label 40900 9800 0    35   ~ 0
+3V3
+Wire Wire Line
+	42800 9800 43100 9800
+Text Label 43100 9800 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C5_100nF C5
+U 1 1 6600005A
+P 9000 10500
+F 0 "C5" H 9000 10580 50  0000 C CNN
+F 1 "100nF" H 9000 10420 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    9000 10500
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	8200 10300 7900 10300
+Text Label 7900 10300 0    35   ~ 0
+3V3
+Wire Wire Line
+	9800 10300 10100 10300
+Text Label 10100 10300 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C6_100nF C6
+U 1 1 6600005B
+P 3500 10600
+F 0 "C6" H 3500 10680 50  0000 C CNN
+F 1 "100nF" H 3500 10520 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    3500 10600
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	2700 10400 2400 10400
+Text Label 2400 10400 0    35   ~ 0
+3V3
+Wire Wire Line
+	4300 10400 4600 10400
+Text Label 4600 10400 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C7_100nF C7
+U 1 1 6600005C
+P 20000 10900
+F 0 "C7" H 20000 10980 50  0000 C CNN
+F 1 "100nF" H 20000 10820 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    20000 10900
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	19200 10700 18900 10700
+Text Label 18900 10700 0    35   ~ 0
+3V3
+Wire Wire Line
+	20800 10700 21100 10700
+Text Label 21100 10700 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C8_100nF C8
+U 1 1 6600005D
+P 14500 11200
+F 0 "C8" H 14500 11280 50  0000 C CNN
+F 1 "100nF" H 14500 11120 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    14500 11200
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	13700 11000 13400 11000
+Text Label 13400 11000 0    35   ~ 0
+3V3
+Wire Wire Line
+	15300 11000 15600 11000
+Text Label 15600 11000 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C9_100nF C9
+U 1 1 6600005E
+P 25500 11200
+F 0 "C9" H 25500 11280 50  0000 C CNN
+F 1 "100nF" H 25500 11120 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    25500 11200
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	24700 11000 24400 11000
+Text Label 24400 11000 0    35   ~ 0
+3V3
+Wire Wire Line
+	26300 11000 26600 11000
+Text Label 26600 11000 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C10_100nF C10
+U 1 1 6600005F
+P 25500 8800
+F 0 "C10" H 25500 8880 50  0000 C CNN
+F 1 "100nF" H 25500 8720 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    25500 8800
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	24700 8600 24400 8600
+Text Label 24400 8600 0    35   ~ 0
+3V3
+Wire Wire Line
+	26300 8600 26600 8600
+Text Label 26600 8600 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C11_100nF C11
+U 1 1 66000060
+P 31000 8800
+F 0 "C11" H 31000 8880 50  0000 C CNN
+F 1 "100nF" H 31000 8720 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    31000 8800
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	30200 8600 29900 8600
+Text Label 29900 8600 0    35   ~ 0
+3V3
+Wire Wire Line
+	31800 8600 32100 8600
+Text Label 32100 8600 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C12_100nF C12
+U 1 1 66000061
+P 36500 8800
+F 0 "C12" H 36500 8880 50  0000 C CNN
+F 1 "100nF" H 36500 8720 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    36500 8800
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	35700 8600 35400 8600
+Text Label 35400 8600 0    35   ~ 0
+3V3
+Wire Wire Line
+	37300 8600 37600 8600
+Text Label 37600 8600 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C13_100nF C13
+U 1 1 66000062
+P 42000 8800
+F 0 "C13" H 42000 8880 50  0000 C CNN
+F 1 "100nF" H 42000 8720 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    42000 8800
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	41200 8600 40900 8600
+Text Label 40900 8600 0    35   ~ 0
+3V3
+Wire Wire Line
+	42800 8600 43100 8600
+Text Label 43100 8600 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C14_100nF C14
+U 1 1 66000063
+P 9000 9300
+F 0 "C14" H 9000 9380 50  0000 C CNN
+F 1 "100nF" H 9000 9220 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    9000 9300
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	8200 9100 7900 9100
+Text Label 7900 9100 0    35   ~ 0
+3V3
+Wire Wire Line
+	9800 9100 10100 9100
+Text Label 10100 9100 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C15_100nF C15
+U 1 1 66000064
+P 3500 9400
+F 0 "C15" H 3500 9480 50  0000 C CNN
+F 1 "100nF" H 3500 9320 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    3500 9400
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	2700 9200 2400 9200
+Text Label 2400 9200 0    35   ~ 0
+3V3
+Wire Wire Line
+	4300 9200 4600 9200
+Text Label 4600 9200 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C16_100nF C16
+U 1 1 66000065
+P 20000 9700
+F 0 "C16" H 20000 9780 50  0000 C CNN
+F 1 "100nF" H 20000 9620 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    20000 9700
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	19200 9500 18900 9500
+Text Label 18900 9500 0    35   ~ 0
+3V3
+Wire Wire Line
+	20800 9500 21100 9500
+Text Label 21100 9500 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C17_100nF C17
+U 1 1 66000066
+P 14500 10000
+F 0 "C17" H 14500 10080 50  0000 C CNN
+F 1 "100nF" H 14500 9920 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    14500 10000
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	13700 9800 13400 9800
+Text Label 13400 9800 0    35   ~ 0
+3V3
+Wire Wire Line
+	15300 9800 15600 9800
+Text Label 15600 9800 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C18_100nF C18
+U 1 1 66000067
+P 25500 10000
+F 0 "C18" H 25500 10080 50  0000 C CNN
+F 1 "100nF" H 25500 9920 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    25500 10000
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	24700 9800 24400 9800
+Text Label 24400 9800 0    35   ~ 0
+3V3
+Wire Wire Line
+	26300 9800 26600 9800
+Text Label 26600 9800 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C19_1uF C19
+U 1 1 66000068
+P 20000 18100
+F 0 "C19" H 20000 18180 50  0000 C CNN
+F 1 "1uF" H 20000 18020 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    20000 18100
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	19200 17900 18900 17900
+Text Label 18900 17900 0    35   ~ 0
+3V3
+Wire Wire Line
+	20800 17900 21100 17900
+Text Label 21100 17900 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C20_1uF C20
+U 1 1 66000069
+P 14500 18400
+F 0 "C20" H 14500 18480 50  0000 C CNN
+F 1 "1uF" H 14500 18320 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    14500 18400
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	13700 18200 13400 18200
+Text Label 13400 18200 0    35   ~ 0
+CART_5V
+Wire Wire Line
+	15300 18200 15600 18200
+Text Label 15600 18200 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C21_1uF C21
+U 1 1 6600006A
+P 25500 18400
+F 0 "C21" H 25500 18480 50  0000 C CNN
+F 1 "1uF" H 25500 18320 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    25500 18400
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	24700 18200 24400 18200
+Text Label 24400 18200 0    35   ~ 0
+3V3
+Wire Wire Line
+	26300 18200 26600 18200
+Text Label 26600 18200 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C22_1uF C22
+U 1 1 6600006B
+P 31000 18400
+F 0 "C22" H 31000 18480 50  0000 C CNN
+F 1 "1uF" H 31000 18320 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    31000 18400
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	30200 18200 29900 18200
+Text Label 29900 18200 0    35   ~ 0
+3V3
+Wire Wire Line
+	31800 18200 32100 18200
+Text Label 32100 18200 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C23_10uF C23
+U 1 1 6600006C
+P 36500 18400
+F 0 "C23" H 36500 18480 50  0000 C CNN
+F 1 "10uF" H 36500 18320 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    36500 18400
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	35700 18200 35400 18200
+Text Label 35400 18200 0    35   ~ 0
+SYS_5V
+Wire Wire Line
+	37300 18200 37600 18200
+Text Label 37600 18200 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C24_10uF C24
+U 1 1 6600006D
+P 42000 18400
+F 0 "C24" H 42000 18480 50  0000 C CNN
+F 1 "10uF" H 42000 18320 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    42000 18400
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	41200 18200 40900 18200
+Text Label 40900 18200 0    35   ~ 0
+3V3
+Wire Wire Line
+	42800 18200 43100 18200
+Text Label 43100 18200 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C25_15pF C25
+U 1 1 6600006E
+P 31000 23200
+F 0 "C25" H 31000 23280 50  0000 C CNN
+F 1 "15pF" H 31000 23120 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    31000 23200
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	30200 23000 29900 23000
+Text Label 29900 23000 0    35   ~ 0
+XIN_XTAL
+Wire Wire Line
+	31800 23000 32100 23000
+Text Label 32100 23000 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C26_15pF C26
+U 1 1 6600006F
+P 36500 23200
+F 0 "C26" H 36500 23280 50  0000 C CNN
+F 1 "15pF" H 36500 23120 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    36500 23200
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	35700 23000 35400 23000
+Text Label 35400 23000 0    35   ~ 0
+XOUT
+Wire Wire Line
+	37300 23000 37600 23000
+Text Label 37600 23000 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C27_4_7uF C27
+U 1 1 66000070
+P 42000 23200
+F 0 "C27" H 42000 23280 50  0000 C CNN
+F 1 "4.7uF" H 42000 23120 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    42000 23200
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	41200 23000 40900 23000
+Text Label 40900 23000 0    35   ~ 0
+1V1
+Wire Wire Line
+	42800 23000 43100 23000
+Text Label 43100 23000 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C28_TBD_REF C28
+U 1 1 66000071
+P 9000 23700
+F 0 "C28" H 9000 23780 50  0000 C CNN
+F 1 "TBD_REF" H 9000 23620 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    9000 23700
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	8200 23500 7900 23500
+Text Label 7900 23500 0    35   ~ 0
+1V1
+Wire Wire Line
+	9800 23500 10100 23500
+Text Label 10100 23500 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C29_TBD_REF C29
+U 1 1 66000072
+P 3500 23800
+F 0 "C29" H 3500 23880 50  0000 C CNN
+F 1 "TBD_REF" H 3500 23720 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    3500 23800
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	2700 23600 2400 23600
+Text Label 2400 23600 0    35   ~ 0
+3V3
+Wire Wire Line
+	4300 23600 4600 23600
+Text Label 4600 23600 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C30_TBD_REF C30
+U 1 1 66000073
+P 20000 24100
+F 0 "C30" H 20000 24180 50  0000 C CNN
+F 1 "TBD_REF" H 20000 24020 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    20000 24100
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	19200 23900 18900 23900
+Text Label 18900 23900 0    35   ~ 0
+VREG_AVDD
+Wire Wire Line
+	20800 23900 21100 23900
+Text Label 21100 23900 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C31_TBD_REF C31
+U 1 1 66000074
+P 14500 24400
+F 0 "C31" H 14500 24480 50  0000 C CNN
+F 1 "TBD_REF" H 14500 24320 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    14500 24400
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	13700 24200 13400 24200
+Text Label 13400 24200 0    35   ~ 0
+ADC_AVDD
+Wire Wire Line
+	15300 24200 15600 24200
+Text Label 15600 24200 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C32_TBD_REF C32
+U 1 1 66000075
+P 25500 24400
+F 0 "C32" H 25500 24480 50  0000 C CNN
+F 1 "TBD_REF" H 25500 24320 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    25500 24400
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	24700 24200 24400 24200
+Text Label 24400 24200 0    35   ~ 0
+3V3
+Wire Wire Line
+	26300 24200 26600 24200
+Text Label 26600 24200 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C33_TBD_REF C33
+U 1 1 66000076
+P 31000 24400
+F 0 "C33" H 31000 24480 50  0000 C CNN
+F 1 "TBD_REF" H 31000 24320 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    31000 24400
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	30200 24200 29900 24200
+Text Label 29900 24200 0    35   ~ 0
+3V3
+Wire Wire Line
+	31800 24200 32100 24200
+Text Label 32100 24200 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C34_100nF C34
+U 1 1 66000077
+P 31000 19600
+F 0 "C34" H 31000 19680 50  0000 C CNN
+F 1 "100nF" H 31000 19520 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    31000 19600
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	30200 19400 29900 19400
+Text Label 29900 19400 0    35   ~ 0
+3V3
+Wire Wire Line
+	31800 19400 32100 19400
+Text Label 32100 19400 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C35_100nF C35
+U 1 1 66000078
+P 14500 6400
+F 0 "C35" H 14500 6480 50  0000 C CNN
+F 1 "100nF" H 14500 6320 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    14500 6400
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	13700 6200 13400 6200
+Text Label 13400 6200 0    35   ~ 0
+3V3
+Wire Wire Line
+	15300 6200 15600 6200
+Text Label 15600 6200 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:C36_100nF C36
+U 1 1 66000079
+P 36500 19600
+F 0 "C36" H 36500 19680 50  0000 C CNN
+F 1 "100nF" H 36500 19520 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    36500 19600
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	35700 19400 35400 19400
+Text Label 35400 19400 0    35   ~ 0
+3V3
+Wire Wire Line
+	37300 19400 37600 19400
+Text Label 37600 19400 2    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:TP1_CART_5V TP1
+U 1 1 6600007A
+P 42000 19600
+F 0 "TP1" H 42000 19680 50  0000 C CNN
+F 1 "CART_5V" H 42000 19520 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    42000 19600
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	41200 19400 40900 19400
+Text Label 40900 19400 0    35   ~ 0
+CART_5V
+$Comp
+L MatrixDrive_RevB:TP2_USB_VBUS TP2
+U 1 1 6600007B
+P 20000 21700
+F 0 "TP2" H 20000 21780 50  0000 C CNN
+F 1 "USB_VBUS" H 20000 21620 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    20000 21700
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	19200 21500 18900 21500
+Text Label 18900 21500 0    35   ~ 0
+USB_VBUS
+$Comp
+L MatrixDrive_RevB:TP3_SYS_5V TP3
+U 1 1 6600007C
+P 36500 22000
+F 0 "TP3" H 36500 22080 50  0000 C CNN
+F 1 "SYS_5V" H 36500 21920 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    36500 22000
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	35700 21800 35400 21800
+Text Label 35400 21800 0    35   ~ 0
+SYS_5V
+$Comp
+L MatrixDrive_RevB:TP4_3V3 TP4
+U 1 1 6600007D
+P 42000 22000
+F 0 "TP4" H 42000 22080 50  0000 C CNN
+F 1 "3V3" H 42000 21920 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    42000 22000
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	41200 21800 40900 21800
+Text Label 40900 21800 0    35   ~ 0
+3V3
+$Comp
+L MatrixDrive_RevB:TP5_GND TP5
+U 1 1 6600007E
+P 9000 22500
+F 0 "TP5" H 9000 22580 50  0000 C CNN
+F 1 "GND" H 9000 22420 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    9000 22500
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	8200 22300 7900 22300
+Text Label 7900 22300 0    35   ~ 0
+GND
+$Comp
+L MatrixDrive_RevB:TP6_BUS_DISABLE TP6
+U 1 1 6600007F
+P 3500 22600
+F 0 "TP6" H 3500 22680 50  0000 C CNN
+F 1 "BUS_DISABLE" H 3500 22520 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    3500 22600
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	2700 22400 2400 22400
+Text Label 2400 22400 0    35   ~ 0
+BUS_DISABLE
+$Comp
+L MatrixDrive_RevB:TP7_SMS_MODE_3V3 TP7
+U 1 1 66000080
+P 20000 22900
+F 0 "TP7" H 20000 22980 50  0000 C CNN
+F 1 "SMS_MODE_3V3" H 20000 22820 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    20000 22900
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	19200 22700 18900 22700
+Text Label 18900 22700 0    35   ~ 0
+SMS_MODE_3V3
+$Comp
+L MatrixDrive_RevB:TP8_SMS_MODE_5V TP8
+U 1 1 66000081
+P 14500 23200
+F 0 "TP8" H 14500 23280 50  0000 C CNN
+F 1 "SMS_MODE_5V" H 14500 23120 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    14500 23200
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	13700 23000 13400 23000
+Text Label 13400 23000 0    35   ~ 0
+SMS_MODE_5V
+$Comp
+L MatrixDrive_RevB:TP9_USB_MODE_3V3 TP9
+U 1 1 66000082
+P 25500 23200
+F 0 "TP9" H 25500 23280 50  0000 C CNN
+F 1 "USB_MODE_3V3" H 25500 23120 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    25500 23200
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	24700 23000 24400 23000
+Text Label 24400 23000 0    35   ~ 0
+USB_MODE_3V3
+$Comp
+L MatrixDrive_RevB:TP10_ROM_CE_N TP10
+U 1 1 66000083
+P 9000 20100
+F 0 "TP10" H 9000 20180 50  0000 C CNN
+F 1 "ROM_CE_N" H 9000 20020 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    9000 20100
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	8200 19900 7900 19900
+Text Label 7900 19900 0    35   ~ 0
+ROM_CE_N
+$Comp
+L MatrixDrive_RevB:TP11_ROM_OE_N TP11
+U 1 1 66000084
+P 3500 20200
+F 0 "TP11" H 3500 20280 50  0000 C CNN
+F 1 "ROM_OE_N" H 3500 20120 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    3500 20200
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	2700 20000 2400 20000
+Text Label 2400 20000 0    35   ~ 0
+ROM_OE_N
+$Comp
+L MatrixDrive_RevB:TP12_ROM_WE_N TP12
+U 1 1 66000085
+P 20000 20500
+F 0 "TP12" H 20000 20580 50  0000 C CNN
+F 1 "ROM_WE_N" H 20000 20420 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    20000 20500
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	19200 20300 18900 20300
+Text Label 18900 20300 0    35   ~ 0
+ROM_WE_N
+$Comp
+L MatrixDrive_RevB:TP13_FRAM_CE_N TP13
+U 1 1 66000086
+P 14500 20800
+F 0 "TP13" H 14500 20880 50  0000 C CNN
+F 1 "FRAM_CE_N" H 14500 20720 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    14500 20800
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	13700 20600 13400 20600
+Text Label 13400 20600 0    35   ~ 0
+FRAM_CE_N
+$Comp
+L MatrixDrive_RevB:TP14_FRAM_HI_CE_N TP14
+U 1 1 66000087
+P 25500 20800
+F 0 "TP14" H 25500 20880 50  0000 C CNN
+F 1 "FRAM_HI_CE_N" H 25500 20720 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    25500 20800
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	24700 20600 24400 20600
+Text Label 24400 20600 0    35   ~ 0
+FRAM_HI_CE_N
+$Comp
+L MatrixDrive_RevB:TP15_FRAM_OE_N TP15
+U 1 1 66000088
+P 31000 20800
+F 0 "TP15" H 31000 20880 50  0000 C CNN
+F 1 "FRAM_OE_N" H 31000 20720 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    31000 20800
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	30200 20600 29900 20600
+Text Label 29900 20600 0    35   ~ 0
+FRAM_OE_N
+$Comp
+L MatrixDrive_RevB:TP16_FRAM_WE_N TP16
+U 1 1 66000089
+P 36500 20800
+F 0 "TP16" H 36500 20880 50  0000 C CNN
+F 1 "FRAM_WE_N" H 36500 20720 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    36500 20800
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	35700 20600 35400 20600
+Text Label 35400 20600 0    35   ~ 0
+FRAM_WE_N
+$Comp
+L MatrixDrive_RevB:TP17_MD_FRAM_CE_N TP17
+U 1 1 6600008A
+P 42000 20800
+F 0 "TP17" H 42000 20880 50  0000 C CNN
+F 1 "MD_FRAM_CE_N" H 42000 20720 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    42000 20800
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	41200 20600 40900 20600
+Text Label 40900 20600 0    35   ~ 0
+MD_FRAM_CE_N
+$Comp
+L MatrixDrive_RevB:TP18_MD_HIGH_DISABLE_3V3 TP18
+U 1 1 6600008B
+P 9000 21300
+F 0 "TP18" H 9000 21380 50  0000 C CNN
+F 1 "MD_HIGH_DISABLE_3V3" H 9000 21220 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    9000 21300
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	8200 21100 7900 21100
+Text Label 7900 21100 0    35   ~ 0
+MD_HIGH_DISABLE_3V3
+$Comp
+L MatrixDrive_RevB:TP19_LWR_3V3 TP19
+U 1 1 6600008C
+P 3500 21400
+F 0 "TP19" H 3500 21480 50  0000 C CNN
+F 1 "LWR_3V3" H 3500 21320 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    3500 21400
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	2700 21200 2400 21200
+Text Label 2400 21200 0    35   ~ 0
+LWR_3V3
+$Comp
+L MatrixDrive_RevB:TP20_UWR_3V3 TP20
+U 1 1 6600008D
+P 14500 22000
+F 0 "TP20" H 14500 22080 50  0000 C CNN
+F 1 "UWR_3V3" H 14500 21920 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    14500 22000
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	13700 21800 13400 21800
+Text Label 13400 21800 0    35   ~ 0
+UWR_3V3
+$Comp
+L MatrixDrive_RevB:TP21_AS_3V3 TP21
+U 1 1 6600008E
+P 25500 22000
+F 0 "TP21" H 25500 22080 50  0000 C CNN
+F 1 "AS_3V3" H 25500 21920 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    25500 22000
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	24700 21800 24400 21800
+Text Label 24400 21800 0    35   ~ 0
+AS_3V3
+$Comp
+L MatrixDrive_RevB:TP22_TIME_3V3 TP22
+U 1 1 6600008F
+P 31000 22000
+F 0 "TP22" H 31000 22080 50  0000 C CNN
+F 1 "TIME_3V3" H 31000 21920 40  0000 C CNN
+F 2 "" H 0 0 50 0001 C CNN
+F 3 "" H 0 0 50 0001 C CNN
+	1    31000 22000
+	1    0    0    -1
+$EndComp
+Wire Wire Line
+	30200 21800 29900 21800
+Text Label 29900 21800 0    35   ~ 0
+TIME_3V3
+Text Notes 1200 32300 0    60   ~ 12
+RELEASE GATES: assign/fix U1 and U13 physical pins; confirm U2 package straps; route and run ERC/DRC/SI/power review.
+$EndSCHEMATC

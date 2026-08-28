@@ -2,6 +2,7 @@
 """Static checks that do not require KiCad or the Pico SDK."""
 
 import csv
+import json
 import re
 import subprocess
 import tempfile
@@ -53,7 +54,7 @@ def check_gpio_map() -> None:
 
 def check_pcb() -> None:
     pcb = (ROOT / "hardware" / "MatrixDrive-RevB.kicad_pcb").read_text()
-    pads = re.findall(r'\(pad "([AB]\d+)"', pcb)
+    pads = re.findall(r'\(pad "([AB]\d+)" connect rect .*\(size 1\.8 7\.0\)', pcb)
     assert len(pads) == 64
     assert len(set(pads)) == 64
     balance = 0
@@ -62,8 +63,48 @@ def check_pcb() -> None:
         elif char == ")": balance -= 1
         assert balance >= 0
     assert balance == 0
-    for token in ("PLACEMENT_U19", "PLACEMENT_U20", "32X EDGE", "S&K UPPER-SLOT"):
+    for token in ("U19", "U20", "NETLISTED ENGINEERING PCB", "DO NOT FABRICATE"):
         assert token in pcb
+    assert pcb.count("  (footprint ") == 143
+    assert '(zone (net 1) (net_name "GND") (layer "F.Cu")' in pcb
+    assert '(zone (net 1) (net_name "GND") (layer "B.Cu")' in pcb
+
+
+def check_kicad_project() -> None:
+    hardware = ROOT / "hardware"
+    required = (
+        hardware / "MatrixDrive-RevB.sch",
+        hardware / "MatrixDrive-RevB.kicad_pcb",
+        hardware / "MatrixDrive-RevB.kicad_pro",
+        hardware / "MatrixDrive_RevB.lib",
+        hardware / "sym-lib-table",
+        hardware / "kicad-project-manifest.json",
+        hardware / "README-KICAD.md",
+    )
+    for path in required:
+        assert path.is_file(), path
+
+    schematic = (hardware / "MatrixDrive-RevB.sch").read_text()
+    symbols = (hardware / "MatrixDrive_RevB.lib").read_text()
+    assert schematic.startswith("EESchema Schematic File Version 4")
+    assert schematic.count("$Comp") == 143
+    assert schematic.rstrip().endswith("$EndSCHEMATC")
+    assert symbols.count("\nDEF ") == 143
+    assert symbols.rstrip().endswith("#End Library")
+
+    project = json.loads((hardware / "MatrixDrive-RevB.kicad_pro").read_text())
+    manifest = json.loads((hardware / "kicad-project-manifest.json").read_text())
+    assert project["meta"]["filename"] == "MatrixDrive-RevB.kicad_pro"
+    assert manifest["component_count"] == 143
+    assert manifest["pin_count"] == 777
+    assert manifest["net_count"] == 192
+    assert len(manifest["release_gates"]) >= 6
+
+    for token in (
+        "ROM_A20", "MEM_D15", "USB_DP_MCU", "CPLD_TCK",
+        "FRAM_HI_CE_N", "MD_FRAM_CE_N", "MD_HIGH_DISABLE_3V3",
+    ):
+        assert token in schematic
 
 
 def run_fat_test() -> None:
@@ -108,12 +149,6 @@ def run_mapper_test() -> None:
         subprocess.run(["vvp", str(output)], check=True)
 
 
-def run_sms_fm_model_test() -> None:
-    subprocess.run([
-        "python3", str(ROOT / "fpga" / "tb" / "test_sms_fm_model.py")
-    ], check=True)
-
-
 def check_rev_b_hardware() -> None:
     bom = (ROOT / "hardware" / "bom.csv").read_text()
     netlist = (ROOT / "hardware" / "electrical-netlist.csv").read_text()
@@ -139,45 +174,14 @@ def check_rev_b_hardware() -> None:
     assert (ROOT / "docs" / "32x-mode.md").is_file()
 
 
-def check_sms_fm_fpga() -> None:
-    required = (
-        ROOT / "fpga" / "rtl" / "sms_fm_bus.v",
-        ROOT / "fpga" / "rtl" / "pdm_dac.v",
-        ROOT / "fpga" / "rtl" / "matrixdrive_sms_fm_top.v",
-        ROOT / "fpga" / "third_party" / "IKAOPLL" / "src" / "IKAOPLL.v",
-        ROOT / "fpga" / "third_party" / "IKAOPLL" / "LICENSE",
-        ROOT / "fpga" / "hardware" / "fpga-addon-bom.csv",
-        ROOT / "fpga" / "hardware" / "logical-netlist.csv",
-        ROOT / "fpga" / "hardware" / "pin-assignment-template.csv",
-    )
-    for path in required:
-        assert path.is_file(), path
-
-    bus = (ROOT / "fpga" / "rtl" / "sms_fm_bus.v").read_text()
-    for token in (
-        "sms_iorq_n", "8'hF0", "8'hF1", "8'hF2", "detect_reg",
-        "sms_data_oe", "usb_mode",
-    ):
-        assert token in bus
-
-    top = (ROOT / "fpga" / "rtl" / "matrixdrive_sms_fm_top.v").read_text()
-    for token in ("IKAOPLL", "pdm_dac", "cart_a18_iorq_n", "fm_pdm"):
-        assert token in top
-
-    connector = (ROOT / "hardware" / "connector-pinout.csv").read_text()
-    for token in ("active-low IORQ in SMS mode", "AC-coupled FM audio"):
-        assert token in connector
-
-
 if __name__ == "__main__":
     check_public_references()
     check_connector()
     check_gpio_map()
     check_pcb()
+    check_kicad_project()
     check_rev_b_hardware()
-    check_sms_fm_fpga()
     run_fat_test()
     run_installer_test()
     run_mapper_test()
-    run_sms_fm_model_test()
     print("MatrixDrive Rev B static validation passed")

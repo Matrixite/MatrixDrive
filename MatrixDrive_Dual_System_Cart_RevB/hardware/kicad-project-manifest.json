@@ -1,6 +1,6 @@
 {
   "project": "MatrixDrive-RevB",
-  "status": "logical-complete; PCB net-assigned and unrouted",
+  "status": "logical-complete; preliminary routed PCB awaiting KiCad DRC",
   "component_count": 143,
   "pin_count": 777,
   "net_count": 192,
@@ -9,7 +9,7 @@
     "Fit and assign ATF1508ASV TQFP-100 pins, then close timing",
     "Verify S29GL032N TSOP-I-48 package pinout and strap polarity",
     "Replace logical translator/FRAM footprints with verified library footprints",
-    "Route all signal and power nets, refill zones, and pass KiCad ERC/DRC",
+    "Review/refine the preliminary route, refill zones, and pass KiCad ERC/DRC",
     "Review USB impedance, translator timing, current draw, and cartridge mechanics"
   ],
   "generated_files": [
@@ -17,6 +17,8 @@
     "MatrixDrive-RevB.kicad_pcb",
     "MatrixDrive-RevB.kicad_pro",
     "MatrixDrive_RevB.lib",
-    "sym-lib-table"
-  ]
+    "sym-lib-table",
+    "routing-report.json"
+  ],
+  "routing_report": "routing-report.json"
 }

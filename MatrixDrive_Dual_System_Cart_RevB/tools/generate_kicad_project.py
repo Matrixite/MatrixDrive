@@ -190,7 +190,7 @@ def build_components() -> list[Component]:
     for num,name,net in ((1,"IN","SYS_5V"),(2,"GND","GND"),(3,"EN","SYS_5V"),(4,"NC",None),(5,"OUT","3V3")): u11.add(num,name,net)
     cs.append(u11)
 
-    u12=Component("U12","TPD2EUSB30DRTR","USB D+/D- ESD protector","DRT-9_LOGICAL","USB and controller",pcb_at=(55,7,0))
+    u12=Component("U12","TPD2EUSB30DRTR","USB D+/D- ESD protector","DRT-9_LOGICAL","USB and controller",pcb_at=(59,7,0))
     for n,name,net in (("IO1A","IO1A","USB_DP"),("IO1B","IO1B","USB_DP_MCU"),
                        ("IO2A","IO2A","USB_DM"),("IO2B","IO2B","USB_DM_MCU"),
                        ("GND","GND","GND")): u12.add(n,name,net)
@@ -224,7 +224,7 @@ def build_components() -> list[Component]:
                        (7,"2B","MD_HIGH_DISABLE_5V"),(8,"VCC","CART_5V")): u15.add(n,name,net)
     cs.append(u15)
     u16=Component("U16","SN74LVC1G04DBVR","Low-data direction inverter",
-                  "SOT-23-5","Bus translation",pcb_at=(78,30,0))
+                  "SOT-23-5","Bus translation",pcb_at=(80,30,0))
     for n,name,net in ((1,"A","LWR_N"),(2,"GND","GND"),(4,"Y","LOW_DATA_DIR"),(5,"VCC","CART_5V")): u16.add(n,name,net)
     cs.append(u16)
 
@@ -522,7 +522,7 @@ def footprint_for(c: Component, at: tuple[float,float,float], nets: dict[str,int
         # Logical perimeter footprint. Alphanumeric pads intentionally prevent
         # accidental use as a fabricated package before pin mapping is approved.
         half=(len(pins)+1)//2
-        pitch=max(0.35,min(0.75,10.0/max(half,1)))
+        pitch=max(0.5,min(0.75,10.0/max(half,1)))
         body_h=max(3.0,(half-1)*pitch+1.2)
         out[3]=f'    (fp_rect (start -2 {-body_h/2:.3f}) (end 2 {body_h/2:.3f}) (stroke (width 0.18) (type default)) (fill none) (layer "F.SilkS"))\n'
         for i,p in enumerate(pins):
@@ -541,12 +541,13 @@ def assign_pcb_positions(cs: list[Component]) -> dict[str,tuple[float,float,floa
 
     def extent(c: Component) -> tuple[float,float]:
         if c.ref == "J1": return (50.0,4.0)
-        if len(c.pins) <= 2: return (2.1,1.7)
+        if len(c.pins) <= 2: return (2.6,1.7)
         if c.ref in ("J3","J4"): return (1.5,3.4)
         if c.ref == "J2": return (2.4,2.2)
         half=(len(c.pins)+1)//2
-        pitch=max(0.35,min(0.75,10.0/max(half,1)))
-        return (2.6,max(2.0,((half-1)*pitch+1.2)/2+0.4))
+        pitch=max(0.5,min(0.75,10.0/max(half,1)))
+        # Include the checkerboard fanout and via keepout, not only the body.
+        return (4.3,max(2.0,((half-1)*pitch+1.2)/2+0.4))
 
     fixed=[]
     by_ref={c.ref:c for c in cs}
@@ -576,21 +577,21 @@ def write_pcb(cs: list[Component]) -> None:
         '(kicad_pcb (version 20240108) (generator "matrixdrive_project_generator")\n',
         '  (general (thickness 1.6))\n',
         '  (paper "A4")\n',
-        '  (layers (0 "F.Cu" signal) (31 "B.Cu" signal) (36 "B.SilkS" user "b.silkscreen") (37 "F.SilkS" user "f.silkscreen") (44 "Edge.Cuts" user))\n',
+        '  (layers (0 "F.Cu" signal) (1 "In1.Cu" power) (2 "In2.Cu" signal) (3 "In3.Cu" signal) (4 "In4.Cu" signal) (5 "In5.Cu" signal) (6 "In6.Cu" power) (31 "B.Cu" signal) (36 "B.SilkS" user "b.silkscreen") (37 "F.SilkS" user "f.silkscreen") (44 "Edge.Cuts" user))\n',
         '  (setup (pad_to_mask_clearance 0))\n',
     ]
     for name,num in nets.items(): out.append(f'  (net {num} "{pcb_escape(name)}")\n')
     out += [
         '  (gr_rect (start 0 0) (end 100 65) (stroke (width 0.1) (type default)) (fill none) (layer "Edge.Cuts"))\n',
-        '  (gr_text "MATRIXDRIVE REV B - NETLISTED ENGINEERING PCB" (at 50 2) (layer "F.SilkS") (effects (font (size 1.1 1.1) (thickness 0.18))))\n',
+        '  (gr_text "MATRIXDRIVE REV B - 8-LAYER ENGINEERING PCB" (at 50 2) (layer "F.SilkS") (effects (font (size 1.1 1.1) (thickness 0.18))))\n',
         '  (gr_text "DO NOT FABRICATE - UNROUTED / PROGRAMMABLE PIN MAPS UNVERIFIED" (at 50 4) (layer "F.SilkS") (effects (font (size 0.8 0.8) (thickness 0.14))))\n',
     ]
     for c in cs: out.append(footprint_for(c,pos[c.ref],nets))
-    # Copper pours deliberately provide GND reference only; signal routing is a
-    # release gate and is not guessed by the generator.
-    gnd=nets["GND"]
-    for layer in ("F.Cu","B.Cu"):
-        out.append(f'  (zone (net {gnd}) (net_name "GND") (layer "{layer}") (hatch edge 0.5)\n')
+    # Dedicated internal power planes leave the outer layers available for the
+    # preliminary autoroute while preserving a continuous signal reference.
+    for layer,plane in (("In1.Cu","GND"),("In6.Cu","3V3")):
+        plane_id=nets[plane]
+        out.append(f'  (zone (net {plane_id}) (net_name "{plane}") (layer "{layer}") (hatch edge 0.5)\n')
         out.append('    (connect_pads (clearance 0.25)) (min_thickness 0.25) (fill yes (thermal_gap 0.3) (thermal_bridge_width 0.3))\n')
         out.append('    (polygon (pts (xy 1 1) (xy 99 1) (xy 99 59) (xy 1 59)))\n  )\n')
     out.append(')\n')
@@ -603,16 +604,16 @@ def write_project_files() -> None:
         '(uri "${KIPRJMOD}/MatrixDrive_RevB.lib")(options "")(descr "MatrixDrive generated logical symbols"))\n)\n')
     project={
         "board": {"design_settings": {"defaults": {"board_outline_line_width": 0.1,
-                    "copper_line_width": 0.25, "copper_text_size_h": 1.5,
+                    "copper_line_width": 0.15, "copper_text_size_h": 1.5,
                     "copper_text_size_v": 1.5, "copper_text_thickness": 0.3}}},
         "boards": [], "cvpcb": {}, "erc": {}, "libraries": {}, "meta": {
             "filename": f"{PROJECT}.kicad_pro", "version": 1},
-        "net_settings": {"classes": [{"bus_width": 12, "clearance": 0.2,
-            "diff_pair_gap": 0.25, "diff_pair_via_gap": 0.25,
-            "diff_pair_width": 0.2, "line_style": 0, "microvia_diameter": 0.3,
+        "net_settings": {"classes": [{"bus_width": 12, "clearance": 0.10,
+            "diff_pair_gap": 0.15, "diff_pair_via_gap": 0.15,
+            "diff_pair_width": 0.15, "line_style": 0, "microvia_diameter": 0.3,
             "microvia_drill": 0.1, "name": "Default", "pcb_color": "rgba(0, 0, 0, 0.000)",
-            "schematic_color": "rgba(0, 0, 0, 0.000)", "track_width": 0.25,
-            "via_diameter": 0.8, "via_drill": 0.4, "wire_width": 6}],
+            "schematic_color": "rgba(0, 0, 0, 0.000)", "track_width": 0.15,
+            "via_diameter": 0.40, "via_drill": 0.20, "wire_width": 6}],
             "meta": {"version": 3}},
         "pcbnew": {}, "schematic": {}, "sheets": [], "text_variables": {}
     }

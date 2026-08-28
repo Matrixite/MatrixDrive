@@ -9,7 +9,7 @@
 [Download the standalone KiCad schematic and PCB project](https://github.com/Matrixite/MatrixDrive/raw/refs/heads/main/MatrixDrive_RevB_KiCad_Project.zip)
 
 > [!IMPORTANT]
-> This repository is an **engineering prototype**, not a fabrication-ready or production-tested cartridge. It includes a complete logical KiCad schematic and net-assigned PCB, but the board is intentionally unrouted and programmable-device package pins remain unverified. Complete the pin assignments, routing, timing analysis, shell measurements, ERC/DRC, and staged hardware bring-up before fabrication or console use.
+> This repository is an **engineering prototype**, not a fabrication-ready or production-tested cartridge. It includes a complete logical KiCad schematic and a preliminary fully connected eight-layer PCB route, but programmable-device package pins remain unverified and KiCad DRC has not yet been run. Complete the pin assignments, route review, timing analysis, shell measurements, ERC/DRC, and staged hardware bring-up before fabrication or console use.
 
 ## What it supports
 
@@ -105,7 +105,7 @@ See [Master System mode](MatrixDrive_Dual_System_Cart_RevB/docs/master-system-mo
 | [`MatrixDrive_Dual_System_Cart_RevB/`](MatrixDrive_Dual_System_Cart_RevB/) | Main hardware, firmware, CPLD, tools, and documentation |
 | [`cpld/`](MatrixDrive_Dual_System_Cart_RevB/cpld/) | MD/32X ROM path, SMS mappers, lock-on save decoder, model, and RTL testbench |
 | [`firmware/`](MatrixDrive_Dual_System_Cart_RevB/firmware/) | RP2350B/Pico SDK USB installer, 32X validation, and ROM mirroring |
-| [`hardware/`](MatrixDrive_Dual_System_Cart_RevB/hardware/) | BOM, electrical netlist, pinout, complete logical KiCad schematic, and net-assigned PCB |
+| [`hardware/`](MatrixDrive_Dual_System_Cart_RevB/hardware/) | BOM, electrical netlist, pinout, complete logical KiCad schematic, preliminary routed PCB, and routing report |
 | [`docs/`](MatrixDrive_Dual_System_Cart_RevB/docs/) | Architecture, lock-on/SMS mapping, workflow, and bring-up guidance |
 | [`tools/`](MatrixDrive_Dual_System_Cart_RevB/tools/) | Project validator and reproducible KiCad project generator |
 | [Build workflow](.github/workflows/build-test-package.yml) | GitHub Actions build, test, and package pipeline |
@@ -119,6 +119,7 @@ The GitHub Actions workflow uses Ubuntu, Pico SDK 2.3.0, the Arm GNU toolchain, 
 ```sh
 cd MatrixDrive_Dual_System_Cart_RevB
 python3 tools/generate_kicad_project.py
+python3 tools/route_kicad_pcb.py
 python3 tools/validate_project.py
 ```
 

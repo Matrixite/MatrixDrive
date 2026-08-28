@@ -10,6 +10,8 @@ model.
 2. Accept KiCad's conversion prompt, then save it as
    `MatrixDrive-RevB.kicad_sch` beside the existing project file.
 3. Open `MatrixDrive-RevB.kicad_pcb` in PCB Editor.
+4. Refill all zones with `B`, then run **Inspect > Design Rules Checker**. Do
+   not waive errors until the logical footprints below have been replaced.
 
 The schematic is supplied in KiCad's readable legacy format because the
 automated build environment does not contain Eeschema. `MatrixDrive_RevB.lib`
@@ -37,8 +39,16 @@ the outstanding release gates.
 ## PCB status
 
 The PCB has the 100 mm x 65 mm engineering outline, physical 2x32 cartridge
-edge, all component references, assigned pad nets, preliminary placement and
-ground zones. Signal and power routing is intentionally not invented.
+edge, all component references, assigned pad nets, preliminary placement and a
+connectivity-complete deterministic route. The eight-layer stack uses F.Cu,
+In2.Cu, In3.Cu, In4.Cu, In5.Cu and B.Cu for signals, with uninterrupted GND on
+In1.Cu and 3V3 on In6.Cu. `routing-report.json` records 188 of 188 routable nets
+complete, 3,917 segments and 1,246 vias.
+
+This route is a DRC handoff, not a fabrication release. It has not been opened
+or checked by KiCad in the automated environment, USB is not yet
+length/impedance controlled, and no signal-integrity or power-integrity review
+has been done.
 
 The programmable-device and memory symbols use logical, alphanumeric pad names
 until the exact physical package maps have been approved. Those footprints are
@@ -52,7 +62,7 @@ Before fabrication:
 2. assign and fit every ATF1508ASV pin, then close CPLD timing;
 3. copy the current official RP2350B minimal-design power and QSPI pin mapping;
 4. confirm NOR reset, write-protect and byte-mode strap polarity;
-5. route USB as a controlled 90-ohm differential pair and route every bus net;
+5. review/refine the preliminary bus route and route USB as a controlled 90-ohm differential pair;
 6. review power integrity, translator direction/OE timing and cartridge loading;
 7. refill zones and pass KiCad ERC, DRC and connectivity inspection;
 8. complete the staged checks in `../docs/safety-and-bringup.md`.
@@ -65,6 +75,7 @@ Run:
 
 ```sh
 python3 tools/generate_kicad_project.py
+python3 tools/route_kicad_pcb.py
 ```
 
 The older `generate_kicad_pcb.py` command is retained as a compatibility

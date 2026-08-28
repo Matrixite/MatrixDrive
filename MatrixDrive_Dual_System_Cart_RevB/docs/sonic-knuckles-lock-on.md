@@ -66,7 +66,7 @@ SW4 remains the Sega/Codemasters selector when SW2 is in SMS mode. Move both swi
 
 ## Physical requirements
 
-The electrical design uses the standard 64-contact Mega Drive/Genesis edge. Physical lock-on compatibility also depends on details that cannot be proven by the unrouted placement template:
+The electrical design uses the standard 64-contact Mega Drive/Genesis edge. Physical lock-on compatibility also depends on details that cannot be proven by the preliminary routed engineering layout:
 
 - PCB thickness and bevel;
 - finger plating, pitch, and insertion depth;

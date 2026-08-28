@@ -91,7 +91,8 @@ See `docs/sonic-knuckles-lock-on.md` for exact use and remaining physical-fit va
 - `docs/safety-and-bringup.md` — mandatory staged test procedure.
 - `hardware/bom.csv`, `connector-pinout.csv`, `electrical-netlist.csv` — connection authorities.
 - `hardware/MatrixDrive-RevB.sch` — complete logical schematic; KiCad 8/9 converts it to native format on first save.
-- `hardware/MatrixDrive-RevB.kicad_pcb` — native net-assigned PCB with the physical cartridge edge, preliminary placement, and ground zones.
+- `hardware/MatrixDrive-RevB.kicad_pcb` — native preliminary routed eight-layer PCB with the physical cartridge edge, six signal layers, and dedicated ground/3.3 V planes.
+- `hardware/routing-report.json` — deterministic route completion counts, layer assignment, widths, and via dimensions.
 - `hardware/README-KICAD.md` — project opening instructions and fabrication release gates.
 - `cpld/matrixdrive_mapper.v` — synthesizable SMS and lock-on decoder RTL.
 - `cpld/test_matrixdrive_mapper.v` — RTL mapper/FRAM testbench.
@@ -99,7 +100,7 @@ See `docs/sonic-knuckles-lock-on.md` for exact use and remaining physical-fit va
 
 ## Engineering status
 
-This is a **Revision B engineering prototype**, not a fabrication-ready or production-tested commercial cartridge. The PCB is intentionally unrouted. Before fabrication, review and verify the logical schematic, assign and fit the CPLD, verify resources and timing, copy the official RP2350B minimal design, confirm exact package pin maps, route the PCB, pass ERC/DRC, and measure the edge/shell against a normal donor cartridge, a real 32X cartridge slot, and a real Sonic & Knuckles upper slot.
+This is a **Revision B engineering prototype**, not a fabrication-ready or production-tested commercial cartridge. The PCB has a preliminary connectivity-complete route, but it has not passed KiCad DRC or physical review. Before fabrication, review and verify the logical schematic, assign and fit the CPLD, verify resources and timing, copy the official RP2350B minimal design, confirm exact package pin maps, review/refine the route, pass ERC/DRC, and measure the edge/shell against a normal donor cartridge, a real 32X cartridge slot, and a real Sonic & Knuckles upper slot.
 
 Do not send the included KiCad PCB directly to fabrication. Complete the release gates in `hardware/README-KICAD.md` and `docs/safety-and-bringup.md` before any console test.
 

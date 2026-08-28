@@ -55,6 +55,7 @@ jobs:
         run: |
           set -euo pipefail
           python3 "$PROJECT_DIR/tools/generate_kicad_project.py"
+          python3 "$PROJECT_DIR/tools/route_kicad_pcb.py"
 
       - name: Run static, host, model, and RTL tests
         shell: bash
@@ -121,6 +122,7 @@ jobs:
              "$PROJECT_DIR/hardware/MatrixDrive_RevB.lib" \
              "$PROJECT_DIR/hardware/sym-lib-table" \
              "$PROJECT_DIR/hardware/kicad-project-manifest.json" \
+             "$PROJECT_DIR/hardware/routing-report.json" \
              "$PROJECT_DIR/hardware/README-KICAD.md" \
              "$PROJECT_DIR/hardware/bom.csv" \
              "$PROJECT_DIR/hardware/connector-pinout.csv" \
@@ -150,6 +152,7 @@ jobs:
                   "$PROJECT_DIR/hardware/MatrixDrive-RevB.sch" \
                   "$PROJECT_DIR/hardware/MatrixDrive_RevB.lib" \
                   "$PROJECT_DIR/hardware/kicad-project-manifest.json" \
+                  "$PROJECT_DIR/hardware/routing-report.json" \
                   "$PROJECT_DIR/hardware/sym-lib-table" \
                   "$PACKAGE_NAME.zip" \
                   "$KICAD_PACKAGE_NAME.zip"

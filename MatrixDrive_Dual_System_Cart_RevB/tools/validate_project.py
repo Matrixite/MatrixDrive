@@ -63,11 +63,15 @@ def check_pcb() -> None:
         elif char == ")": balance -= 1
         assert balance >= 0
     assert balance == 0
-    for token in ("U19", "U20", "NETLISTED ENGINEERING PCB", "DO NOT FABRICATE"):
+    for token in ("U19", "U20", "8-LAYER ENGINEERING PCB",
+                  "DO NOT FABRICATE - PRELIMINARY ROUTE"):
         assert token in pcb
     assert pcb.count("  (footprint ") == 143
-    assert '(zone (net 1) (net_name "GND") (layer "F.Cu")' in pcb
-    assert '(zone (net 1) (net_name "GND") (layer "B.Cu")' in pcb
+    assert '(net_name "GND") (layer "In1.Cu")' in pcb
+    assert '(net_name "3V3") (layer "In6.Cu")' in pcb
+    assert pcb.count("  (segment ") >= 3000
+    assert pcb.count("  (via ") >= 1000
+    assert "UNROUTED" not in pcb
 
 
 def check_kicad_project() -> None:
@@ -79,6 +83,7 @@ def check_kicad_project() -> None:
         hardware / "MatrixDrive_RevB.lib",
         hardware / "sym-lib-table",
         hardware / "kicad-project-manifest.json",
+        hardware / "routing-report.json",
         hardware / "README-KICAD.md",
     )
     for path in required:
@@ -94,11 +99,22 @@ def check_kicad_project() -> None:
 
     project = json.loads((hardware / "MatrixDrive-RevB.kicad_pro").read_text())
     manifest = json.loads((hardware / "kicad-project-manifest.json").read_text())
+    routing = json.loads((hardware / "routing-report.json").read_text())
     assert project["meta"]["filename"] == "MatrixDrive-RevB.kicad_pro"
     assert manifest["component_count"] == 143
     assert manifest["pin_count"] == 777
     assert manifest["net_count"] == 192
+    assert manifest["status"] == "logical-complete; preliminary routed PCB awaiting KiCad DRC"
+    assert manifest["routing_report"] == "routing-report.json"
     assert len(manifest["release_gates"]) >= 6
+    assert routing["status"] == "complete"
+    assert routing["routable_net_count"] == 188
+    assert routing["routed_net_count"] == 188
+    assert routing["failed_nets"] == {}
+    assert routing["signal_layers"] == [
+        "F.Cu", "In2.Cu", "In3.Cu", "In4.Cu", "In5.Cu", "B.Cu"
+    ]
+    assert routing["plane_layers"] == {"In1.Cu": "GND", "In6.Cu": "3V3"}
 
     for token in (
         "ROM_A20", "MEM_D15", "USB_DP_MCU", "CPLD_TCK",

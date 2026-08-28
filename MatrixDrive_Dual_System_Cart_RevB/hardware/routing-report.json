@@ -1,0 +1,29 @@
+{
+  "status": "complete",
+  "router": "MatrixDrive deterministic grid router",
+  "signal_layers": [
+    "F.Cu",
+    "In2.Cu",
+    "In3.Cu",
+    "In4.Cu",
+    "In5.Cu",
+    "B.Cu"
+  ],
+  "plane_layers": {
+    "In1.Cu": "GND",
+    "In6.Cu": "3V3"
+  },
+  "grid_mm": 0.25,
+  "signal_track_width_mm": 0.15,
+  "power_track_width_mm": 0.25,
+  "via_size_mm": 0.4,
+  "via_drill_mm": 0.2,
+  "routable_net_count": 188,
+  "routed_net_count": 188,
+  "failed_nets": {},
+  "connection_count": 395,
+  "segment_count": 3917,
+  "via_count": 1246,
+  "astar_expansions": 8924876,
+  "warning": "Physical package pin mappings remain unverified; run KiCad DRC and manual review."
+}

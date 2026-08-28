@@ -73,6 +73,19 @@ make synth
 need Yosys with ECP5 support. Synthesis creates
 `build/matrixdrive_sms_fm.json`.
 
+`make test-core` runs `tb/test_ikaopll.v`, a direct self-checking harness for
+the vendored YM2413 core. It verifies reset silence, synchronized address/data
+writes, a melodic instrument and key-off transition, all five rhythm voices,
+sample bounds, activity, zero crossings, and deterministic audio signatures.
+To retain a waveform for inspection, run:
+
+```sh
+vvp build/test_ikaopll +vcd
+```
+
+This writes `build/test_ikaopll.vcd` after the harness has been compiled by
+`make test-core`.
+
 The repository deliberately does not include a place-and-route constraint
 file or bitstream. Package pins depend on the final schematic and PCB escape;
 using invented assignments would be unsafe. Complete

@@ -144,6 +144,7 @@ def check_sms_fm_fpga() -> None:
         ROOT / "fpga" / "rtl" / "sms_fm_bus.v",
         ROOT / "fpga" / "rtl" / "pdm_dac.v",
         ROOT / "fpga" / "rtl" / "matrixdrive_sms_fm_top.v",
+        ROOT / "fpga" / "tb" / "test_ikaopll.v",
         ROOT / "fpga" / "third_party" / "IKAOPLL" / "src" / "IKAOPLL.v",
         ROOT / "fpga" / "third_party" / "IKAOPLL" / "LICENSE",
         ROOT / "fpga" / "hardware" / "fpga-addon-bom.csv",

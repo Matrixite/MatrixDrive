@@ -164,7 +164,7 @@ MatrixDrive has been tested in software, but it has not yet been tested on a fab
 - Sega and Codemasters Master System mapper reference-model tests.
 - Codemasters 64 KiB FRAM enable, banking, and ROM-window behavior.
 - CPLD RTL simulation for Mega Drive, lock-on, Sega SMS, and Codemasters SMS modes.
-- SMS FM F0/F1/F2 decode and PDM-density behavioral tests.
+- SMS FM F0/F1/F2 decode, direct IKAOPLL melodic/rhythm regression, and PDM-density behavioral tests.
 - Complete FPGA hierarchy/structural checking and generic ECP5 synthesis of the YM2413 path.
 - A two-ROM lock-on emulator test using legally obtained Sonic 3 and Sonic & Knuckles images. It reached the combined Sonic 3 & Knuckles title screen and opening sequence, confirming the expected software mapping path.
 

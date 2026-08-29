@@ -30,9 +30,14 @@ data in battery-free FRAM.
 | Sonic & Knuckles upper slot | Mega Drive images | 2 MiB recommended | Supports Sonic 2 lock-on and Sonic 3 with its dedicated save area |
 | Master System | `.SMS` | 2 MiB | Uses either the Sega or Codemasters mapper selected by SW4 |
 
-Master System games only work on Mega Drive/Genesis consoles that retain SMS
-compatibility. MatrixDrive does not fit a standalone Master System cartridge
-slot, and SMS mode is not available through the Sonic & Knuckles upper slot.
+Master System mode should work on standard Mega Drive/Genesis Model 1 and Model
+2 consoles. It will not work on an unmodified Genesis 3 or Sega Nomad because
+their cartridge-port Master System mode pin is disconnected. The JVC X'Eye can
+run SMS cartridges through an adapter, but its reset circuit prevents SMS games
+from running from a Genesis flash cartridge such as MatrixDrive. Compatibility
+with other all-in-one, portable, licensed, or clone systems has not yet been
+verified. MatrixDrive also does not fit a standalone Master System cartridge
+slot, and SMS mode cannot run through a 32X or the Sonic & Knuckles upper slot.
 
 ## How it works
 

@@ -2,119 +2,199 @@
 
 [![Build, test, and package](https://github.com/Matrixite/MatrixDrive/actions/workflows/build-test-package.yml/badge.svg)](https://github.com/Matrixite/MatrixDrive/actions/workflows/build-test-package.yml)
 
-**MatrixDrive Revision B** is an open hardware prototype for a USB-loadable Mega Drive/Genesis cartridge that can also supply cartridge ROM to a real 32X, run Master System software on compatible consoles, and operate as the upper cartridge in Sonic & Knuckles lock-on mode. It combines an RP2350B installer, parallel NOR ROM, an instant-on CPLD mapper, and battery-free FRAM saves.
+MatrixDrive started with a simple idea: make a Mega Drive/Genesis cartridge
+that you can plug into a computer with USB-C, copy a game onto like a flash
+drive, and then use in a real console.
 
-[Download the current source and prebuilt firmware package](https://github.com/Matrixite/MatrixDrive/raw/refs/heads/main/MatrixDrive_Dual_System_Cart_RevB_LockOn_Codemasters_64K_FRAM.zip)
+Revision B takes that idea quite a bit further. It is also designed to run
+Master System software on compatible Mega Drive hardware, supply ROM data to a
+real 32X, work in the upper slot of Sonic & Knuckles, and keep supported save
+data in battery-free FRAM.
 
-[Download the standalone KiCad schematic and PCB project](https://github.com/Matrixite/MatrixDrive/raw/refs/heads/main/MatrixDrive_RevB_KiCad_Project.zip)
+- [Download the current source and prebuilt firmware package](https://github.com/Matrixite/MatrixDrive/raw/refs/heads/main/MatrixDrive_Dual_System_Cart_RevB_LockOn_Codemasters_64K_FRAM.zip)
+- [Download the standalone KiCad project](https://github.com/Matrixite/MatrixDrive/raw/refs/heads/main/MatrixDrive_RevB_KiCad_Project.zip)
 
 > [!IMPORTANT]
-> This repository is an **engineering prototype**, not a fabrication-ready or production-tested cartridge. It includes a complete logical KiCad schematic and a preliminary fully connected eight-layer PCB route, but programmable-device package pins remain unverified and KiCad DRC has not yet been run. Complete the pin assignments, route review, timing analysis, shell measurements, ERC/DRC, and staged hardware bring-up before fabrication or console use.
+> MatrixDrive is still an engineering prototype. The software and logic have
+> been tested, and the PCB has a preliminary fully connected route, but no
+> physical cartridge has been built or tested in a console. Several package pin
+> assignments still need to be verified and the board has not passed KiCad DRC.
+> Please do not send the current PCB straight to a manufacturer.
 
-## What it supports
+## What MatrixDrive can do
 
-| Mode | Image types | Maximum image | Mapping |
+| Mode | Files | Maximum size | What happens |
 | --- | --- | ---: | --- |
-| Mega Drive / Genesis | `.BIN`, `.MD`, `.GEN` | 4 MiB | Linear ROM; power-of-two images up to 2 MiB are mirrored for lock-on |
-| 32X through real 32X hardware | `.32X` | 4 MiB | Linear x16 ROM; smaller power-of-two images are mirrored to 4 MiB |
-| Sonic & Knuckles upper slot | Mega Drive images | 2 MiB recommended | Sonic 2 ROM or Sonic 3 ROM with dedicated 8 KiB save FRAM |
-| Master System | `.SMS` | 2 MiB | Sega or Codemasters mapper selected by SW4 |
+| Mega Drive / Genesis | `.BIN`, `.MD`, `.GEN` | 4 MiB | The game is presented as linear cartridge ROM |
+| 32X with real 32X hardware | `.32X` | 4 MiB | MatrixDrive supplies the ROM while the real 32X provides the 32X hardware |
+| Sonic & Knuckles upper slot | Mega Drive images | 2 MiB recommended | Supports Sonic 2 lock-on and Sonic 3 with its dedicated save area |
+| Master System | `.SMS` | 2 MiB | Uses either the Sega or Codemasters mapper selected by SW4 |
 
-Master System mode requires a Mega Drive/Genesis revision with working SMS compatibility. It is not mechanically compatible with a standalone Master System cartridge slot. SMS mode is not supported through the Sonic & Knuckles upper slot.
+Master System games only work on Mega Drive/Genesis consoles that retain SMS
+compatibility. MatrixDrive does not fit a standalone Master System cartridge
+slot, and SMS mode is not available through the Sonic & Knuckles upper slot.
 
-### Highlights
+## How it works
 
-- USB-C drag-and-drop ROM loading through a FAT16 volume named `MATRIXDRV`.
-- RP2350B firmware built with the Raspberry Pi Pico SDK and TinyUSB.
-- 32-Mbit x16 active parallel NOR for deterministic console-side ROM reads.
-- Explicit `.32X` validation and a full 4 MiB linear cartridge-ROM profile for use through real 32X hardware.
-- Sonic & Knuckles upper-slot ROM mirroring for power-of-two images up to 2 MiB.
-- Dedicated odd-byte Sonic 3 save window at `$200001-$203FFF`.
-- ATF1508ASV CPLD for instant-on mode selection and mapper/save decoding.
-- Sega and Codemasters SMS mapper profiles selected by a power-off switch.
-- 64 KiB battery-free SMS save memory using two 32 KiB FM18W08 FRAMs.
-- Dedicated FM18W08 for Sonic 3 lock-on saves; 8 KiB of it is decoded.
-- Dedicated Master System Pause/NMI button.
-- 5 V/3.3 V translation, USB/console power isolation, and bus isolation.
-- Automated host, mapper-model, RTL, firmware-build, and packaging checks.
+When MatrixDrive is connected to a computer, it appears as a FAT16 drive called
+`MATRIXDRV`. The RP2350B checks the game image and programs it into parallel NOR
+flash. After USB is disconnected, the CPLD takes over and responds to the
+console immediately, without waiting for the microcontroller to boot.
 
-## Selector behavior
+The main hardware is:
 
-SW4 has a different meaning in MD and SMS modes. Move it only while all power is disconnected.
+- an RP2350B for USB, file handling, validation, and flash programming;
+- 32-Mbit x16 parallel NOR flash for predictable cartridge ROM reads;
+- an ATF1508ASV CPLD for mode selection, address decoding, and SMS mapping;
+- level translators and bus isolation for the 5 V console and 3.3 V logic;
+- two FRAM devices providing 64 KiB of battery-free SMS save storage;
+- a separate FRAM for the 8 KiB Sonic 3 lock-on save window;
+- USB/console power isolation, status LEDs, SWD/UART, and test points.
+
+## Loading a game
+
+1. Remove MatrixDrive from the console, 32X, or lock-on cartridge.
+2. Connect it to your computer with USB-C.
+3. Open the `MATRIXDRV` drive, delete the old game, and copy over one supported
+   image.
+4. Safely eject the drive and wait for the green completion light.
+5. Disconnect USB completely.
+6. With all power off, select MD or SMS with SW2 and choose the required profile
+   with SW4.
+7. Insert the cartridge, then power on the console.
+
+> [!WARNING]
+> Never connect USB while MatrixDrive is fitted to a console, 32X, or Sonic &
+> Knuckles cartridge. Never move SW2 or SW4 while powered, and never hot-plug any
+> part of the cartridge stack.
+
+## Switch settings
+
+SW4 changes purpose depending on the position of SW2:
 
 | SW2 | SW4 low | SW4 high |
 | --- | --- | --- |
-| MD | Linear ROM / 32X / Sonic 2 lock-on | Linear ROM plus Sonic 3 save FRAM |
+| MD | Linear ROM, 32X, or Sonic 2 lock-on | Linear ROM with Sonic 3 save FRAM |
 | SMS | Sega mapper | Codemasters mapper |
+
+Always change these switches with USB and console power disconnected.
 
 ## Sonic & Knuckles lock-on
 
-For **Sonic 2 & Knuckles**, load a normal Sonic 2 image, set SW2 to **MD**, and set SW4 low to **LINEAR**. The installer mirrors an even-sized power-of-two image throughout the 2 MiB upper-cartridge window.
+For **Sonic 2 & Knuckles**, copy a normal Sonic 2 image, set SW2 to **MD**, and
+set SW4 low to **LINEAR**. Power-of-two images up to 2 MiB are mirrored across
+the upper-cartridge ROM window.
 
-For **Sonic 3 & Knuckles**, load a normal Sonic 3 image, set SW2 to **MD**, and set SW4 high to **S3 SAVE**. U13 then replaces only odd-byte addresses `$200001-$203FFF` with the dedicated U20 FRAM and disables the unused high data byte during those cycles.
+For **Sonic 3 & Knuckles**, copy a normal Sonic 3 image, set SW2 to **MD**, and
+set SW4 high to **S3 SAVE**. MatrixDrive then maps the dedicated save FRAM over
+odd-byte addresses `$200001-$203FFF` while leaving the rest of the ROM visible.
 
-See [Sonic & Knuckles lock-on mode](MatrixDrive_Dual_System_Cart_RevB/docs/sonic-knuckles-lock-on.md) for the exact mapping, switch positions, and physical-fit requirements.
+Read [Sonic & Knuckles lock-on mode](MatrixDrive_Dual_System_Cart_RevB/docs/sonic-knuckles-lock-on.md)
+for the exact mapping, switch positions, and physical-fit checks.
 
-## 32X through real hardware
+## Using a real 32X
 
-Load a `.32X` image, set SW2 to **MD**, set SW4 low to **LINEAR**, disconnect USB, and insert MatrixDrive into the cartridge slot of an unpowered real 32X. The 32X supplies the processors, boot ROM, registers, video, and audio hardware; MatrixDrive supplies only the byte-for-byte cartridge ROM.
+MatrixDrive is not trying to reproduce a 32X. A real 32X still supplies its
+processors, boot ROM, registers, video, and audio hardware; MatrixDrive only
+supplies the cartridge ROM.
 
-The installer checks the standard `SEGA` header and the mandatory `MARS CHECK MODE` security marker, preserves the complete security/startup area, and exposes up to 4 MiB as linear x16 ROM. Do not use SW4 high: that position deliberately replaces part of the ROM range with the Sonic 3 save FRAM window.
+Copy a `.32X` image, set SW2 to **MD**, leave SW4 low, disconnect USB, and fit
+MatrixDrive to an unpowered 32X. The installer checks the `SEGA` header and
+`MARS CHECK MODE` marker before accepting the image.
 
-See [32X cartridge mode](MatrixDrive_Dual_System_Cart_RevB/docs/32x-mode.md) for exact mapping, limits, and the required real-hardware bring-up procedure.
+Do not use SW4 high for 32X software because that setting deliberately replaces
+part of the ROM address range with the Sonic 3 save window. More detail is in
+[32X cartridge mode](MatrixDrive_Dual_System_Cart_RevB/docs/32x-mode.md).
 
-## SMS mapper behavior
+## Master System mapping and saves
 
-| Profile | Mapper writes | Reset ROM banks | FRAM window |
+| Profile | Mapper writes | Starting ROM banks | Save window |
 | --- | --- | --- | --- |
-| Sega | `$FFFC-$FFFF` | 0, 1, 2 | 16 KiB at `$8000-$BFFF`; lower 32 KiB is addressable |
-| Codemasters | Exact writes at `$0000`, `$4000`, `$8000` | 0, 1, 0 | 8 KiB at `$A000-$BFFF`; eight banks expose all 64 KiB |
+| Sega | `$FFFC-$FFFF` | 0, 1, 2 | 16 KiB at `$8000-$BFFF` |
+| Codemasters | `$0000`, `$4000`, `$8000` | 0, 1, 0 | 8 KiB at `$A000-$BFFF` |
 
-For Codemasters, writing bit 7 at `$4000` enables FRAM and bits 2:0 select one of eight 8 KiB banks. ROM remains visible at `$8000-$9FFF`, and enabling FRAM preserves the previous slot-1 ROM bank.
+In Codemasters mode, bit 7 of the `$4000` write enables FRAM and bits 2:0 choose
+one of eight 8 KiB banks. This makes all 64 KiB of SMS save storage available
+without hiding the ROM at `$8000-$9FFF`.
 
-See [Master System mode](MatrixDrive_Dual_System_Cart_RevB/docs/master-system-mode.md) for the full register behavior.
+See [Master System mode](MatrixDrive_Dual_System_Cart_RevB/docs/master-system-mode.md)
+for the full register and banking behaviour.
 
-## Loading a ROM
+## Supported image rules
 
-1. Remove MatrixDrive from the console or lock-on cartridge.
-2. Connect MatrixDrive to a computer over USB-C.
-3. Delete the previous ROM from `MATRIXDRV` and copy one supported image.
-4. Safely eject the drive and wait for the steady green completion indication.
-5. Disconnect USB.
-6. With power off, choose MD or SMS with SW2 and the required profile with SW4.
-7. Insert MatrixDrive directly into the console, into the Sonic & Knuckles upper slot for MD lock-on use, or into the cartridge slot of a real 32X for `.32X` use.
-8. Insert Sonic & Knuckles or the 32X into the console if used, then power on.
-
-> [!WARNING]
-> Never move SW2 or SW4 while powered. Never connect USB while MatrixDrive is inserted into a console, 32X, or Sonic & Knuckles cartridge. Never hot-plug any part of the cartridge stack.
-
-## Image requirements
-
-- Mega Drive/Genesis images must use normal big-endian byte order, contain `SEGA` at offset `0x100`, and fit in 4 MiB.
-- 32X images must use `.32X`, fit in 4 MiB, be a multiple of four bytes, contain `SEGA` at `0x100`, and contain `MARS CHECK MODE` at `0x3C0`.
+- Mega Drive/Genesis images must be normal big-endian ROMs, contain `SEGA` at
+  offset `0x100`, and fit within 4 MiB.
+- 32X images must use `.32X`, contain `SEGA` at `0x100` and `MARS CHECK MODE` at
+  `0x3C0`, be a multiple of four bytes, and fit within 4 MiB.
 - Lock-on images should be even-sized powers of two no larger than 2 MiB.
-- Interleaved `.SMD` images are not accepted.
-- Headerless SMS images must contain `TMR SEGA` at `0x1FF0`, `0x3FF0`, or `0x7FF0`.
-- Copier headers must be removed before loading.
-- Use only software you are legally entitled to use.
+- Headerless SMS images need `TMR SEGA` at `0x1FF0`, `0x3FF0`, or `0x7FF0`.
+- Interleaved `.SMD` files and copier headers are not supported.
+- Only use game images that you are legally entitled to use.
 
-## Repository layout
+No commercial ROM images are included in this repository.
 
-| Path | Contents |
+## What has been tested
+
+The project is automatically rebuilt and tested on every change. The passing
+software-only tests currently cover:
+
+- the FAT16 USB drive and ROM installer;
+- Mega Drive, Master System, and 32X image validation;
+- simulated NOR programming and ROM mirroring;
+- Sega and Codemasters SMS mapper behaviour;
+- Codemasters FRAM enabling and all eight save banks;
+- Sonic 2/Sonic 3 lock-on mapping and the Sonic 3 save decoder;
+- CPLD RTL simulation for MD, SMS, 32X ROM access, and lock-on modes;
+- a complete RP2350B firmware build;
+- a two-ROM emulator test that reached the combined Sonic 3 & Knuckles title
+  screen and opening sequence.
+
+These tests show that the intended software and logic paths behave correctly.
+They cannot prove cartridge fit, signal timing, voltage translation, power
+isolation, save retention, or operation on real Sega hardware.
+
+## PCB status
+
+The KiCad project contains a complete logical schematic and a preliminary
+eight-layer PCB route. The routing report currently records all 188 routable
+nets connected, using six signal layers plus dedicated ground and 3.3 V planes.
+
+Before a board can be considered ready to build, it still needs:
+
+- verified physical pin assignments and manufacturer footprints for the
+  RP2350B, CPLD, NOR, translators, and FRAM devices;
+- CPLD fitting, resource checks, and worst-case timing analysis;
+- KiCad ERC/DRC after refilling the copper zones;
+- USB differential-pair and signal/power-integrity review;
+- cartridge-edge, PCB-thickness, bevel, shell, and insertion measurements;
+- staged bench testing before it is connected to any console.
+
+Only the Sonic 3 odd-byte save layout is implemented for Mega Drive software.
+Generic Mega Drive or 32X SRAM/EEPROM saves, ROMs larger than 4 MiB,
+enhancement hardware, unusual regional or game-specific SMS mappers, light-gun
+support, and Sega mapper RAM-at-`$C000` mode are outside this revision.
+
+Start with [Safety and bring-up](MatrixDrive_Dual_System_Cart_RevB/docs/safety-and-bringup.md)
+before attempting any hardware test.
+
+## Project layout
+
+| Path | What you will find there |
 | --- | --- |
-| [`MatrixDrive_Dual_System_Cart_RevB/`](MatrixDrive_Dual_System_Cart_RevB/) | Main hardware, firmware, CPLD, tools, and documentation |
-| [`cpld/`](MatrixDrive_Dual_System_Cart_RevB/cpld/) | MD/32X ROM path, SMS mappers, lock-on save decoder, model, and RTL testbench |
-| [`firmware/`](MatrixDrive_Dual_System_Cart_RevB/firmware/) | RP2350B/Pico SDK USB installer, 32X validation, and ROM mirroring |
-| [`hardware/`](MatrixDrive_Dual_System_Cart_RevB/hardware/) | BOM, electrical netlist, pinout, complete logical KiCad schematic, preliminary routed PCB, and routing report |
-| [`docs/`](MatrixDrive_Dual_System_Cart_RevB/docs/) | Architecture, lock-on/SMS mapping, workflow, and bring-up guidance |
-| [`tools/`](MatrixDrive_Dual_System_Cart_RevB/tools/) | Project validator and reproducible KiCad project generator |
-| [Build workflow](.github/workflows/build-test-package.yml) | GitHub Actions build, test, and package pipeline |
+| [`MatrixDrive_Dual_System_Cart_RevB/`](MatrixDrive_Dual_System_Cart_RevB/) | Main Revision B project |
+| [`cpld/`](MatrixDrive_Dual_System_Cart_RevB/cpld/) | Mapper RTL, reference model, and testbench |
+| [`firmware/`](MatrixDrive_Dual_System_Cart_RevB/firmware/) | RP2350B USB installer firmware |
+| [`hardware/`](MatrixDrive_Dual_System_Cart_RevB/hardware/) | KiCad files, BOM, pinout, netlist, and routing report |
+| [`docs/`](MatrixDrive_Dual_System_Cart_RevB/docs/) | Architecture, compatibility, and bring-up notes |
+| [`tools/`](MatrixDrive_Dual_System_Cart_RevB/tools/) | Project generator, router, and validation scripts |
 
-The [full design README](MatrixDrive_Dual_System_Cart_RevB/README.md) contains additional component and compatibility details.
+The [full design README](MatrixDrive_Dual_System_Cart_RevB/README.md) contains
+the component-level details and additional design notes.
 
-## Build and test
+## Building and testing the project
 
-The GitHub Actions workflow uses Ubuntu, Pico SDK 2.3.0, the Arm GNU toolchain, CMake/Ninja, and Icarus Verilog.
+You will need Python 3, the Raspberry Pi Pico SDK 2.3.0, an Arm GNU toolchain,
+CMake/Ninja, and Icarus Verilog.
 
 ```sh
 cd MatrixDrive_Dual_System_Cart_RevB
@@ -123,50 +203,16 @@ python3 tools/route_kicad_pcb.py
 python3 tools/validate_project.py
 ```
 
-Firmware build:
+To build the RP2350B firmware:
 
 ```sh
 export PICO_SDK_PATH=/absolute/path/to/pico-sdk
-cmake -S MatrixDrive_Dual_System_Cart_RevB/firmware -B build/firmware -DPICO_BOARD=matrixdrive -DPICO_PLATFORM=rp2350-arm-s -DCMAKE_BUILD_TYPE=Release
-cmake --build build/firmware
+cmake -S firmware -B ../build/firmware -G Ninja \
+  -DPICO_BOARD=matrixdrive \
+  -DPICO_PLATFORM=rp2350-arm-s \
+  -DCMAKE_BUILD_TYPE=Release
+cmake --build ../build/firmware
 ```
-
-The automated pipeline checks electrical/static consistency, FAT16 and installer host code, 32X validation and 4 MiB ROM mirroring, lock-on ROM mirroring, Sega/Codemasters models, Sonic 3 FRAM decode, RTL simulation, the complete RP2350B firmware build, and package creation.
-
-## Software-only test status
-
-MatrixDrive has been tested in software, but it has not yet been tested on a fabricated cartridge or real console. The following checks currently pass:
-
-- FAT16 USB-volume and dual-format ROM installer host tests.
-- Mega Drive/Genesis ROM validation and simulated parallel-NOR programming.
-- Synthetic `.32X` header/security validation, byte packing, full 4 MiB mirroring, and top-of-ROM RTL addressing.
-- Byte-for-byte verification of a 2 MiB Sonic 3 image after simulated installation.
-- Power-of-two ROM mirroring across the 2 MiB Sonic & Knuckles upper-cartridge window.
-- Sonic 3 odd-byte save decoding to the dedicated 8 KiB FRAM window.
-- Sega and Codemasters Master System mapper reference-model tests.
-- Codemasters 64 KiB FRAM enable, banking, and ROM-window behavior.
-- CPLD RTL simulation for Mega Drive, lock-on, Sega SMS, and Codemasters SMS modes.
-- A two-ROM lock-on emulator test using legally obtained Sonic 3 and Sonic & Knuckles images. It reached the combined Sonic 3 & Knuckles title screen and opening sequence, confirming the expected software mapping path.
-
-No commercial ROM images are included in this repository. These results verify the implemented logic and software behavior only; cartridge fit, 32X security/timing on a physical adapter, voltage translation, power isolation, save retention, and operation on real Sega hardware remain unverified.
-
-## Engineering status and known limits
-
-The source and automated tests pass, but no physical MatrixDrive PCB or Sonic & Knuckles stack has been validated. Before treating the design as buildable:
-
-- capture and review a complete schematic;
-- assign, fit, and verify all ATF1508ASV pins and resources;
-- confirm worst-case CPLD, NOR, translator, and FRAM timing;
-- measure the upper-slot opening and latch/door clearances on a real Sonic & Knuckles cartridge;
-- measure cartridge fit and capture read timing in a real 32X cartridge slot;
-- verify the 64-contact edge, PCB thickness, bevel, shell, and insertion depth against donor hardware;
-- route the PCB and run electrical/design-rule checks;
-- validate direct-console operation before testing through lock-on hardware;
-- capture real-console timing and current for both lock-on profiles.
-
-Only the Sonic 3 odd-byte MD save layout is implemented. Generic Mega Drive or 32X SRAM/EEPROM saves are not implemented. ROMs larger than 4 MiB, enhancement hardware, Korean/multicart/game-specific SMS mappers, FM sound, light-gun support, and Sega mapper RAM-at-`$C000` mode are also outside this revision.
-
-Start with [Safety and bring-up](MatrixDrive_Dual_System_Cart_RevB/docs/safety-and-bringup.md).
 
 ## Technical references
 
